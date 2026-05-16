@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk -F: '$1 <= 1845')",
+      "Bash(xdg-open *)"
+    ]
+  }
+}
