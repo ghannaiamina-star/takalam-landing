@@ -1137,6 +1137,228 @@
     transform: translateY(0);
   }
 
+  /* ============ MOBILE JOURNEY TIMELINE ============ */
+  .journey-mobile { display: none; }
+
+  .jm-start {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 16px 0 0;
+  }
+
+  .jm-connector {
+    display: block;
+    width: 2px;
+    height: 28px;
+    background: linear-gradient(to bottom, var(--green), rgba(49,196,141,0.2));
+    margin: 0 auto;
+  }
+
+  .jm-card {
+    border: 1px solid rgba(49,196,141,0.2);
+    background: rgba(49,196,141,0.05);
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  .jm-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .jm-prog {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--green-dark);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .jm-dur {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .jm-dots {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .jm-dot {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .jm-dot-pip {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+
+  .jm-dot-pip-exam {
+    width: 14px;
+    height: 14px;
+    background: var(--green-dark);
+    border: 2px solid var(--green);
+  }
+
+  .jm-dest {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--green-dark);
+    border-radius: 4px;
+    padding: 18px 20px;
+  }
+
+  .jm-dest-pip {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+
+  .jm-dest-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+
+  /* ============ MOBILE WEEK ARCHITECTURE ============ */
+  .week-arch-mobile { display: none; }
+
+  .wam-live {
+    background: var(--green-dark);
+    border-radius: 2px;
+    padding: 20px;
+    margin-bottom: 8px;
+  }
+
+  .wam-study {
+    background: var(--green-soft);
+    border: 1px solid var(--green);
+    border-radius: 2px;
+    padding: 20px;
+    margin-bottom: 8px;
+  }
+
+  .wam-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .wam-time {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .wam-live .wam-time { color: var(--paper); }
+  .wam-study .wam-time { color: var(--green-dark); }
+
+  .wam-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+  }
+
+  .wam-live .wam-sub { color: rgba(250,248,242,0.7); }
+  .wam-study .wam-sub { color: var(--muted); }
+
+  .wam-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .wam-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--green);
+    opacity: 0.3;
+  }
+
+  .wam-divider-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--green-dark);
+    white-space: nowrap;
+  }
+
+  .wam-total {
+    background: white;
+    border: 1px solid var(--green);
+    border-radius: 2px;
+    padding: 24px;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .wam-total-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .wam-total-time {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 56px;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .wam-total-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width: 820px) {
     .hero { padding: 140px 24px 80px; }
@@ -1174,6 +1396,13 @@
     .footer-bottom { justify-content: flex-start; }
     .footer-legal-links { gap: 20px; }
     footer { padding: 72px 24px 32px; }
+  }
+
+  @media (max-width: 768px) {
+    .journey-svg { display: none; }
+    .journey-mobile { display: block; }
+    .week-arch-svg { display: none; }
+    .week-arch-mobile { display: block; }
   }
 
   @media (max-width: 480px) {
@@ -1394,6 +1623,55 @@
         <line x1="160" y1="130" x2="160" y2="160" stroke="#31c48d" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
         <line x1="440" y1="130" x2="440" y2="160" stroke="#31c48d" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
       </svg>
+
+      <!-- Mobile-only vertical week layout -->
+      <div class="week-arch-mobile">
+        <div class="wam-live">
+          <div class="wam-label">LIVE SESSION · MON</div>
+          <div class="wam-time">90 min</div>
+          <div class="wam-sub">6 students. Communicative.</div>
+        </div>
+        <div class="wam-live">
+          <div class="wam-label">LIVE SESSION · WED</div>
+          <div class="wam-time">90 min</div>
+          <div class="wam-sub">6 students. Communicative.</div>
+        </div>
+        <div class="wam-divider">
+          <span class="wam-divider-line"></span>
+          <span class="wam-divider-label">Total Live: 3 hr / wk</span>
+          <span class="wam-divider-line"></span>
+        </div>
+        <div class="wam-study">
+          <div class="wam-label">ANKI</div>
+          <div class="wam-time">60 min</div>
+          <div class="wam-sub">vocabulary</div>
+        </div>
+        <div class="wam-study">
+          <div class="wam-label">LISTENING</div>
+          <div class="wam-time">60 min</div>
+          <div class="wam-sub">curated</div>
+        </div>
+        <div class="wam-study">
+          <div class="wam-label">READING</div>
+          <div class="wam-time">30 min</div>
+          <div class="wam-sub">graded</div>
+        </div>
+        <div class="wam-study">
+          <div class="wam-label">VOICE MSG</div>
+          <div class="wam-time">30 min</div>
+          <div class="wam-sub">with feedback</div>
+        </div>
+        <div class="wam-divider">
+          <span class="wam-divider-line"></span>
+          <span class="wam-divider-label">Total Self-Study: 3 hr / wk</span>
+          <span class="wam-divider-line"></span>
+        </div>
+        <div class="wam-total">
+          <div class="wam-total-label">EVERY WEEK</div>
+          <div class="wam-total-time">6 hr</div>
+          <div class="wam-total-sub">structured, tracked, non-optional.</div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -1559,6 +1837,54 @@
         <text x="1140" y="295" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#0d4f37" letter-spacing="2">CERTIFIED</text>
 
       </svg>
+
+      <!-- Mobile-only vertical journey layout -->
+      <div class="journey-mobile" aria-label="The 18-month Takalam journey from A2 to B2">
+        <div class="jm-start">START</div>
+
+        <div class="jm-connector"></div>
+
+        <div class="jm-card">
+          <div class="jm-badge">LEVEL 1</div>
+          <div class="jm-prog">A2 → A2+</div>
+          <div class="jm-dur">Months 1–6 · Cycles 1–2</div>
+          <div class="jm-dots">
+            <span class="jm-dot"><span class="jm-dot-pip"></span>M2</span>
+            <span class="jm-dot"><span class="jm-dot-pip"></span>M4</span>
+          </div>
+        </div>
+
+        <div class="jm-connector"></div>
+
+        <div class="jm-card">
+          <div class="jm-badge">LEVEL 2</div>
+          <div class="jm-prog">A2+ → B1+</div>
+          <div class="jm-dur">Months 7–12 · Cycles 3–4</div>
+          <div class="jm-dots">
+            <span class="jm-dot"><span class="jm-dot-pip"></span>M8</span>
+            <span class="jm-dot"><span class="jm-dot-pip"></span>M12</span>
+          </div>
+        </div>
+
+        <div class="jm-connector"></div>
+
+        <div class="jm-card">
+          <div class="jm-badge">LEVEL 3</div>
+          <div class="jm-prog">B1+ → B2</div>
+          <div class="jm-dur">Months 13–18 · Cycles 5–6</div>
+          <div class="jm-dots">
+            <span class="jm-dot"><span class="jm-dot-pip"></span>M14</span>
+            <span class="jm-dot"><span class="jm-dot-pip jm-dot-pip-exam"></span>M18</span>
+          </div>
+        </div>
+
+        <div class="jm-connector"></div>
+
+        <div class="jm-dest">
+          <span class="jm-dest-pip"></span>
+          <span class="jm-dest-label">B2 EXAM · CERTIFIED</span>
+        </div>
+      </div>
 
       <p class="journey-caption">Six measurable checkpoints across eighteen months. You always know where you stand.</p>
     </div>
