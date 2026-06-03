@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    { "source": "/about",            "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/careers",          "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/ielts",            "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/corporate",        "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/exams",            "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/press",            "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/business-english", "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/kids",             "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/blog",             "destination": "https://takalamenglish.ma/", "permanent": true },
+    { "source": "/blog/:path*",      "destination": "https://takalamenglish.ma/", "permanent": true }
+  ]
+}
