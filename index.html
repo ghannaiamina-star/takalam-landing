@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Takalam Foundation · English Program for Moroccan Adults</title>
-<meta name="description" content="The premium English program for ambitious Moroccan adults. Small groups of 6, Cambridge B2 First exam, structured 18-month journey from A2 to confident B2.">
-<meta name="keywords" content="english classes morocco, english program morocco, online english morocco, cambridge b2 morocco, takalam english center, english tangier, learn english morocco">
+<title>Takalam English. Speak with confidence.</title>
+<meta name="description" content="Online English coaching. Group speaking practice or one to one private coaching for your specific goal.">
+<meta name="keywords" content="english classes morocco, english program morocco, online english morocco, takalam english center, english speaking practice, learn english morocco">
 <meta name="author" content="Takalam English Center">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
-<meta property="og:title" content="Takalam Foundation · English Program for Moroccan Adults">
-<meta property="og:description" content="The premium English program for ambitious Moroccan adults. Small groups of 6, Cambridge B2 First exam, structured 18-month journey from A2 to confident B2.">
+<meta property="og:title" content="Takalam English. Speak with confidence.">
+<meta property="og:description" content="Online English coaching. Group speaking practice or one to one private coaching for your specific goal.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://takalam-landing.vercel.app">
 <meta property="og:image" content="/og-image.png">
@@ -20,2132 +19,977 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Takalam English Center">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Takalam Foundation · English Program for Moroccan Adults">
-<meta name="twitter:description" content="The premium English program for ambitious Moroccan adults. Small groups of 6, Cambridge B2 First exam, structured 18-month journey from A2 to confident B2.">
+<meta name="twitter:title" content="Takalam English. Speak with confidence.">
+<meta name="twitter:description" content="Online English coaching. Group speaking practice or one to one private coaching for your specific goal.">
 <meta name="twitter:image" content="/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600;1,9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --green: #31c48d;
-    --green-dark: #0d4f37;
-    --green-darker: #083d29;
-    --green-soft: #e8f5ee;
-    --green-pale: #f3faf6;
-    --ink: #1a2332;
-    --ink-soft: #3a4a54;
-    --muted: #6b7680;
-    --paper: #faf8f2;
-    --paper-warm: #f5f1e8;
-    --line: #e5ded0;
-    --amber: #c2872e;
-    --amber-soft: #fdf6e3;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Fraunces', Georgia, serif;
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 18px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    font-feature-settings: 'ss01', 'ss02';
-    overflow-x: hidden;
-  }
-
-  /* ============ SHARED TYPOGRAPHY ============ */
-  .eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--green);
-    text-transform: uppercase;
-  }
-
-  .display {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-
-  .display em { font-style: italic; color: var(--green); font-weight: 700; }
-
-  .divider {
-    display: inline-block;
-    width: 48px;
-    height: 2px;
-    background: var(--green);
-    margin: 24px 0;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ============ NAV ============ */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 20px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    background: rgba(250, 248, 242, 0.92);
-    backdrop-filter: saturate(1.2) blur(14px);
-    -webkit-backdrop-filter: saturate(1.2) blur(14px);
-    border-bottom: 1px solid rgba(229, 222, 208, 0.6);
-    transition: transform 0.4s ease;
-  }
-
-  .nav-brand {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .nav-logo {
-    height: 36px;
-    width: auto;
-    display: block;
-  }
-
-  .nav-cta {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: var(--ink);
-    text-decoration: none;
-    padding: 10px 18px;
-    border: 1.5px solid var(--green-dark);
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
-
-  .nav-cta:hover {
-    background: var(--green-dark);
-    color: var(--paper);
-  }
-
-  .cta-short { display: none; }
-
-  /* ============ HERO ============ */
-  .hero {
-    padding: 180px 32px 120px;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .hero-eyebrow {
-    animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s backwards;
-  }
-
-  .hero h1 {
-    font-size: clamp(48px, 8vw, 104px);
-    margin-top: 32px;
-    animation: fadeUp 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s backwards;
-  }
-
-  .hero-sub {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: clamp(18px, 2vw, 24px);
-    color: var(--ink-soft);
-    max-width: 600px;
-    margin: 40px auto 0;
-    line-height: 1.5;
-    animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s backwards;
-  }
-
-  .hero-cta-row {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 56px;
-    flex-wrap: wrap;
-    animation: fadeUp 1.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s backwards;
-  }
-
-  .btn-primary {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: var(--paper);
-    background: var(--green-dark);
-    text-decoration: none;
-    padding: 20px 36px;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-primary::after {
-    content: "→";
-    font-size: 18px;
-    transition: transform 0.3s ease;
-  }
-
-  .btn-primary:hover {
-    background: var(--green-darker);
-    transform: translateY(-1px);
-    box-shadow: 0 12px 28px -12px rgba(13, 79, 55, 0.5);
-  }
-
-  .btn-primary:hover::after { transform: translateX(4px); }
-
-  .cta-meta {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 15px;
-    color: var(--muted);
-  }
-
-  /* ============ LAPTOP HERO SCALE-DOWN ============ */
-  @media (min-width: 1024px) and (max-width: 1440px) {
-    .hero { padding: 68px 32px 64px; }
-    .hero h1 { font-size: 60px; margin-top: 14px; }
-    .hero-sub { font-size: 16px; margin-top: 14px; }
-    .hero-cta-row { margin-top: 20px; }
-  }
-
-  /* ============ PROBLEM SECTION ============ */
-  .problem {
-    background: var(--paper-warm);
-    padding: 140px 32px;
-    position: relative;
-  }
-
-  .problem .container {
-    max-width: 1200px;
-  }
-
-  .problem-grid {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .problem-text {
-    max-width: 680px;
-  }
-
-  .problem h2 {
-    font-size: clamp(34px, 4.6vw, 52px);
-    margin-bottom: 40px;
-  }
-
-  .problem p {
-    font-size: 20px;
-    line-height: 1.7;
-    margin-bottom: 24px;
-  }
-
-  .problem .takalam-is {
-    font-style: italic;
-    font-size: 26px;
-    color: var(--green-dark);
-    margin-top: 40px;
-  }
-
-  .problem-visual {
-    background: white;
-    border: 1px solid var(--line);
-    box-shadow: 0 24px 48px -28px rgba(13, 79, 55, 0.18);
-    position: sticky;
-    top: 100px;
-  }
-
-  .problem-visual svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* Weekly architecture diagram in solution section */
-  .week-architecture {
-    margin-top: 96px;
-    background: white;
-    border: 1px solid var(--line);
-    padding: 48px;
-    box-shadow: 0 32px 64px -32px rgba(13, 79, 55, 0.15);
-  }
-
-  .week-arch-header {
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .week-arch-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .week-arch-title {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(28px, 3.5vw, 40px);
-    font-weight: 700;
-    color: var(--green-dark);
-    line-height: 1.1;
-  }
-
-  .week-arch-title em {
-    font-style: italic;
-    color: var(--green);
-  }
-
-  .week-arch-svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* ============ SOLUTION ============ */
-  .solution {
-    padding: 140px 32px;
-  }
-
-  .solution .container {
-    max-width: 1000px;
-  }
-
-  .solution h2 {
-    font-size: clamp(36px, 5vw, 56px);
-    margin-bottom: 48px;
-    max-width: 900px;
-  }
-
-  .solution p {
-    font-size: 21px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    max-width: 800px;
-    margin-bottom: 24px;
-  }
-
-  /* ============ DIFFERENTIATORS ============ */
-  .differentiators {
-    background: var(--green-darker);
-    color: var(--paper);
-    padding: 140px 32px;
-    position: relative;
-  }
-
-  .differentiators::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--green), transparent);
-  }
-
-  .differentiators .eyebrow { color: var(--green); }
-
-  .differentiators h2 {
-    font-size: clamp(36px, 5vw, 56px);
-    color: var(--paper);
-    max-width: 800px;
-    margin-bottom: 80px;
-    margin-top: 32px;
-  }
-
-  .differentiators h2 em { color: var(--green); }
-
-  .diff-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px 60px;
-  }
-
-  .diff-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-  }
-
-  .diff-item .num {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 64px;
-    font-weight: 700;
-    color: var(--green);
-    line-height: 1;
-    display: block;
-  }
-
-  .diff-icon {
-    width: 56px;
-    height: 56px;
-    display: block;
-    flex-shrink: 0;
-  }
-
-  .diff-item h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--paper);
-    margin-bottom: 16px;
-    line-height: 1.2;
-  }
-
-  .diff-item p {
-    font-size: 17px;
-    color: rgba(250, 248, 242, 0.75);
-    line-height: 1.7;
-  }
-
-  /* ============ JOURNEY ============ */
-  .journey {
-    padding: 140px 32px;
-    background: var(--paper);
-  }
-
-  .journey .container {
-    max-width: 1200px;
-  }
-
-  .journey h2 {
-    font-size: clamp(36px, 5vw, 56px);
-    margin-bottom: 24px;
-    max-width: 800px;
-  }
-
-  .journey-lead {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 20px;
-    color: var(--muted);
-    max-width: 720px;
-    margin-bottom: 64px;
-  }
-
-  .journey-viz {
-    background: var(--paper);
-    padding: 32px 0 24px;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .journey-svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .journey-caption {
-    margin-top: 24px;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: var(--muted);
-    text-align: center;
-  }
-
-  /* ============ GUARANTEE ============ */
-  .guarantee {
-    padding: 140px 32px;
-    background: var(--paper);
-  }
-
-  .guarantee .container {
-    max-width: 900px;
-    text-align: center;
-  }
-
-  .guarantee h2 {
-    font-size: clamp(40px, 6vw, 68px);
-    margin: 32px 0 48px;
-  }
-
-  .guarantee p {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    margin: 0 auto 24px;
-    max-width: 780px;
-  }
-
-  .guarantee p.pledge {
-    font-style: italic;
-    font-size: 26px;
-    color: var(--green-dark);
-    padding: 32px 40px;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    margin: 48px auto;
-    max-width: 780px;
-  }
-
-  /* ============ FIT CHECK ============ */
-  .fit-check {
-    padding: 140px 32px;
-    background: var(--paper-warm);
-  }
-
-  .fit-check .container {
-    max-width: 1100px;
-  }
-
-  .fit-check h2 {
-    font-size: clamp(36px, 5vw, 52px);
-    margin-bottom: 72px;
-    max-width: 800px;
-  }
-
-  .fit-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-  }
-
-  .fit-col h3 {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .fit-col.yes h3 { color: var(--green); }
-  .fit-col.no h3 { color: var(--muted); }
-
-  .fit-col ul {
-    list-style: none;
-  }
-
-  .fit-col li {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    padding: 16px 0;
-    padding-left: 32px;
-    position: relative;
-    border-bottom: 1px solid var(--line);
-    line-height: 1.5;
-  }
-
-  .fit-col li:last-child { border-bottom: none; }
-
-  .fit-col.yes li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 28px;
-    width: 16px;
-    height: 2px;
-    background: var(--green);
-  }
-
-  .fit-col.no li::before {
-    content: "×";
-    position: absolute;
-    left: 0;
-    top: 14px;
-    color: var(--muted);
-    font-size: 22px;
-    font-weight: 300;
-  }
-
-  .fit-col.no li { color: var(--muted); }
-
-  /* ============ PRODUCT LINE ============ */
-  .products {
-    padding: 140px 32px;
-    background: var(--paper);
-  }
-
-  .products .container { max-width: 1200px; }
-
-  .products h2 {
-    font-size: clamp(36px, 5vw, 56px);
-    max-width: 900px;
-    margin-bottom: 24px;
-  }
-
-  .products-lead {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 20px;
-    color: var(--muted);
-    max-width: 640px;
-    margin-bottom: 64px;
-  }
-
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    background: var(--line);
-    border: 1px solid var(--line);
-  }
-
-  .product-card {
-    background: var(--paper);
-    padding: 36px 32px;
-    display: flex;
-    flex-direction: column;
-    min-height: 320px;
-    position: relative;
-    transition: all 0.4s ease;
-  }
-
-  .product-card.flagship {
-    background: var(--green-darker);
-    color: var(--paper);
-  }
-
-  .product-card:hover {
-    background: var(--green-soft);
-  }
-
-  .product-card.flagship:hover {
-    background: var(--green-dark);
-  }
-
-  .product-card .label {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .product-card.flagship .label { color: var(--green); }
-
-  .product-card h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 26px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    line-height: 1.1;
-  }
-
-  .product-card .range {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 15px;
-    color: var(--muted);
-    margin-bottom: 28px;
-  }
-
-  .product-card.flagship .range { color: rgba(250, 248, 242, 0.7); }
-
-  .product-card p {
-    font-size: 15px;
-    color: var(--ink-soft);
-    line-height: 1.55;
-    flex-grow: 1;
-  }
-
-  .product-card.flagship p { color: rgba(250, 248, 242, 0.85); }
-
-  .product-card .price {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: var(--green-dark);
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid var(--line);
-  }
-
-  .product-card.flagship .price { color: var(--green); border-top-color: rgba(49, 196, 141, 0.3); }
-
-  .product-card .price-detail {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
-  .product-card .price-tag {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-top: 6px;
-  }
-
-  .product-note {
-    margin-top: 40px;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 17px;
-    color: var(--muted);
-    text-align: center;
-  }
-
-  /* ============ PRICING (FOUNDATION) ============ */
-  .pricing {
-    padding: 140px 32px;
-    background: var(--paper-warm);
-  }
-
-  .pricing .container { max-width: 1100px; }
-
-  .pricing h2 {
-    font-size: clamp(36px, 5vw, 56px);
-    max-width: 800px;
-    margin-bottom: 24px;
-  }
-
-  .pricing-lead {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 20px;
-    color: var(--muted);
-    margin-bottom: 64px;
-  }
-
-  .price-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 64px;
-  }
-
-  .price-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 40px 32px;
-    position: relative;
-    transition: all 0.3s ease;
-  }
-
-  .price-card.featured {
-    border-color: var(--green-dark);
-    border-width: 2px;
-    transform: translateY(-8px);
-  }
-
-  .price-card .tag {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--green-dark);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .price-card.featured::before {
-    content: "MOST POPULAR";
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--green-dark);
-    color: var(--paper);
-    padding: 6px 16px;
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    border-radius: 2px;
-  }
-
-  .price-card h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--green-dark);
-    margin-bottom: 12px;
-    line-height: 1;
-  }
-
-  .price-card .amount {
-    font-family: 'Fraunces', serif;
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .price-card .period {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 15px;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-
-  .price-card .saves {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--green);
-    margin-bottom: 20px;
-  }
-
-  .price-card p {
-    font-size: 15px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
-
-  .price-includes {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 32px 40px;
-  }
-
-  .price-includes h4 {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .price-includes ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px 32px;
-  }
-
-  .price-includes li {
-    font-family: 'Fraunces', serif;
-    font-size: 16px;
-    padding-left: 20px;
-    position: relative;
-    color: var(--ink-soft);
-  }
-
-  .price-includes li::before {
-    content: "+";
-    position: absolute;
-    left: 0;
-    color: var(--green);
-    font-weight: 700;
-  }
-
-  /* ============ FAQ ============ */
-  .faq {
-    padding: 140px 32px;
-  }
-
-  .faq .container { max-width: 900px; }
-
-  .faq h2 {
-    font-size: clamp(36px, 5vw, 52px);
-    margin-bottom: 56px;
-  }
-
-  details.faq-item {
-    border-bottom: 1px solid var(--line);
-    padding: 28px 0;
-  }
-
-  details.faq-item:first-child {
-    border-top: 1px solid var(--line);
-  }
-
-  details.faq-item summary {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--green-dark);
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-  }
-
-  details.faq-item summary::-webkit-details-marker { display: none; }
-
-  details.faq-item summary::after {
-    content: "+";
-    font-family: 'Fraunces', serif;
-    font-size: 32px;
-    font-weight: 400;
-    color: var(--green);
-    line-height: 1;
-    transition: transform 0.3s ease;
-    min-width: 32px;
-    text-align: right;
-  }
-
-  details.faq-item[open] summary::after {
-    transform: rotate(45deg);
-  }
-
-  details.faq-item p {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    margin-top: 18px;
-    max-width: 800px;
-  }
-
-  /* ============ FINAL CTA ============ */
-  .final-cta {
-    background: var(--green-darker);
-    color: var(--paper);
-    padding: 140px 32px 100px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .final-cta::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--green), transparent);
-  }
-
-  /* Decorative corner mark for premium feel */
-  .final-cta::after {
-    content: "";
-    position: absolute;
-    bottom: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1px;
-    height: 120px;
-    background: linear-gradient(180deg, var(--green), transparent);
-  }
-
-  .cta-mark {
-    width: 320px;
-    margin: 0 auto 48px;
-  }
-
-  .cta-mark svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .final-cta .eyebrow { color: var(--green); }
-
-  .final-cta h2 {
-    font-size: clamp(40px, 6vw, 72px);
-    color: var(--paper);
-    max-width: 860px;
-    margin: 32px auto 40px;
-  }
-
-  .final-cta h2 em { color: var(--green); }
-
-  .final-cta p {
-    font-family: 'Fraunces', serif;
-    font-size: 20px;
-    line-height: 1.7;
-    color: rgba(250, 248, 242, 0.85);
-    max-width: 680px;
-    margin: 0 auto 24px;
-  }
-
-  .final-cta .btn-primary {
-    margin-top: 48px;
-    background: var(--green);
-    color: var(--green-darker);
-    font-size: 16px;
-    padding: 24px 44px;
-  }
-
-  .final-cta .btn-primary:hover {
-    background: var(--paper);
-  }
-
-  .final-cta .cta-meta {
-    display: block;
-    margin-top: 20px;
-    color: rgba(250, 248, 242, 0.55);
-    font-size: 14px;
-  }
-
-  /* ============ FOOTER ============ */
-  footer {
-    background: var(--paper);
-    padding: 88px 32px 40px;
-    border-top: 1px solid var(--line);
-    position: relative;
-  }
-
-  .footer-main {
-    max-width: 1200px;
-    margin: 0 auto 64px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .footer-brand-block {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .footer-logo-row {
-    display: flex;
-    align-items: center;
-  }
-
-  .footer-logo {
-    height: 50px;
-    width: auto;
-    display: block;
-  }
-
-  .footer-tagline {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 18px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    max-width: 360px;
-  }
-
-  .footer-col h4 {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .footer-col ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .footer-col li a {
-    font-family: 'Fraunces', serif;
-    font-size: 16px;
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-col li a:hover {
-    color: var(--green-dark);
-  }
-
-  .footer-contact-item {
-    font-family: 'Fraunces', serif;
-    font-size: 16px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    display: block;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-contact-item:hover { color: var(--green-dark); }
-
-  .footer-contact-item + .footer-contact-item {
-    margin-top: 10px;
-  }
-
-  .footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 32px;
-    border-top: 1px solid var(--line);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.8px;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .footer-bottom a {
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-bottom a:hover { color: var(--green-dark); }
-
-  .footer-legal-links {
-    display: flex;
-    gap: 28px;
-  }
-
-  /* ============ ANIMATIONS ============ */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  /* Scroll reveal via IntersectionObserver */
-  .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ============ MOBILE JOURNEY TIMELINE ============ */
-  .journey-mobile { display: none; }
-
-  .jm-start {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-    padding: 16px 0 0;
-  }
-
-  .jm-connector {
-    display: block;
-    width: 2px;
-    height: 28px;
-    background: linear-gradient(to bottom, var(--green), rgba(49,196,141,0.2));
-    margin: 0 auto;
-  }
-
-  .jm-card {
-    border: 1px solid rgba(49,196,141,0.2);
-    background: rgba(49,196,141,0.05);
-    border-radius: 4px;
-    padding: 20px;
-  }
-
-  .jm-badge {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .jm-prog {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 28px;
-    color: var(--green-dark);
-    line-height: 1.1;
-    margin-bottom: 6px;
-  }
-
-  .jm-dur {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-
-  .jm-dots {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .jm-dot {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-  }
-
-  .jm-dot-pip {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--green);
-    flex-shrink: 0;
-  }
-
-  .jm-dot-pip-exam {
-    width: 14px;
-    height: 14px;
-    background: var(--green-dark);
-    border: 2px solid var(--green);
-  }
-
-  .jm-dest {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--green-dark);
-    border-radius: 4px;
-    padding: 18px 20px;
-  }
-
-  .jm-dest-pip {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--green);
-    flex-shrink: 0;
-  }
-
-  .jm-dest-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--green);
-    text-transform: uppercase;
-  }
-
-  /* ============ MOBILE WEEK ARCHITECTURE ============ */
-  .week-arch-mobile { display: none; }
-
-  .wam-live {
-    background: var(--green-dark);
-    border-radius: 2px;
-    padding: 20px;
-    margin-bottom: 8px;
-  }
-
-  .wam-study {
-    background: var(--green-soft);
-    border: 1px solid var(--green);
-    border-radius: 2px;
-    padding: 20px;
-    margin-bottom: 8px;
-  }
-
-  .wam-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .wam-time {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 1.1;
-    margin-bottom: 4px;
-  }
-
-  .wam-live .wam-time { color: var(--paper); }
-  .wam-study .wam-time { color: var(--green-dark); }
-
-  .wam-sub {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 13px;
-  }
-
-  .wam-live .wam-sub { color: rgba(250,248,242,0.7); }
-  .wam-study .wam-sub { color: var(--muted); }
-
-  .wam-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 16px 0;
-  }
-
-  .wam-divider-line {
-    flex: 1;
-    height: 1px;
-    background: var(--green);
-    opacity: 0.3;
-  }
-
-  .wam-divider-label {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--green-dark);
-    white-space: nowrap;
-  }
-
-  .wam-total {
-    background: white;
-    border: 1px solid var(--green);
-    border-radius: 2px;
-    padding: 24px;
-    text-align: center;
-    margin-top: 4px;
-  }
-
-  .wam-total-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .wam-total-time {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 700;
-    font-size: 56px;
-    color: var(--green);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .wam-total-sub {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--muted);
-  }
-
-  /* ============ RESPONSIVE ============ */
-  @media (max-width: 820px) {
-    .hero { padding: 140px 24px 80px; }
-    .problem-grid { grid-template-columns: 1fr; gap: 48px; }
-    .problem-visual { position: static; }
-    .journey { padding: 96px 24px; }
-    .journey-viz { padding: 24px 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .journey-svg { min-width: 900px; }
-    .journey-caption { padding: 0 12px; }
-    .week-architecture { padding: 24px; margin-top: 48px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .week-arch-svg { min-width: 800px; }
-    .diff-grid { grid-template-columns: 1fr; gap: 56px; }
-    .fit-grid { grid-template-columns: 1fr; gap: 48px; }
-    .product-grid { grid-template-columns: 1fr; }
-    .price-grid { grid-template-columns: 1fr; }
-    .price-card.featured { transform: none; }
-    .price-includes ul { grid-template-columns: 1fr; }
-    .problem, .solution, .differentiators, .guarantee, .fit-check,
-    .products, .pricing, .faq, .final-cta {
-      padding-left: 24px;
-      padding-right: 24px;
-      padding-top: 96px;
-      padding-bottom: 96px;
-    }
-    nav { padding: 16px 20px; }
-    .nav-cta { font-size: 12px; padding: 8px 14px; }
-
-    /* Footer responsive */
-    .footer-main {
-      grid-template-columns: 1fr;
-      gap: 48px;
-      margin-bottom: 48px;
-    }
-    .footer-brand-block { gap: 16px; }
-    .footer-bottom { justify-content: flex-start; }
-    .footer-legal-links { gap: 20px; }
-    footer { padding: 72px 24px 32px; }
-  }
-
-  @media (max-width: 768px) {
-    .journey-svg { display: none; }
-    .journey-mobile { display: block; }
-    .week-arch-svg { display: none; }
-    .week-arch-mobile { display: block; }
-  }
-
-  @media (max-width: 480px) {
-    body { font-size: 16px; }
-    .hero h1 { font-size: 44px; line-height: 1.05; }
-    .hero-sub { font-size: 16px; }
-    .hero-cta-row { flex-direction: column; align-items: center; gap: 16px; }
-    .btn-primary { width: 100%; justify-content: center; }
-    .nav-cta { padding: 11px 14px; }
-    .problem p, .solution p, .guarantee p { font-size: 17px; }
-    .problem .takalam-is, .guarantee p.pledge { font-size: 20px; }
-    .guarantee p.pledge { padding: 32px 20px; }
-    .diff-item .num { font-size: 48px; }
-    .diff-item h3 { font-size: 22px; }
-    .price-card { padding: 32px 24px; }
-    .price-includes { padding: 24px; }
-    .week-arch-header { margin-bottom: 16px; }
-  }
-
-  @media (max-width: 499px) {
-    .nav-logo { height: 24px; }
-    .cta-full { display: none; }
-    .cta-short { display: inline; }
-  }
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>/* ============================================================
+   TAKALAM — Speak with confidence
+   Editorial landing page styles
+   ============================================================ */
+
+:root {
+  /* Brand core */
+  --cream:       #faf8f2;
+  --cream-2:     #f3ecdc;   /* warm tan band */
+  --cream-3:     #efe6d2;
+  --emerald:     #31c48d;
+  --emerald-dim: #28a878;
+  --forest:      #0d4f37;
+  --forest-2:    #0a3d2b;
+  --ink:         #1a2332;
+  --ink-2:       #14202b;
+  --ink-soft:    #4b5563;
+
+  /* Warm editorial accents */
+  --terracotta:  #df8a5d;
+  --terracotta-2:#cf7548;
+  --gold:        #e7ad44;
+  --blush:       #ecc7ad;
+
+  /* Type */
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans:  "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Layout */
+  --maxw: 1240px;
+  --gut: clamp(20px, 5vw, 64px);
+
+  --shadow-sm: 0 2px 8px rgba(26,35,50,.06);
+  --shadow-md: 0 18px 44px -22px rgba(13,79,55,.45);
+  --shadow-lg: 0 40px 80px -36px rgba(13,79,55,.55);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Paper grain overlay ----------------------------------------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: .055;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Type ------------------------------------------------------- */
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 540;
+  font-optical-sizing: auto;
+  line-height: 1.02;
+  letter-spacing: -.012em;
+  margin: 0;
+  text-wrap: balance;
+}
+em { font-style: italic; }
+
+.eyebrow {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--terracotta-2);
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  opacity: .8;
+}
+.eyebrow.center::after {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  opacity: .8;
+}
+
+p { margin: 0 0 1em; }
+.lead { font-size: 1.18rem; color: var(--ink-soft); }
+
+a { color: inherit; }
+
+.wrap {
+  width: min(100% - calc(var(--gut) * 2), var(--maxw));
+  margin-inline: auto;
+}
+
+/* Buttons ---------------------------------------------------- */
+.btn {
+  --bg: var(--ink);
+  --fg: var(--cream);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: .005em;
+  display: inline-flex;
+  align-items: center;
+  gap: .65em;
+  padding: 1.02em 1.6em;
+  background: var(--bg);
+  color: var(--fg);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .3s;
+  box-shadow: 0 10px 24px -12px rgba(26,35,50,.6);
+}
+.btn svg { width: 1.15em; height: 1.15em; flex: none; }
+.btn .wa { transition: transform .4s var(--ease); }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 18px 34px -14px rgba(26,35,50,.6); }
+.btn:hover .wa { transform: rotate(-12deg) scale(1.08); }
+.btn:active { transform: translateY(-1px); }
+
+.btn--emerald { --bg: var(--emerald); --fg: #06281c; box-shadow: 0 12px 26px -12px rgba(49,196,141,.85); }
+.btn--cream   { --bg: var(--cream); --fg: var(--forest); }
+.btn--ghost {
+  --bg: transparent; --fg: var(--ink);
+  box-shadow: none;
+  border: 1.5px solid rgba(26,35,50,.22);
+}
+.btn--ghost:hover { background: rgba(26,35,50,.05); }
+.btn--lg { font-size: 1.12rem; padding: 1.15em 1.9em; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-head {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background .4s var(--ease), box-shadow .4s var(--ease), padding .4s var(--ease);
+  padding: 18px 0;
+}
+.site-head.scrolled {
+  background: rgba(250,248,242,.82);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(26,35,50,.07);
+  padding: 12px 0;
+}
+.head-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+
+/* Logo */
+.logo { display: inline-flex; align-items: center; gap: .58em; text-decoration: none; color: var(--ink); }
+.logo .mark { width: 38px; height: 38px; flex: none; }
+.logo .word {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: -.01em;
+}
+.logo .word b { color: var(--emerald-dim); font-weight: 600; font-style: italic; }
+
+.head-cta { display: inline-flex; align-items: center; gap: 16px; }
+.head-note { font-size: .92rem; color: var(--ink-soft); }
+@media (max-width: 720px){ .head-note { display: none; } }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero { position: relative; padding: clamp(24px, 5vw, 56px) 0 clamp(60px, 8vw, 110px); }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(28px, 4vw, 72px);
+  align-items: center;
+}
+.hero-kicker { margin-bottom: 26px; }
+.hero h1 {
+  font-size: clamp(2.7rem, 7.2vw, 6rem);
+  font-weight: 500;
+}
+.hero h1 .pop {
+  font-style: italic;
+  font-weight: 540;
+  color: var(--emerald-dim);
+  position: relative;
+  white-space: nowrap;
+}
+.hero h1 .pop .underline {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: .04em;
+  height: .42em;
+  z-index: -1;
+  color: var(--emerald);
+}
+.hero h1 .pop .underline path { stroke-dasharray: 600; stroke-dashoffset: 600; }
+.is-in .hero h1 .pop .underline path { animation: draw 1.1s .55s var(--ease) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.hero-sub {
+  margin-top: 28px;
+  max-width: 30ch;
+  font-size: 1.22rem;
+  color: var(--ink-soft);
+}
+.hero-actions { margin-top: 36px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.hero-meta { font-size: .95rem; color: var(--ink-soft); display: flex; align-items: center; gap: .5em; }
+.hero-meta .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 0 4px rgba(49,196,141,.18); }
+
+.hero-art { position: relative; }
+.hero-art svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* ============================================================
+   SECTION SHELL
+   ============================================================ */
+.section { padding: clamp(64px, 9vw, 132px) 0; position: relative; }
+.section.band { background: var(--cream-2); }
+.section.forest { background: var(--forest); color: var(--cream); }
+.section-head { max-width: 720px; margin-bottom: clamp(40px, 5vw, 68px); }
+.section-head.center { margin-inline: auto; text-align: center; }
+.section-head h2 { font-size: clamp(2.1rem, 4.6vw, 3.7rem); font-weight: 520; margin-top: 18px; }
+.section-head p { margin-top: 18px; font-size: 1.15rem; color: var(--ink-soft); }
+.forest .section-head p { color: rgba(250,248,242,.74); }
+
+/* ============================================================
+   TWO DOORS
+   ============================================================ */
+.doors-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; flex-wrap: wrap; margin-bottom: clamp(36px, 4vw, 56px); }
+.doors-intro h2 { font-size: clamp(2.1rem, 4.6vw, 3.7rem); font-weight: 520; margin-top: 16px; max-width: 16ch; }
+.doors-intro .aside { max-width: 30ch; color: var(--ink-soft); font-size: 1.08rem; padding-bottom: .4em; }
+
+.doors { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(22px, 2.4vw, 34px); align-items: stretch; }
+
+.door {
+  position: relative;
+  border-radius: 30px;
+  padding: clamp(28px, 3vw, 46px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.door:hover { transform: translateY(-6px); }
+
+.door--speak {
+  background: var(--cream);
+  border: 1.5px solid rgba(13,79,55,.16);
+  box-shadow: var(--shadow-md);
+}
+.door--private {
+  background: var(--forest);
+  color: var(--cream);
+  box-shadow: var(--shadow-lg);
+}
+.door--private .door-tag { color: var(--cream); }
+
+.door-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.door-label {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: .82rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: .6em;
+}
+.door--speak .door-label { color: var(--forest); }
+.door--private .door-label { color: var(--emerald); }
+.door-label .chip {
+  width: 10px; height: 10px; border-radius: 3px; transform: rotate(45deg);
+}
+.door--speak .door-label .chip { background: var(--emerald); }
+.door--private .door-label .chip { background: var(--gold); }
+
+.door-num { font-family: var(--serif); font-style: italic; font-size: 1.4rem; opacity: .42; }
+
+.door-art { margin: 4px 0 24px; }
+.door-art svg { width: 100%; height: auto; display: block; overflow: visible; border-radius: 18px; }
+
+.door-tag {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+  font-weight: 500;
+  line-height: 1.08;
+  margin-bottom: 18px;
+  max-width: 20ch;
+}
+.door--speak .door-tag em { color: var(--emerald-dim); }
+.door--private .door-tag em { color: var(--gold); }
+
+.door-body { font-size: 1.02rem; line-height: 1.62; margin-bottom: 26px; }
+.door--speak .door-body { color: var(--ink-soft); }
+.door--private .door-body { color: rgba(250,248,242,.82); }
+
+.door-facts { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 12px; }
+.door-facts li { display: flex; gap: .7em; align-items: flex-start; font-size: .98rem; line-height: 1.45; }
+.door-facts li .tick { flex: none; margin-top: .18em; width: 18px; height: 18px; }
+.door--speak .door-facts li { color: var(--ink); }
+.door--private .door-facts li { color: rgba(250,248,242,.9); }
+
+.price-block {
+  margin-top: auto;
+  border-top: 1.5px dashed;
+  padding-top: 24px;
+  margin-bottom: 26px;
+}
+.door--speak .price-block { border-color: rgba(13,79,55,.22); }
+.door--private .price-block { border-color: rgba(250,248,242,.26); }
+
+.price-rows { display: grid; gap: 14px; }
+.price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+.price-row .plan { font-weight: 600; font-size: .96rem; display: flex; flex-direction: column; }
+.price-row .plan small { font-weight: 500; font-size: .82rem; opacity: .62; letter-spacing: 0; }
+.price-row .amt { font-family: var(--serif); font-weight: 500; font-size: 1.7rem; white-space: nowrap; }
+.price-row .amt small { font-family: var(--sans); font-size: .8rem; font-weight: 500; opacity: .6; margin-left: .3em; }
+.price-row.solo .amt { font-size: 2rem; }
+.door--speak .price-row .amt { color: var(--forest); }
+.door--private .price-row .amt { color: var(--cream); }
+.save-pill {
+  display: inline-flex; align-items: center; gap: .4em;
+  font-family: var(--sans); font-size: .76rem; font-weight: 600; letter-spacing: .02em;
+  padding: .35em .7em; border-radius: 999px;
+  background: rgba(49,196,141,.16); color: var(--emerald-dim);
+  margin-top: 4px;
+}
+.door--private .save-pill { background: rgba(231,173,68,.18); color: var(--gold); }
+
+.door .btn { width: 100%; justify-content: center; }
+
+/* decorative corner blob inside doors */
+.door-blob { position: absolute; z-index: -1; pointer-events: none; }
+
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 44px); position: relative; }
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 46px; left: 12%; right: 12%;
+  border-top: 2px dashed rgba(13,79,55,.28);
+  z-index: 0;
+}
+.step { position: relative; z-index: 1; text-align: center; }
+.step-icon {
+  width: 92px; height: 92px; margin: 0 auto 24px;
+  background: var(--cream);
+  border: 1.5px solid rgba(13,79,55,.16);
+  border-radius: 24px;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.step:hover .step-icon { transform: translateY(-5px) rotate(-3deg); box-shadow: var(--shadow-md); }
+.step-icon svg { width: 50px; height: 50px; overflow: visible; }
+.step-n {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  color: var(--terracotta-2); font-size: 1.05rem; margin-bottom: 6px;
+}
+.step h3 { font-size: 1.5rem; font-weight: 540; margin-bottom: 10px; }
+.step p { color: var(--ink-soft); font-size: 1.02rem; max-width: 26ch; margin-inline: auto; }
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(36px, 5vw, 88px); align-items: start; }
+.faq-aside { position: sticky; top: 120px; }
+.faq-aside .art { margin-top: 30px; max-width: 280px; }
+.faq-aside .art svg { width: 100%; height: auto; overflow: visible; }
+
+.faq-list { border-top: 1.5px solid rgba(26,35,50,.14); }
+.faq-item { border-bottom: 1.5px solid rgba(26,35,50,.14); }
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 20px;
+  padding: 26px 8px 26px 0; text-align: left;
+  font-family: var(--serif); font-size: clamp(1.18rem, 2vw, 1.5rem); font-weight: 520; color: var(--ink);
+  transition: color .25s;
+}
+.faq-q:hover { color: var(--emerald-dim); }
+.faq-q .qmark {
+  flex: none; width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1.5px solid rgba(26,35,50,.25);
+  transition: transform .45s var(--ease), background .3s, border-color .3s;
+}
+.faq-q .qmark::before, .faq-q .qmark::after {
+  content: ""; position: absolute; background: currentColor; border-radius: 2px;
+}
+.faq-q .qmark::before { width: 13px; height: 1.8px; }
+.faq-q .qmark::after { width: 1.8px; height: 13px; transition: transform .45s var(--ease); }
+.faq-item.open .qmark { background: var(--emerald); border-color: var(--emerald); color: #06281c; transform: rotate(90deg); }
+.faq-item.open .qmark::after { transform: scaleY(0); }
+.faq-q .qmark { position: relative; }
+
+.faq-a { overflow: hidden; height: 0; transition: height .4s var(--ease); }
+.faq-a-inner { padding: 0 56px 28px 0; color: var(--ink-soft); font-size: 1.06rem; line-height: 1.6; }
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+.closing { text-align: center; position: relative; overflow: hidden; }
+.closing .flourish { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.closing-inner { position: relative; z-index: 1; max-width: 760px; margin-inline: auto; }
+.closing h2 { font-size: clamp(2.3rem, 5.2vw, 4.4rem); font-weight: 520; }
+.closing h2 em { color: var(--emerald); }
+.closing p { margin: 28px auto 38px; font-size: 1.22rem; color: rgba(250,248,242,.82); max-width: 54ch; }
+.closing .btn { }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-foot { background: var(--ink-2); color: var(--cream); padding: clamp(56px, 7vw, 88px) 0 40px; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; align-items: start; }
+.foot-brand .logo .word { color: var(--cream); }
+.foot-brand .logo .word b { color: var(--emerald); }
+.foot-tag { font-family: var(--serif); font-style: italic; font-size: 1.35rem; margin-top: 18px; color: rgba(250,248,242,.85); }
+.foot-col h4 { font-family: var(--sans); font-weight: 600; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--emerald); margin: 6px 0 18px; }
+.foot-col a { display: flex; align-items: center; gap: .6em; text-decoration: none; color: rgba(250,248,242,.82); padding: 7px 0; transition: color .25s, gap .25s; }
+.foot-col a:hover { color: var(--cream); gap: .85em; }
+.foot-col a svg { width: 18px; height: 18px; flex: none; opacity: .8; }
+.foot-bottom { margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid rgba(250,248,242,.12); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: .9rem; color: rgba(250,248,242,.55); }
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: .08s; }
+.reveal.d2 { transition-delay: .16s; }
+.reveal.d3 { transition-delay: .24s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* floaty illustration bits */
+.float-a { animation: floatA 7s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.float-b { animation: floatB 9s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.float-c { animation: floatC 8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes floatA { 50% { transform: translateY(-9px); } }
+@keyframes floatB { 50% { transform: translateY(8px) rotate(3deg); } }
+@keyframes floatC { 50% { transform: translateY(-6px) rotate(-3deg); } }
+@media (prefers-reduced-motion: reduce) { .float-a,.float-b,.float-c { animation: none; } }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1000px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 12px; }
+  .hero-art { order: -1; max-width: 480px; margin: 0 auto 8px; }
+  .hero-sub { max-width: 40ch; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .faq-aside { position: static; }
+  .faq-aside .art { display: none; }
+}
+@media (max-width: 860px) {
+  .doors { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 40px; }
+  .steps::before { display: none; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 540px) {
+  body { font-size: 17px; }
+  .foot-grid { grid-template-columns: 1fr; }
+  .head-cta .btn span.lbl { display: none; }
+  .hero-actions { gap: 16px; }
+}
+
+/* ── Wordmark logo ── */
+.logo-wm { height: 36px; width: auto; display: block; }
+.logo-wm--lg { height: 48px; }
+
+/* ── MOBILE REFINEMENTS (375-430px) ── */
+@media (max-width: 430px) {
+  .logo-wm { height: 28px; }
+  .site-head { padding: 14px 0; }
+  .hero h1 { font-size: 2.3rem; }
+  .hero-sub { font-size: 1.05rem; max-width: 100%; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn { justify-content: center; width: 100%; }
+  .hero-meta { justify-content: center; }
+  .hero-art { max-width: 280px; margin-inline: auto; }
+  .door { padding: 24px 20px; border-radius: 20px; }
+  .door-art { margin-bottom: 16px; }
+  .door-tag { font-size: 1.3rem; }
+  .door-body { font-size: .96rem; }
+  .door-facts li { font-size: .92rem; }
+  .price-row { flex-direction: column; gap: 2px; }
+  .price-row .amt { font-size: 1.5rem; }
+  .price-row.solo .amt { font-size: 1.65rem; }
+  .door .btn { padding: 1em 1.4em; }
+  .closing h2 { font-size: 2rem; }
+  .closing p { font-size: 1rem; }
+  .closing-inner .btn { width: 100%; justify-content: center; }
+  .faq-q { font-size: 1.05rem; padding: 20px 0; min-height: 48px; }
+  .faq-a-inner { padding: 0 12px 20px 0; font-size: .97rem; }
+  .foot-col a { min-height: 44px; display: flex; align-items: center; }
+  .foot-tag { font-size: 1.1rem; }
+  .foot-bottom { flex-direction: column; gap: 8px; font-size: .82rem; }
+}
+@media (max-width: 540px) {
+  .door-tag { max-width: 100%; }
+  .door-body { max-width: 100%; overflow-wrap: break-word; }
+  .price-block { overflow: hidden; }
+  .faq-q span:first-child { overflow-wrap: break-word; }
+}
 </style>
 </head>
 <body>
+
+<!-- LOGO SYMBOL -->
 <svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <defs>
     <symbol id="takalam-logo" viewBox="0 0 1000 189"><g transform="matrix(1,0,0,1,-0.606054279675277,-0.6146747266218711)"><svg viewBox="0 0 396 75" data-background-color="#ffffff" preserveAspectRatio="xMidYMid meet" height="189" width="1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="tight-bounds" transform="matrix(1,0,0,1,0.23999749475140675,0.24391854231026855)"><svg viewBox="0 0 395.5199999999999 74.51216291537946" height="74.51216291537946" width="395.5199999999999"><g><svg viewBox="0 0 561.6049693228051 105.80097332187385" height="74.51216291537946" width="395.5199999999999"><g><rect width="5.94765343967057" height="105.80097332187385" x="144.56754248085554" y="0" fill="#31c48d" opacity="1" stroke-width="0" stroke="transparent" fill-opacity="1" class="rect-o-0" data-fill-palette-color="primary" rx="1%" id="o-0" data-palette-color="#31c48d"></rect></g><g transform="matrix(1,0,0,1,166.08496932280508,0.2631865008006784)"><svg viewBox="0 0 395.52 105.2746003202725" height="105.2746003202725" width="395.52"><g id="textblocktransform"><svg viewBox="0 0 395.52 105.2746003202725" height="105.2746003202725" width="395.52" id="textblock"><g><svg viewBox="0 0 395.52 65.95237721021611" height="65.95237721021611" width="395.52"><g transform="matrix(1,0,0,1,0,0)"><svg width="395.52" viewBox="0.5 -33.95000076293945 203.58999633789062 33.95000076293945" height="65.95237721021611" data-palette-color="#31c48d"><path d="M0.5-33.85L24.1-33.85 23.35-29.35 14.95-29.35 14.95 0 9.05 0 9.05-29.35 0.5-29.35 0.5-33.85ZM21.4 0L34.4-33.85 39.1-33.85 52.15 0 45.8 0 42.7-8.85 30.5-8.85 27.3 0 21.4 0ZM32.1-13.25L41.15-13.25Q39.55-17.75 38.4-21.43 37.25-25.1 36.65-27.2L36.65-27.2Q35.95-24.95 34.8-21.3 33.65-17.65 32.1-13.25L32.1-13.25ZM55.4 0L55.4-33.85 61.35-33.85 61.35 0 55.4 0ZM78.84-33.85Q78.05-30.1 77.07-27.48 76.09-24.85 74.95-23.03 73.8-21.2 72.42-19.93 71.05-18.65 69.5-17.6L69.5-17.6 81.8 0 74.9 0 62-18.3 62-18.65Q66.59-20.35 69.12-24.23 71.65-28.1 73-33.85L73-33.85 78.84-33.85ZM82.19 0L95.19-33.85 99.89-33.85 112.94 0 106.59 0 103.49-8.85 91.29-8.85 88.09 0 82.19 0ZM92.89-13.25L101.94-13.25Q100.34-17.75 99.19-21.43 98.04-25.1 97.44-27.2L97.44-27.2Q96.74-24.95 95.59-21.3 94.44-17.65 92.89-13.25L92.89-13.25ZM116.19 0L116.19-33.85 122.14-33.85 122.14-4.5 134.79-4.5 134.79 0 116.19 0ZM136.04 0L149.04-33.85 153.74-33.85 166.79 0 160.44 0 157.34-8.85 145.14-8.85 141.94 0 136.04 0ZM146.74-13.25L155.79-13.25Q154.19-17.75 153.04-21.43 151.89-25.1 151.29-27.2L151.29-27.2Q150.59-24.95 149.44-21.3 148.29-17.65 146.74-13.25L146.74-13.25ZM194.64-13L189.04 0 184.84 0 179.19-12.85Q178.94-13.4 178.56-14.35 178.19-15.3 177.74-16.45 177.29-17.6 176.79-18.88 176.29-20.15 175.84-21.45L175.84-21.45Q175.84-20.15 175.81-18.88 175.79-17.6 175.74-16.48 175.69-15.35 175.66-14.48 175.64-13.6 175.64-13.1L175.64-13.1 175.14 0 169.54 0 171.54-33.95 176.19-33.95 184.74-12.75Q185.19-11.6 185.76-10.25 186.34-8.9 186.84-7.6L186.84-7.6Q187.34-8.9 187.89-10.23 188.44-11.55 188.94-12.75L188.94-12.75 197.54-33.95 202.09-33.95 204.09 0 198.54 0 197.99-12.95Q197.94-14.2 197.86-16.53 197.79-18.85 197.74-21.25L197.74-21.25Q197.29-20 196.81-18.75 196.34-17.5 195.94-16.4 195.54-15.3 195.19-14.4 194.84-13.5 194.64-13L194.64-13Z" opacity="1" transform="matrix(1,0,0,1,0,0)" fill="#31c48d" class="wordmark-text-0" data-fill-palette-color="primary" id="text-0"></path></svg></g></svg></g><g transform="matrix(1,0,0,1,0,81.5221506124951)"><svg viewBox="0 0 232.20979199999996 23.752449707777412" height="23.752449707777412" width="232.20979199999996"><g transform="matrix(1,0,0,1,0,0)"><svg width="232.20979199999996" viewBox="1.4500000476837158 -36.5 460.90997314453125 47.150001525878906" height="23.752449707777412" data-palette-color="#31c48d"><path d="M27.2-31.7L25.1-28.05Q24.5-28.75 23.5-29.4 22.5-30.05 21.25-30.58 20-31.1 18.53-31.43 17.05-31.75 15.45-31.75L15.45-31.75Q11.35-31.75 9.4-30.2 7.45-28.65 7.45-25.95L7.45-25.95Q7.45-24.05 8.45-22.95 9.45-21.85 11.53-21.15 13.6-20.45 16.8-19.7L16.8-19.7Q20.5-18.9 23.2-17.75 25.9-16.6 27.35-14.68 28.8-12.75 28.8-9.55L28.8-9.55Q28.8-7 27.83-5.13 26.85-3.25 25.1-2.02 23.35-0.8 21-0.23 18.65 0.35 15.9 0.35L15.9 0.35Q13.2 0.35 10.63-0.23 8.05-0.8 5.75-1.9 3.45-3 1.45-4.65L1.45-4.65 3.6-8.45Q4.4-7.6 5.68-6.78 6.95-5.95 8.58-5.25 10.2-4.55 12.1-4.13 14-3.7 16-3.7L16-3.7Q19.8-3.7 21.9-5.08 24-6.45 24-9.1L24-9.1Q24-11.1 22.83-12.3 21.65-13.5 19.35-14.3 17.05-15.1 13.75-15.9L13.75-15.9Q10.15-16.8 7.7-17.88 5.25-18.95 4.03-20.7 2.8-22.45 2.8-25.25L2.8-25.25Q2.8-28.65 4.45-31 6.1-33.35 9-34.55 11.9-35.75 15.55-35.75L15.55-35.75Q17.95-35.75 20.03-35.25 22.1-34.75 23.9-33.85 25.7-32.95 27.2-31.7L27.2-31.7ZM48.05 0.5L48.05 0.5Q44.85 0.5 42.35-1.1 39.85-2.7 38.4-5.15L38.4-5.15 38.4 10.65 34 10.65 34-26.1 37.9-26.1 37.9-21.2Q39.45-23.6 41.95-25.08 44.45-26.55 47.4-26.55L47.4-26.55Q50.1-26.55 52.35-25.45 54.6-24.35 56.25-22.45 57.9-20.55 58.82-18.13 59.75-15.7 59.75-13.05L59.75-13.05Q59.75-9.35 58.27-6.25 56.8-3.15 54.15-1.33 51.5 0.5 48.05 0.5ZM46.7-3.3L46.7-3.3Q48.65-3.3 50.22-4.13 51.8-4.95 52.92-6.33 54.05-7.7 54.65-9.45 55.25-11.2 55.25-13.05L55.25-13.05Q55.25-15 54.57-16.75 53.9-18.5 52.67-19.85 51.45-21.2 49.82-21.98 48.2-22.75 46.3-22.75L46.3-22.75Q45.1-22.75 43.82-22.3 42.55-21.85 41.4-21.03 40.25-20.2 39.45-19.15 38.65-18.1 38.4-16.9L38.4-16.9 38.4-9.45Q39.15-7.75 40.4-6.35 41.65-4.95 43.3-4.13 44.95-3.3 46.7-3.3ZM76.7 0.5L76.7 0.5Q73.75 0.5 71.32-0.58 68.9-1.65 67.12-3.53 65.34-5.4 64.37-7.85 63.4-10.3 63.4-13.05L63.4-13.05Q63.4-16.75 65.09-19.8 66.8-22.85 69.82-24.7 72.84-26.55 76.75-26.55L76.75-26.55Q80.7-26.55 83.62-24.68 86.55-22.8 88.17-19.78 89.8-16.75 89.8-13.25L89.8-13.25Q89.8-12.75 89.77-12.28 89.75-11.8 89.7-11.55L89.7-11.55 68.05-11.55Q68.25-9 69.47-7.03 70.7-5.05 72.65-3.93 74.59-2.8 76.84-2.8L76.84-2.8Q79.25-2.8 81.37-4 83.5-5.2 84.3-7.15L84.3-7.15 88.09-6.1Q87.25-4.2 85.57-2.7 83.9-1.2 81.62-0.35 79.34 0.5 76.7 0.5ZM67.9-14.6L67.9-14.6 85.7-14.6Q85.5-17.15 84.25-19.1 83-21.05 81.05-22.15 79.09-23.25 76.75-23.25L76.75-23.25Q74.45-23.25 72.5-22.15 70.55-21.05 69.32-19.1 68.09-17.15 67.9-14.6ZM92.64-7.55L92.64-7.55Q92.64-10.05 94.07-11.88 95.49-13.7 97.99-14.7 100.49-15.7 103.79-15.7L103.79-15.7Q105.54-15.7 107.49-15.43 109.44-15.15 110.94-14.6L110.94-14.6 110.94-16.5Q110.94-19.5 109.14-21.23 107.34-22.95 104.04-22.95L104.04-22.95Q101.89-22.95 99.92-22.18 97.94-21.4 95.74-19.95L95.74-19.95 94.14-23.05Q96.69-24.8 99.24-25.68 101.79-26.55 104.54-26.55L104.54-26.55Q109.54-26.55 112.44-23.78 115.34-21 115.34-16.05L115.34-16.05 115.34-5Q115.34-4.2 115.67-3.83 115.99-3.45 116.74-3.4L116.74-3.4 116.74 0Q116.09 0.1 115.62 0.15 115.14 0.2 114.84 0.2L114.84 0.2Q113.29 0.2 112.52-0.65 111.74-1.5 111.64-2.45L111.64-2.45 111.54-4.1Q109.84-1.9 107.09-0.7 104.34 0.5 101.64 0.5L101.64 0.5Q99.04 0.5 96.99-0.58 94.94-1.65 93.79-3.48 92.64-5.3 92.64-7.55ZM109.64-5.7L109.64-5.7Q110.24-6.4 110.59-7.13 110.94-7.85 110.94-8.35L110.94-8.35 110.94-11.6Q109.39-12.2 107.69-12.53 105.99-12.85 104.34-12.85L104.34-12.85Q100.99-12.85 98.92-11.53 96.84-10.2 96.84-7.9L96.84-7.9Q96.84-6.65 97.52-5.48 98.19-4.3 99.52-3.55 100.84-2.8 102.79-2.8L102.79-2.8Q104.84-2.8 106.69-3.63 108.54-4.45 109.64-5.7ZM145.54 0L140.79 0 131.74-12.7 126.79-8.05 126.79 0 122.39 0 122.39-36.5 126.79-36.5 126.79-12.65 140.29-26.05 145.04-26.05 134.64-15.25 145.54 0ZM184.34-4.35L193.29-26.1 197.54-26.1 186.44 0 182.59 0 177.54-12.3 172.54 0 168.69 0 157.59-26.1 161.79-26.1 170.79-4.35 174.99-15.05 170.59-26.05 174.44-26.05 177.54-17.75 180.64-26.05 184.49-26.05 180.14-15.05 184.34-4.35ZM206.03 0L201.63 0 201.63-26.1 206.03-26.1 206.03 0ZM206.03-31L201.63-31 201.63-36.5 206.03-36.5 206.03-31ZM225.58-4.8L226.63-1.3Q226.08-1.05 225.13-0.65 224.18-0.25 222.93 0.05 221.68 0.35 220.28 0.35L220.28 0.35Q218.68 0.35 217.33-0.23 215.98-0.8 215.18-2.02 214.38-3.25 214.38-5.1L214.38-5.1 214.38-22.65 210.83-22.65 210.83-26.1 214.38-26.1 214.38-34.8 218.78-34.8 218.78-26.1 224.63-26.1 224.63-22.65 218.78-22.65 218.78-6.45Q218.88-5.05 219.73-4.38 220.58-3.7 221.73-3.7L221.73-3.7Q223.03-3.7 224.13-4.15 225.23-4.6 225.58-4.8L225.58-4.8ZM253.38-15.6L253.38 0 248.98 0 248.98-14.6Q248.98-18.6 247.55-20.6 246.13-22.6 243.48-22.6L243.48-22.6Q241.78-22.6 240.05-21.7 238.33-20.8 237.03-19.28 235.73-17.75 235.13-15.75L235.13-15.75 235.13 0 230.73 0 230.73-36.5 235.13-36.5 235.13-20.5Q236.68-23.3 239.35-24.93 242.03-26.55 245.13-26.55L245.13-26.55Q247.48-26.55 249.05-25.73 250.63-24.9 251.58-23.4 252.53-21.9 252.95-19.93 253.38-17.95 253.38-15.6L253.38-15.6ZM286.92 0.5L286.92 0.5Q283.72 0.5 281.22-1.1 278.72-2.7 277.27-5.15L277.27-5.15 277.27 10.65 272.87 10.65 272.87-26.1 276.77-26.1 276.77-21.2Q278.32-23.6 280.82-25.08 283.32-26.55 286.27-26.55L286.27-26.55Q288.97-26.55 291.22-25.45 293.47-24.35 295.12-22.45 296.77-20.55 297.7-18.13 298.62-15.7 298.62-13.05L298.62-13.05Q298.62-9.35 297.15-6.25 295.67-3.15 293.02-1.33 290.37 0.5 286.92 0.5ZM285.57-3.3L285.57-3.3Q287.52-3.3 289.1-4.13 290.67-4.95 291.8-6.33 292.92-7.7 293.52-9.45 294.12-11.2 294.12-13.05L294.12-13.05Q294.12-15 293.45-16.75 292.77-18.5 291.55-19.85 290.32-21.2 288.7-21.98 287.07-22.75 285.17-22.75L285.17-22.75Q283.97-22.75 282.7-22.3 281.42-21.85 280.27-21.03 279.12-20.2 278.32-19.15 277.52-18.1 277.27-16.9L277.27-16.9 277.27-9.45Q278.02-7.75 279.27-6.35 280.52-4.95 282.17-4.13 283.82-3.3 285.57-3.3ZM303.77-10.45L303.77-10.45 303.77-26.1 308.17-26.1 308.17-11.3Q308.17-7.3 309.57-5.3 310.97-3.3 313.72-3.3L313.72-3.3Q315.52-3.3 317.19-4.08 318.87-4.85 320.22-6.3 321.57-7.75 322.32-9.75L322.32-9.75 322.32-26.1 326.72-26.1 326.72-5Q326.72-4.2 327.04-3.83 327.37-3.45 328.12-3.4L328.12-3.4 328.12 0Q327.37 0.1 326.94 0.13 326.52 0.15 326.12 0.15L326.12 0.15Q324.87 0.15 323.97-0.63 323.07-1.4 323.02-2.55L323.02-2.55 322.92-5.6Q321.22-2.7 318.34-1.1 315.47 0.5 312.07 0.5L312.07 0.5Q307.97 0.5 305.87-2.27 303.77-5.05 303.77-10.45ZM347.87-26.25L347.87-22.25Q344.57-22.2 342.04-20.58 339.52-18.95 338.47-16.1L338.47-16.1 338.47 0 334.07 0 334.07-26.1 338.17-26.1 338.17-20.05Q339.52-22.75 341.74-24.43 343.97-26.1 346.42-26.3L346.42-26.3Q346.92-26.3 347.27-26.3 347.62-26.3 347.87-26.25L347.87-26.25ZM366.26 0.5L366.26 0.5Q363.06 0.5 360.56-1.1 358.06-2.7 356.61-5.15L356.61-5.15 356.61 10.65 352.21 10.65 352.21-26.1 356.11-26.1 356.11-21.2Q357.66-23.6 360.16-25.08 362.66-26.55 365.61-26.55L365.61-26.55Q368.31-26.55 370.56-25.45 372.81-24.35 374.46-22.45 376.11-20.55 377.04-18.13 377.96-15.7 377.96-13.05L377.96-13.05Q377.96-9.35 376.49-6.25 375.01-3.15 372.36-1.33 369.71 0.5 366.26 0.5ZM364.91-3.3L364.91-3.3Q366.86-3.3 368.44-4.13 370.01-4.95 371.14-6.33 372.26-7.7 372.86-9.45 373.46-11.2 373.46-13.05L373.46-13.05Q373.46-15 372.79-16.75 372.11-18.5 370.89-19.85 369.66-21.2 368.04-21.98 366.41-22.75 364.51-22.75L364.51-22.75Q363.31-22.75 362.04-22.3 360.76-21.85 359.61-21.03 358.46-20.2 357.66-19.15 356.86-18.1 356.61-16.9L356.61-16.9 356.61-9.45Q357.36-7.75 358.61-6.35 359.86-4.95 361.51-4.13 363.16-3.3 364.91-3.3ZM394.76 0.5L394.76 0.5Q391.81 0.5 389.41-0.58 387.01-1.65 385.26-3.53 383.51-5.4 382.56-7.85 381.61-10.3 381.61-13L381.61-13Q381.61-15.75 382.56-18.2 383.51-20.65 385.26-22.53 387.01-24.4 389.44-25.48 391.86-26.55 394.81-26.55L394.81-26.55Q397.71-26.55 400.11-25.48 402.51-24.4 404.29-22.53 406.06-20.65 407.01-18.2 407.96-15.75 407.96-13L407.96-13Q407.96-10.3 407.01-7.85 406.06-5.4 404.31-3.53 402.56-1.65 400.14-0.58 397.71 0.5 394.76 0.5ZM386.11-12.95L386.11-12.95Q386.11-10.25 387.29-8.05 388.46-5.85 390.41-4.58 392.36-3.3 394.76-3.3L394.76-3.3Q397.16-3.3 399.14-4.6 401.11-5.9 402.29-8.13 403.46-10.35 403.46-13.05L403.46-13.05Q403.46-15.75 402.29-17.95 401.11-20.15 399.14-21.45 397.16-22.75 394.76-22.75L394.76-22.75Q392.36-22.75 390.41-21.43 388.46-20.1 387.29-17.9 386.11-15.7 386.11-12.95ZM422.26 0.5L422.26 0.5Q419.01 0.5 416.16-0.58 413.31-1.65 411.26-3.8L411.26-3.8 412.96-6.9Q415.21-4.8 417.46-3.9 419.71-3 422.06-3L422.06-3Q424.76-3 426.46-4.03 428.16-5.05 428.16-7.05L428.16-7.05Q428.16-8.5 427.28-9.2 426.41-9.9 424.81-10.38 423.21-10.85 421.01-11.45L421.01-11.45Q418.31-12.25 416.46-13.15 414.61-14.05 413.66-15.4 412.71-16.75 412.71-18.8L412.71-18.8Q412.71-21.3 414.01-23.03 415.31-24.75 417.58-25.65 419.86-26.55 422.76-26.55L422.76-26.55Q425.66-26.55 428.01-25.65 430.36-24.75 432.06-23L432.06-23 430.06-19.95Q428.51-21.55 426.66-22.33 424.81-23.1 422.51-23.1L422.51-23.1Q421.16-23.1 419.86-22.78 418.56-22.45 417.71-21.63 416.86-20.8 416.86-19.3L416.86-19.3Q416.86-18.05 417.53-17.32 418.21-16.6 419.53-16.1 420.86-15.6 422.76-15L422.76-15Q425.71-14.15 427.88-13.3 430.06-12.45 431.26-11.1 432.46-9.75 432.46-7.35L432.46-7.35Q432.46-3.65 429.66-1.58 426.86 0.5 422.26 0.5ZM449.26 0.5L449.26 0.5Q446.31 0.5 443.88-0.58 441.46-1.65 439.68-3.53 437.91-5.4 436.93-7.85 435.96-10.3 435.96-13.05L435.96-13.05Q435.96-16.75 437.66-19.8 439.36-22.85 442.38-24.7 445.41-26.55 449.31-26.55L449.31-26.55Q453.26-26.55 456.18-24.68 459.11-22.8 460.73-19.78 462.36-16.75 462.36-13.25L462.36-13.25Q462.36-12.75 462.33-12.28 462.31-11.8 462.26-11.55L462.26-11.55 440.61-11.55Q440.81-9 442.03-7.03 443.26-5.05 445.21-3.93 447.16-2.8 449.41-2.8L449.41-2.8Q451.81-2.8 453.93-4 456.06-5.2 456.86-7.15L456.86-7.15 460.66-6.1Q459.81-4.2 458.13-2.7 456.46-1.2 454.18-0.35 451.91 0.5 449.26 0.5ZM440.46-14.6L440.46-14.6 458.26-14.6Q458.06-17.15 456.81-19.1 455.56-21.05 453.61-22.15 451.66-23.25 449.31-23.25L449.31-23.25Q447.01-23.25 445.06-22.15 443.11-21.05 441.88-19.1 440.66-17.15 440.46-14.6Z" opacity="1" transform="matrix(1,0,0,1,0,0)" fill="#31c48d" class="slogan-text-1" data-fill-palette-color="secondary" id="text-1"></path></svg></g></svg></g></svg></g></svg></g><g transform="matrix(1,0,0,1,0,0.2631865008006784)"><svg viewBox="0 0 128.99776907857657 105.2746003202725" height="105.2746003202725" width="128.99776907857657"><g><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="4.53125 12.40000057220459 91.04318237304688 74.30000305175781" enable-background="new 0 0 100 100" xml:space="preserve" height="105.2746003202725" width="128.99776907857657" class="icon-icon-0" data-fill-palette-color="accent" id="icon-0"><g fill="#31c48d" data-fill-palette-color="accent"><g fill="#31c48d" data-fill-palette-color="accent"><g fill="#31c48d" data-fill-palette-color="accent"><g fill="#31c48d" data-fill-palette-color="accent"><g fill="#31c48d" data-fill-palette-color="accent"><path fill="#31c48d" d="M95.4 62.2c-0.2 0.3-0.5 0.5-0.8 0.5-0.2 0-0.4-0.1-0.5-0.2l-10.7-6.7c-0.5-0.3-0.6-0.9-0.3-1.4 0.3-0.5 0.9-0.6 1.4-0.3l10.7 6.6C95.6 61.1 95.7 61.7 95.4 62.2z" data-fill-palette-color="accent"></path><path fill="#31c48d" d="M89 36L70.9 19.5l-1.4-1.3-0.1-0.1-1.5-1.3-1.5-1.4c-2.1-1.9-4.9-3-7.8-3-2.2 0-4.3 0.6-6.1 1.7-0.4 0.2-0.7 0.5-1 0.7l-0.6 0.5-1.3 1-1.4-1-1.1-0.8c-0.1-0.1-0.3-0.2-0.4-0.2l-0.1-0.1c-1.9-1.2-4-1.8-6.2-1.8-2.2 0-4.4 0.6-6.2 1.8-0.6 0.4-1.1 0.8-1.6 1.3 0 0-0.1 0.1-0.1 0.1L30 17.7l-1.1 1L11 36.1c-0.9 0.8-1 2.2-0.4 3.2l8.6 13.4c5.9 9.1 16.5 14.8 27.8 14.8h5.2c11 0 21.1-5.2 27.2-13.8l9.9-14.2C90.1 38.3 89.9 36.9 89 36zM87.7 38.2l-9.9 14.2c-5.6 8.1-15.3 13-25.5 13H47c-10.7 0-20.6-5.2-26.1-13.9l-8.6-13.4c-0.1-0.2-0.1-0.5 0.1-0.7l18-17.4 1.1-1 2.3-2.2c0 0 0 0 0.1-0.1 0.4-0.4 0.9-0.8 1.3-1.1 1.6-1 3.4-1.5 5.2-1.5 1.8 0 3.6 0.5 5.2 1.5 0.1 0.1 0.3 0.2 0.4 0.3l1.1 0.8 2.4 1.7 0.3 0.2 0.8-0.6 1.6-1.3 0.6-0.5c0.3-0.2 0.6-0.4 0.9-0.6 1.5-0.9 3.3-1.4 5-1.4 2.3 0 4.6 0.8 6.4 2.5l1.5 1.4 1.5 1.3 0.1 0.1 1.4 1.3 18.1 16.5C87.8 37.7 87.9 38 87.7 38.2z" data-fill-palette-color="accent"></path><path fill="#31c48d" d="M84.5 75.6c-0.2 0.2-0.4 0.2-0.6 0.2-0.3 0-0.6-0.1-0.8-0.3L75 66.1c-0.4-0.4-0.3-1 0.1-1.4 0.4-0.4 1-0.3 1.4 0.1l8.1 9.4C85 74.6 85 75.3 84.5 75.6z" data-fill-palette-color="accent"></path><path fill="#31c48d" d="M69.4 84.5c-0.1 0-0.2 0-0.3 0-0.4 0-0.8-0.3-1-0.7l-3.6-12.4c-0.2-0.5 0.1-1.1 0.7-1.2 0.5-0.1 1.1 0.2 1.2 0.7l3.6 12.5C70.2 83.8 69.9 84.4 69.4 84.5z" data-fill-palette-color="accent"></path><path fill="#31c48d" d="M51 72.9v12.8c0 0.5-0.5 1-1 1s-1-0.5-1-1V72.9c0-0.6 0.5-1 1-1S51 72.3 51 72.9z" data-fill-palette-color="accent"></path><path fill="#31c48d" d="M34.7 70.2c0.5 0.2 0.8 0.7 0.7 1.2l-3.6 12.4c-0.1 0.4-0.5 0.7-1 0.7-0.1 0-0.2 0-0.3 0-0.5-0.2-0.8-0.7-0.7-1.2l3.6-12.4C33.6 70.3 34.2 70 34.7 70.2z" data-fill-palette-color="accent"></path><path fill="#31c48d" d="M77.5 37.1l-8-4.4-1.1-0.6-7.3-4.1c-0.4-0.2-0.8-0.4-1.1-0.5-0.3-0.1-0.7-0.2-1.1-0.3C58.1 27 57.3 27 56.4 27c-0.2 0-0.4 0-0.6 0-0.6 0-1.1 0.1-1.7 0.2-0.4 0.1-0.7 0.2-1.1 0.3-0.3 0.1-0.7 0.2-1 0.4l0 0c-0.5 0.2-1 0.4-1.5 0.5-0.3 0-0.5 0.1-0.8 0.1-0.1 0-0.2 0-0.3 0-0.7 0-1.3-0.2-1.9-0.4L47 27.7c-1.2-0.5-2.7-0.8-4.1-0.8-0.6 0-1.3 0-1.9 0.2-0.4 0.1-0.7 0.1-1.1 0.2-0.7 0.2-1.4 0.5-2 0.8l-6.5 3.8-1.1 0.6-7.9 4.6c-0.3 0.2-0.4 0.6-0.1 0.9l6 5.7c1.2 1.1 2.6 2.1 4.2 2.9 0.5 0.2 1 0.5 1.5 0.7l0 0c3.9 1.7 8.7 2.9 13.7 2.9h3.9c5.2 0 10.3-1.3 14.2-3.1 0-0.1 0 0.1 0 0h0c0.5-0.2 1-0.5 1.5-0.8 1.2-0.7 2.3-1.4 3.2-2.2l7-6.1C77.9 37.8 77.9 37.3 77.5 37.1zM50.5 30.3c0.1 0 0.2 0 0.3 0 0.7-0.1 1.4-0.3 2.1-0.6 1-0.5 2.2-0.7 3.5-0.7 0.7 0 1.5 0.1 2.1 0.2 0.1 0 0.3 0.1 0.5 0.1v4.2c0 0.7-0.6 1.3-1.3 1.3h-5.8c-0.7 0-1.3-0.6-1.3-1.3V30.3zM41 29.1c0.1 0 0.2 0 0.3-0.1 0.5-0.1 1-0.1 1.6-0.1 1.2 0 2.4 0.2 3.3 0.6l0.5 0.2c0.8 0.4 1.7 0.6 2.6 0.6h0.1v3.2c0 0.7-0.6 1.3-1.3 1.3h-5.8c-0.7 0-1.3-0.6-1.3-1.3V29.1zM32.7 34.8c-0.5 0-0.9-0.3-1.2-0.7l0.9-0.5 6.5-3.8c0.3-0.2 0.6-0.3 0.9-0.4v4.1c0 0.7-0.6 1.3-1.3 1.3H32.7zM51.7 48h-3.9c-4.3 0-8.6-0.8-12.1-2.1 0.6-2 3-3.5 5.8-3.5l9 0.5 8-0.5c2.8 0 5.1 1.4 5.8 3.4C60.6 47.2 56.2 48 51.7 48zM67.2 34.8h-5.8c-0.7 0-1.3-0.5-1.3-1.1v-4c0.1 0 0.1 0 0.2 0.1l7.3 4.1 0.8 0.4C68.1 34.6 67.7 34.8 67.2 34.8z" data-fill-palette-color="accent"></path><path fill="#31c48d" d="M24.9 64.7c0.4 0.4 0.5 1 0.1 1.4l-8.1 9.4c-0.2 0.2-0.5 0.3-0.8 0.3-0.2 0-0.5-0.1-0.7-0.2-0.4-0.4-0.5-1-0.1-1.4l8.1-9.4C23.8 64.4 24.4 64.3 24.9 64.7z" data-fill-palette-color="accent"></path><path fill="#31c48d" d="M17 54.5c0.3 0.5 0.1 1.1-0.3 1.4L6 62.5c-0.2 0.1-0.3 0.2-0.5 0.2-0.3 0-0.7-0.2-0.8-0.5-0.3-0.5-0.2-1.1 0.3-1.4l10.7-6.6C16 53.8 16.7 54 17 54.5z" data-fill-palette-color="accent"></path></g></g></g></g></g></svg></g></svg></g></svg></g><defs></defs></svg><rect width="395.5199999999999" height="74.51216291537946" fill="none" stroke="none" visibility="hidden"></rect></g></svg></g></symbol>
   </defs>
 </svg>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-brand" aria-label="Takalam">
-    <svg class="nav-logo" viewBox="0 0 1000 189" aria-label="Takalam · Speak with purpose" role="img"><use href="#takalam-logo"/></svg>
-  </a>
-  <a href="https://wa.me/212722774753?text=Hi%2C%20I%20saw%20Takalam%20and%20want%20to%20apply%20for%20the%20placement%20interview." class="nav-cta"><span class="cta-full">Book placement interview</span><span class="cta-short">Book interview</span></a>
-</nav>
+<div class="grain"></div>
 
-<!-- HERO -->
+<!-- ============ HEADER ============ -->
+<header class="site-head" id="head">
+  <div class="wrap head-row">
+    <a class="logo" href="#top" aria-label="Takalam home">
+      <svg class="logo-wm" viewBox="0 0 1000 189" aria-label="Takalam English" role="img"><use href="#takalam-logo"/></svg>
+    </a>
+    <div class="head-cta">
+      <a class="btn btn--emerald" href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
+        <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z" fill="currentColor" opacity=".18"></path><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
+        <span class="lbl">Book a free call</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="hero-eyebrow eyebrow">FOR AMBITIOUS MOROCCAN ADULTS</div>
-  <h1 class="display">From stuck at basic English<br>to <em>confident B2</em><br>in 18 months.</h1>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="hero-kicker reveal"><span class="eyebrow">Online English coaching</span></div>
+      <h1 class="reveal d1">You know English.<br>Now speak it with
+        <span class="pop">confidence<svg class="underline" viewBox="0 0 320 40" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26c52-14 210-22 308-12" stroke="currentColor" stroke-width="9" stroke-linecap="round"></path></svg></span>.
+      </h1>
+      <p class="hero-sub reveal d2">Takalam helps adults who understand English but freeze when it's time to speak. Two ways to get there. Pick the one that fits you.</p>
+      <div class="hero-actions reveal d3">
+        <a class="btn btn--lg btn--emerald" href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
+          <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
+          Book a free call
+        </a>
+        <span class="hero-meta"><span class="dot"></span> 30 minutes, no pressure</span>
+      </div>
+    </div>
 
-  <p class="hero-sub">Groups of six. Twice a week. Three hours of structured self-study. Cambridge B2 First exam at the end. Built for adults who are done dabbling and ready to actually reach fluency.</p>
-
-  <div class="hero-cta-row">
-    <a href="https://wa.me/212722774753?text=Hi%2C%20I%20saw%20Takalam%20and%20want%20to%20apply%20for%20the%20placement%20interview." class="btn-primary">Book your placement interview</a>
-    <span class="cta-meta">Free · 30 minutes · Not everyone is accepted</span>
+    <div class="hero-art reveal d2" aria-hidden="true">
+      <svg viewBox="0 0 540 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- backing blobs -->
+        <path d="M300 70c95 0 180 60 180 175s-55 240-185 240S70 380 70 270 145 70 300 70Z" fill="#31c48d" opacity=".9"></path>
+        <ellipse cx="190" cy="360" rx="150" ry="140" fill="#df8a5d" opacity=".55" style="mix-blend-mode:multiply"></ellipse>
+        <circle cx="410" cy="150" r="70" fill="#e7ad44" opacity=".7" style="mix-blend-mode:multiply"></circle>
+        <!-- figure: shoulders + head -->
+        <path d="M150 560c0-90 55-150 120-150s120 60 120 150Z" fill="#0d4f37"></path>
+        <circle cx="270" cy="350" r="62" fill="#0d4f37"></circle>
+        <path d="M232 348c10 10 66 10 76 0" stroke="#31c48d" stroke-width="6" stroke-linecap="round"></path>
+        <circle cx="270" cy="372" r="9" fill="#df8a5d"></circle>
+        <!-- blooming speech bubbles -->
+        <g class="float-a">
+          <path d="M300 120h150a18 18 0 0 1 18 18v52a18 18 0 0 1-18 18h-92l-30 26 4-26h-32a18 18 0 0 1-18-18v-52a18 18 0 0 1 18-18Z" fill="#faf8f2" stroke="#0d4f37" stroke-width="3"></path>
+          <rect x="318" y="148" width="116" height="11" rx="5.5" fill="#31c48d"></rect>
+          <rect x="318" y="168" width="78" height="11" rx="5.5" fill="#1a2332" opacity=".25"></rect>
+        </g>
+        <g class="float-b">
+          <path d="M70 200h120a16 16 0 0 1 16 16v44a16 16 0 0 1-16 16H120l-22 22 3-22h-31a16 16 0 0 1-16-16v-44a16 16 0 0 1 16-16Z" fill="#0d4f37"></path>
+          <rect x="84" y="224" width="92" height="10" rx="5" fill="#e7ad44"></rect>
+          <rect x="84" y="242" width="58" height="10" rx="5" fill="#faf8f2" opacity=".5"></rect>
+        </g>
+        <g class="float-c">
+          <path d="M392 300h84a15 15 0 0 1 15 15v34a15 15 0 0 1-15 15h-46l-18 18 2-18h-22a15 15 0 0 1-15-15v-34a15 15 0 0 1 15-15Z" fill="#df8a5d"></path>
+          <rect x="404" y="320" width="60" height="9" rx="4.5" fill="#faf8f2"></rect>
+          <rect x="404" y="335" width="38" height="9" rx="4.5" fill="#faf8f2" opacity=".55"></rect>
+        </g>
+        <!-- sparkles + dots -->
+        <path class="float-b" d="M455 250c1.5 8 3 9.5 11 11-8 1.5-9.5 3-11 11-1.5-8-3-9.5-11-11 8-1.5 9.5-3 11-11Z" fill="#0d4f37"></path>
+        <path class="float-c" d="M120 130c1.2 6.4 2.4 7.6 8.8 8.8-6.4 1.2-7.6 2.4-8.8 8.8-1.2-6.4-2.4-7.6-8.8-8.8 6.4-1.2 7.6-2.4 8.8-8.8Z" fill="#e7ad44"></path>
+        <circle class="float-a" cx="490" cy="370" r="9" fill="#31c48d"></circle>
+        <circle class="float-c" cx="60" cy="320" r="7" fill="#0d4f37"></circle>
+        <circle class="float-a" cx="350" cy="470" r="11" fill="#e7ad44"></circle>
+        <circle class="float-b" cx="175" cy="120" r="6" fill="#df8a5d"></circle>
+      </svg>
+    </div>
   </div>
-
 </section>
 
-<!-- PROBLEM -->
-<section class="problem">
-  <div class="container">
-    <div class="problem-grid">
-      <div class="problem-text">
-        <div class="eyebrow reveal">THE STUCK POINT</div>
-        <h2 class="display reveal">You already tried Duolingo,<br>YouTube, and a course<br>somewhere. <em>You're still stuck.</em></h2>
-        <p class="reveal">You understand more English than you can speak. You freeze in meetings. You code-switch when the words don't come. You've been at the same level for a year, maybe two. You're starting to wonder if English is just not for you.</p>
-        <p class="reveal">It is. The problem isn't you. The problem is that every English course in Morocco is built for one of two people: beginners who need hand-holding, or exam candidates cramming for IELTS next month. There's nothing serious for ambitious adults who already have a foundation and need to break through to real, working English.</p>
-        <p class="takalam-is reveal">Takalam is that program.</p>
+<!-- ============ TWO DOORS ============ -->
+<section class="section" id="paths">
+  <div class="wrap">
+    <div class="doors-intro reveal">
+      <div>
+        <span class="eyebrow">Two paths</span>
+        <h2>Two doors. The same place on the other side: you, speaking freely.</h2>
+      </div>
+    </div>
+
+    <div class="doors">
+      <!-- CARD 1: SPEAK -->
+      <article class="door door--speak reveal d1">
+        <div class="door-top">
+          <span class="door-label"><span class="chip"></span> Takalam Speak</span>
+          <span class="door-num">01</span>
+        </div>
+
+        <div class="door-art">
+          <svg viewBox="0 0 460 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="460" height="230" rx="18" fill="#f3ecdc"></rect>
+            <!-- six figures in a conversation ring -->
+            <g>
+              <circle cx="90" cy="78" r="26" fill="#31c48d"></circle><rect x="70" y="104" width="40" height="34" rx="20" fill="#31c48d"></rect>
+              <circle cx="230" cy="62" r="26" fill="#0d4f37"></circle><rect x="210" y="88" width="40" height="34" rx="20" fill="#0d4f37"></rect>
+              <circle cx="370" cy="78" r="26" fill="#df8a5d"></circle><rect x="350" y="104" width="40" height="34" rx="20" fill="#df8a5d"></rect>
+              <circle cx="90" cy="170" r="26" fill="#e7ad44"></circle><rect x="70" y="170" width="40" height="34" rx="20" fill="#e7ad44"></rect>
+              <circle cx="230" cy="184" r="26" fill="#df8a5d"></circle><rect x="210" y="184" width="40" height="34" rx="20" fill="#df8a5d"></rect>
+              <circle cx="370" cy="170" r="26" fill="#0d4f37"></circle><rect x="350" y="170" width="40" height="34" rx="20" fill="#0d4f37"></rect>
+            </g>
+            <!-- connecting speech bubbles in the middle -->
+            <path d="M168 96h124a16 16 0 0 1 16 16v18a16 16 0 0 1-16 16h-40l-16 16 1-16h-69a16 16 0 0 1-16-16v-18a16 16 0 0 1 16-16Z" fill="#faf8f2" stroke="#0d4f37" stroke-width="2.5"></path>
+            <rect x="182" y="112" width="96" height="8" rx="4" fill="#31c48d"></rect>
+            <rect x="182" y="126" width="60" height="8" rx="4" fill="#1a2332" opacity=".25"></rect>
+          </svg>
+        </div>
+
+        <p class="door-tag">For when your English is good, but speaking still <em>scares you.</em></p>
+        <p class="door-body">Your grammar is solid. Your vocabulary is there. You can handle the tenses. But in a real conversation you hesitate, you fill the silence with ums, you freeze in meetings, and speaking with others stresses you out. Speak fixes exactly this. In small groups of six, you practice real scenarios through guided discussion until speaking becomes natural instead of frightening. You join in 12-week cycles: topics start approachable and get more demanding as you go, so every cycle stretches you a little further. Most people stay for several, because confidence is a habit you keep building, not a box you tick once.</p>
+
+        <ul class="door-facts">
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Small groups, 6 students maximum</li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> 12-week cycles, 2 sessions a week, 90 minutes each</li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Continue cycle after cycle as topics get harder</li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Fully online, join from anywhere</li>
+        </ul>
+
+        <div class="price-block">
+          <div class="price-rows">
+            <div class="price-row">
+              <span class="plan">Monthly<small>Pay as you go</small></span>
+              <span class="amt">600 MAD<small>~$60</small></span>
+            </div>
+            <div class="price-row">
+              <span class="plan">Quarterly<small>Best value <span class="save-pill">Save 150 MAD</span></small></span>
+              <span class="amt">1,650 MAD<small>~$165</small></span>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn--emerald" href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'm%20interested%20in%20Takalam%20Speak.%20Can%20we%20book%20a%20free%20call?" target="_blank" rel="noopener">
+          <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
+          Book a free call
+        </a>
+      </article>
+
+      <!-- CARD 2: PRIVATE -->
+      <article class="door door--private reveal d2">
+        <div class="door-top">
+          <span class="door-label"><span class="chip"></span> Takalam Private</span>
+          <span class="door-num">02</span>
+        </div>
+
+        <div class="door-art">
+          <svg viewBox="0 0 460 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="460" height="230" rx="18" fill="#0a3d2b"></rect>
+            <!-- single focused path from coach to goal -->
+            <path d="M120 150c40-70 180-70 230-110" stroke="#e7ad44" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"></path>
+            <!-- coach figure -->
+            <circle cx="120" cy="120" r="30" fill="#31c48d"></circle><rect x="96" y="150" width="48" height="40" rx="24" fill="#31c48d"></rect>
+            <!-- student figure facing -->
+            <circle cx="230" cy="150" r="26" fill="#faf8f2"></circle><rect x="208" y="176" width="44" height="36" rx="22" fill="#faf8f2"></rect>
+            <!-- one-to-one speech bubble between -->
+            <path d="M150 86h70a14 14 0 0 1 14 14v14a14 14 0 0 1-14 14h-30l-14 13 1-13h-27a14 14 0 0 1-14-14v-14a14 14 0 0 1 14-14Z" fill="#df8a5d"></path>
+            <rect x="162" y="100" width="50" height="7" rx="3.5" fill="#faf8f2"></rect>
+            <rect x="162" y="112" width="32" height="7" rx="3.5" fill="#faf8f2" opacity=".6"></rect>
+            <!-- target / goal -->
+            <circle cx="372" cy="56" r="26" fill="none" stroke="#e7ad44" stroke-width="3"></circle>
+            <circle cx="372" cy="56" r="14" fill="none" stroke="#e7ad44" stroke-width="3"></circle>
+            <circle cx="372" cy="56" r="5" fill="#df8a5d"></circle>
+          </svg>
+        </div>
+
+        <p class="door-tag">For when you have a specific goal and need a plan built <em>around you.</em></p>
+        <p class="door-body">Some goals need a program shaped entirely around one person. Exam preparation like IELTS, TOEFL, or the Duolingo English Test. Business English for your specific role. Interview preparation. A personal target with a deadline. Private is one to one coaching focused only on you, your level, and what you need to achieve.</p>
+
+        <ul class="door-facts">
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> One to one, fully online</li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Flexible scheduling around your week</li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Built around your specific goal</li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Private WhatsApp summary after every session.</li>
+        </ul>
+
+        <div class="price-block">
+          <div class="price-rows">
+            <div class="price-row solo">
+              <span class="plan">Per session<small>Pay as you go</small></span>
+              <span class="amt">From 250 MAD<small>~$25</small></span>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn--cream" href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'm%20interested%20in%20Takalam%20Private.%20Can%20we%20book%20a%20free%20call?" target="_blank" rel="noopener">
+          <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
+          Book a free call
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section band" id="how">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">How it works</span>
+      <h2>Three steps to speaking.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal d1">
+        <div class="step-icon">
+          <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
+            <path d="M8 8h28a6 6 0 0 1 6 6v16a6 6 0 0 1-6 6H20l-10 9 2-9H8a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6Z" fill="#31c48d"></path>
+            <circle cx="33" cy="35" r="11" fill="#0d4f37"></circle>
+            <path d="M29 31c.2-.4.4-.4.6-.4h.4c.2 0 .3 0 .5.4l.5 1.2c0 .2 0 .3 0 .4l-.3.3c0 .2-.2.2 0 .4.1.3.5.9 1.1 1.3.7.5 1.1.6 1.3.7.1 0 .3 0 .4-.1l.4-.5c.1-.1.3-.1.4 0l1.1.6c.2 0 .3.1.3.2 0 .2 0 .6-.2.9-.2.3-.9.7-1.3.7-.3 0-.7 0-2.5-.7-2-.9-3.2-3-3.3-3.2 0-.1-.8-1-.8-1.9 0-1 .5-1.4.7-1.6Z" fill="#31c48d"></path>
+          </svg>
+        </div>
+        <p class="step-n">Step one</p>
+        <h3>Book a free call</h3>
+        <p>Tell us where you are. We listen, no test, no pressure.</p>
       </div>
 
-      <aside class="problem-visual reveal" aria-hidden="true">
-        <svg viewBox="0 0 380 480" xmlns="http://www.w3.org/2000/svg">
-          <!-- Frame -->
-          <rect x="0" y="0" width="380" height="480" fill="#fafaf7" stroke="#d5dce0" stroke-width="0.5"/>
+      <div class="step reveal d2">
+        <div class="step-icon">
+          <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
+            <rect x="7" y="6" width="32" height="38" rx="5" fill="#faf8f2" stroke="#0d4f37" stroke-width="2.5"></rect>
+            <path d="M14 18c4-5 14 5 18 0" stroke="#df8a5d" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 6"></path>
+            <path d="M14 28h12" stroke="#0d4f37" stroke-width="2.5" stroke-linecap="round"></path>
+            <path d="M14 35h18" stroke="#0d4f37" stroke-width="2.5" stroke-linecap="round" opacity=".4"></path>
+            <path d="M37 30c0 4-5 9-5 9s-5-5-5-9a5 5 0 0 1 10 0Z" fill="#31c48d"></path>
+            <circle cx="32" cy="30" r="2" fill="#faf8f2"></circle>
+          </svg>
+        </div>
+        <p class="step-n">Step two</p>
+        <h3>Get your plan</h3>
+        <p>We point you to Speak or Private and map what comes next.</p>
+      </div>
 
-          <!-- Eyebrow -->
-          <text x="24" y="38" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c2410c" letter-spacing="2.5">THE PLATEAU</text>
+      <div class="step reveal d3">
+        <div class="step-icon">
+          <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
+            <path d="M6 16h22a8 8 0 0 1 8 8v2a8 8 0 0 1-8 8h-6l-9 8 2-8a8 8 0 0 1-9-8v-2a8 8 0 0 1 8-8Z" fill="#0d4f37"></path>
+            <circle cx="14" cy="25" r="2.6" fill="#31c48d"></circle><circle cx="22" cy="25" r="2.6" fill="#31c48d"></circle><circle cx="30" cy="25" r="2.6" fill="#e7ad44"></circle>
+            <path d="M40 18c3 2.5 3 11.5 0 14" stroke="#df8a5d" stroke-width="2.5" stroke-linecap="round"></path>
+            <path d="M44 13c5 4.5 5 19 0 23" stroke="#df8a5d" stroke-width="2.5" stroke-linecap="round" opacity=".55"></path>
+          </svg>
+        </div>
+        <p class="step-n">Step three</p>
+        <h3>Start speaking</h3>
+        <p>Show up, practice for real, and watch the fear shrink.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <!-- Title -->
-          <text x="24" y="68" font-family="Fraunces, serif" font-style="italic" font-size="22" font-weight="700" fill="#0d4f37">Year after year.</text>
-          <text x="24" y="92" font-family="Fraunces, serif" font-style="italic" font-size="22" font-weight="700" fill="#0d4f37">Same level.</text>
-
-          <!-- Plateau chart - showing flat progression year over year -->
-          <g transform="translate(24, 130)">
-            <!-- Y axis label -->
-            <text x="0" y="0" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#5a6670" letter-spacing="1.5">YOUR ENGLISH LEVEL</text>
-
-            <!-- Level reference lines -->
-            <line x1="0" y1="20" x2="332" y2="20" stroke="#d5dce0" stroke-width="0.5" stroke-dasharray="2 3"/>
-            <text x="332" y="17" font-family="Inter, sans-serif" font-size="8" fill="#5a6670" text-anchor="end">B2</text>
-
-            <line x1="0" y1="60" x2="332" y2="60" stroke="#d5dce0" stroke-width="0.5" stroke-dasharray="2 3"/>
-            <text x="332" y="57" font-family="Inter, sans-serif" font-size="8" fill="#5a6670" text-anchor="end">B1</text>
-
-            <line x1="0" y1="100" x2="332" y2="100" stroke="#0d4f37" stroke-width="1"/>
-            <text x="332" y="97" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#0d4f37" text-anchor="end">A2</text>
-
-            <line x1="0" y1="140" x2="332" y2="140" stroke="#d5dce0" stroke-width="0.5" stroke-dasharray="2 3"/>
-            <text x="332" y="137" font-family="Inter, sans-serif" font-size="8" fill="#5a6670" text-anchor="end">A1</text>
-
-            <!-- Flat plateau line at A2 - the stuck state -->
-            <path d="M 4 100 Q 50 99, 80 100 T 160 100 T 240 100 T 332 100" fill="none" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round"/>
-
-            <!-- Year markers along the plateau -->
-            <g font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#5a6670">
-              <circle cx="4" cy="100" r="3" fill="#c2410c"/>
-              <text x="4" y="170" text-anchor="middle">YEAR 1</text>
-
-              <circle cx="166" cy="100" r="3" fill="#c2410c"/>
-              <text x="166" y="170" text-anchor="middle">YEAR 2</text>
-
-              <circle cx="332" cy="100" r="3" fill="#c2410c"/>
-              <text x="332" y="170" text-anchor="middle">TODAY</text>
-            </g>
-          </g>
-
-          <!-- Caption block -->
-          <line x1="24" y1="320" x2="356" y2="320" stroke="#d5dce0" stroke-width="0.5"/>
-          <text x="24" y="345" font-family="Fraunces, serif" font-style="italic" font-size="13" fill="#5a6670">You don't need more apps,</text>
-          <text x="24" y="362" font-family="Fraunces, serif" font-style="italic" font-size="13" fill="#5a6670">more YouTube, or another</text>
-          <text x="24" y="379" font-family="Fraunces, serif" font-style="italic" font-size="13" fill="#5a6670">free course. You need a</text>
-
-          <text x="24" y="408" font-family="Fraunces, serif" font-weight="700" font-size="16" fill="#0d4f37">structured method,</text>
-          <text x="24" y="428" font-family="Fraunces, serif" font-weight="700" font-style="italic" font-size="16" fill="#31c48d">accountability,</text>
-          <text x="24" y="448" font-family="Fraunces, serif" font-weight="700" font-size="16" fill="#0d4f37">and a real deadline.</text>
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="wrap faq-grid">
+    <div class="faq-aside reveal">
+      <span class="eyebrow">Questions</span>
+      <h2 style="font-size:clamp(2.1rem,4.6vw,3.5rem);font-weight:520;margin-top:18px;">Things people ask us.</h2>
+      <p style="margin-top:18px;color:var(--ink-soft);font-size:1.1rem;">Still wondering about something? The free call is the easiest way to get a real answer.</p>
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 30h150a20 20 0 0 1 20 20v50a20 20 0 0 1-20 20H90l-30 26 4-26h-34a20 20 0 0 1-20-20V50a20 20 0 0 1 20-20Z" fill="#31c48d"></path>
+          <text x="92" y="92" font-family="Fraunces, serif" font-size="58" font-style="italic" font-weight="600" fill="#06281c" text-anchor="middle">?</text>
+          <path d="M150 130h70a16 16 0 0 1 16 16v34a16 16 0 0 1-16 16h-30l-22 20 3-20h-21a16 16 0 0 1-16-16v-34a16 16 0 0 1 16-16Z" fill="#df8a5d"></path>
+          <text x="186" y="178" font-family="Fraunces, serif" font-size="42" font-style="italic" font-weight="600" fill="#faf8f2" text-anchor="middle">!</text>
+          <circle cx="245" cy="60" r="9" fill="#e7ad44"></circle>
+          <circle cx="40" cy="170" r="7" fill="#0d4f37"></circle>
         </svg>
-      </aside>
+      </div>
+    </div>
+
+    <div class="faq-list reveal d1" id="faqList">
+      <!-- items injected/enhanced by JS; written statically for direct edit -->
     </div>
   </div>
 </section>
 
-<!-- SOLUTION -->
-<section class="solution">
-  <div class="container">
-    <div class="eyebrow reveal">THE METHOD</div>
-    <h2 class="display reveal">A structured 18-month journey.<br>A <em>real</em> method. A real certification.</h2>
-    <p class="reveal">Takalam Foundation is built on decades of second-language acquisition research and organized into three six-month levels, each with a formal assessment at the end. Two live online sessions per week, maximum six students per group, three hours of structured self-study, year-round.</p>
-    <p class="reveal">At month 18, you sit the Cambridge B2 First exam. That's the endpoint. Not a Takalam certificate. Not a vibes-based assessment. A real, internationally recognized credential from the same body that certifies professionals worldwide.</p>
-    <p class="reveal">This isn't a course. It's a two-year transformation disguised as eighteen months because that's how long the research says it takes when the method is right.</p>
-
-    <!-- Weekly architecture visualization -->
-    <div class="week-architecture reveal">
-      <div class="week-arch-header">
-        <div class="week-arch-eyebrow">YOUR WEEK · 6 HOURS</div>
-        <div class="week-arch-title">Half in class. <em>Half on your own.</em></div>
-      </div>
-
-      <svg viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg" class="week-arch-svg" aria-hidden="true">
-        <!-- Background division: live (top half) vs self-study (bottom half) -->
-        <rect x="0" y="0" width="1200" height="280" fill="#fafaf7"/>
-
-        <!-- Live session block 1: Monday -->
-        <g transform="translate(40, 30)">
-          <rect width="240" height="100" fill="#0d4f37" rx="2"/>
-          <text x="20" y="28" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#31c48d" letter-spacing="2">LIVE SESSION · MON</text>
-          <text x="20" y="58" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="32" fill="#fafaf7">90 min</text>
-          <text x="20" y="82" font-family="Fraunces, serif" font-style="italic" font-size="13" fill="#fafaf7" opacity="0.75">6 students. Communicative.</text>
-        </g>
-
-        <!-- Live session block 2: Wednesday -->
-        <g transform="translate(320, 30)">
-          <rect width="240" height="100" fill="#0d4f37" rx="2"/>
-          <text x="20" y="28" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#31c48d" letter-spacing="2">LIVE SESSION · WED</text>
-          <text x="20" y="58" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="32" fill="#fafaf7">90 min</text>
-          <text x="20" y="82" font-family="Fraunces, serif" font-style="italic" font-size="13" fill="#fafaf7" opacity="0.75">6 students. Communicative.</text>
-        </g>
-
-        <!-- Live total -->
-        <g transform="translate(600, 30)">
-          <line x1="0" y1="50" x2="40" y2="50" stroke="#31c48d" stroke-width="1"/>
-          <text x="50" y="44" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#31c48d" letter-spacing="2">TOTAL LIVE</text>
-          <text x="50" y="68" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="22" fill="#0d4f37">3 hr / wk</text>
-        </g>
-
-        <!-- Self-study row -->
-        <g transform="translate(40, 160)">
-          <rect width="115" height="90" fill="#e8f5ee" stroke="#31c48d" stroke-width="1" rx="2"/>
-          <text x="14" y="22" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#31c48d" letter-spacing="2">ANKI</text>
-          <text x="14" y="48" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="22" fill="#0d4f37">60 min</text>
-          <text x="14" y="72" font-family="Fraunces, serif" font-style="italic" font-size="11" fill="#5a6670">vocabulary</text>
-        </g>
-
-        <g transform="translate(170, 160)">
-          <rect width="115" height="90" fill="#e8f5ee" stroke="#31c48d" stroke-width="1" rx="2"/>
-          <text x="14" y="22" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#31c48d" letter-spacing="2">LISTENING</text>
-          <text x="14" y="48" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="22" fill="#0d4f37">60 min</text>
-          <text x="14" y="72" font-family="Fraunces, serif" font-style="italic" font-size="11" fill="#5a6670">curated</text>
-        </g>
-
-        <g transform="translate(300, 160)">
-          <rect width="115" height="90" fill="#e8f5ee" stroke="#31c48d" stroke-width="1" rx="2"/>
-          <text x="14" y="22" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#31c48d" letter-spacing="2">READING</text>
-          <text x="14" y="48" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="22" fill="#0d4f37">30 min</text>
-          <text x="14" y="72" font-family="Fraunces, serif" font-style="italic" font-size="11" fill="#5a6670">graded</text>
-        </g>
-
-        <g transform="translate(430, 160)">
-          <rect width="130" height="90" fill="#e8f5ee" stroke="#31c48d" stroke-width="1" rx="2"/>
-          <text x="14" y="22" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#31c48d" letter-spacing="2">VOICE MSG</text>
-          <text x="14" y="48" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="22" fill="#0d4f37">30 min</text>
-          <text x="14" y="72" font-family="Fraunces, serif" font-style="italic" font-size="11" fill="#5a6670">with feedback</text>
-        </g>
-
-        <!-- Self-study total -->
-        <g transform="translate(600, 160)">
-          <line x1="0" y1="50" x2="40" y2="50" stroke="#31c48d" stroke-width="1"/>
-          <text x="50" y="44" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#31c48d" letter-spacing="2">TOTAL SELF-STUDY</text>
-          <text x="50" y="68" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="22" fill="#0d4f37">3 hr / wk</text>
-        </g>
-
-        <!-- Right side: grand total -->
-        <g transform="translate(820, 75)">
-          <line x1="0" y1="0" x2="0" y2="130" stroke="#31c48d" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.5"/>
-          <text x="40" y="6" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#31c48d" letter-spacing="2.5">EVERY WEEK</text>
-          <text x="40" y="58" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="68" fill="#31c48d">6 hr</text>
-          <text x="40" y="92" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#5a6670">structured, tracked,</text>
-          <text x="40" y="110" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#5a6670">non-optional.</text>
-        </g>
-
-        <!-- Connector lines (vertical between live and self-study) -->
-        <line x1="160" y1="130" x2="160" y2="160" stroke="#31c48d" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
-        <line x1="440" y1="130" x2="440" y2="160" stroke="#31c48d" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
-      </svg>
-
-      <!-- Mobile-only vertical week layout -->
-      <div class="week-arch-mobile">
-        <div class="wam-live">
-          <div class="wam-label">LIVE SESSION · MON</div>
-          <div class="wam-time">90 min</div>
-          <div class="wam-sub">6 students. Communicative.</div>
-        </div>
-        <div class="wam-live">
-          <div class="wam-label">LIVE SESSION · WED</div>
-          <div class="wam-time">90 min</div>
-          <div class="wam-sub">6 students. Communicative.</div>
-        </div>
-        <div class="wam-divider">
-          <span class="wam-divider-line"></span>
-          <span class="wam-divider-label">Total Live: 3 hr / wk</span>
-          <span class="wam-divider-line"></span>
-        </div>
-        <div class="wam-study">
-          <div class="wam-label">ANKI</div>
-          <div class="wam-time">60 min</div>
-          <div class="wam-sub">vocabulary</div>
-        </div>
-        <div class="wam-study">
-          <div class="wam-label">LISTENING</div>
-          <div class="wam-time">60 min</div>
-          <div class="wam-sub">curated</div>
-        </div>
-        <div class="wam-study">
-          <div class="wam-label">READING</div>
-          <div class="wam-time">30 min</div>
-          <div class="wam-sub">graded</div>
-        </div>
-        <div class="wam-study">
-          <div class="wam-label">VOICE MSG</div>
-          <div class="wam-time">30 min</div>
-          <div class="wam-sub">with feedback</div>
-        </div>
-        <div class="wam-divider">
-          <span class="wam-divider-line"></span>
-          <span class="wam-divider-label">Total Self-Study: 3 hr / wk</span>
-          <span class="wam-divider-line"></span>
-        </div>
-        <div class="wam-total">
-          <div class="wam-total-label">EVERY WEEK</div>
-          <div class="wam-total-time">6 hr</div>
-          <div class="wam-total-sub">structured, tracked, non-optional.</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- DIFFERENTIATORS -->
-<section class="differentiators">
-  <div class="container">
-    <div class="eyebrow reveal">WHY IT WORKS</div>
-    <h2 class="display reveal">Why Takalam works<br>when other programs <em>failed you.</em></h2>
-    <div class="diff-grid">
-      <div class="diff-item reveal">
-        <div class="diff-header">
-          <span class="num">01</span>
-          <svg class="diff-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- 6 dots arranged in a circle representing 6 students -->
-            <g fill="none" stroke="#31c48d" stroke-width="1.5">
-              <circle cx="32" cy="32" r="22" stroke-dasharray="2 4" opacity="0.5"/>
-            </g>
-            <g fill="#31c48d">
-              <circle cx="32" cy="10" r="3.5"/>
-              <circle cx="51" cy="21" r="3.5"/>
-              <circle cx="51" cy="43" r="3.5"/>
-              <circle cx="32" cy="54" r="3.5"/>
-              <circle cx="13" cy="43" r="3.5"/>
-              <circle cx="13" cy="21" r="3.5"/>
-            </g>
-            <!-- Connecting lines between adjacent students -->
-            <g stroke="#31c48d" stroke-width="0.6" opacity="0.4">
-              <line x1="32" y1="10" x2="51" y2="21"/>
-              <line x1="51" y1="21" x2="51" y2="43"/>
-              <line x1="51" y1="43" x2="32" y2="54"/>
-              <line x1="32" y1="54" x2="13" y2="43"/>
-              <line x1="13" y1="43" x2="13" y2="21"/>
-              <line x1="13" y1="21" x2="32" y2="10"/>
-            </g>
-          </svg>
-        </div>
-        <h3>Groups of 6. Never more. Ever.</h3>
-        <p>Most online classes in Morocco put 15-20 students in a session. You listen, rarely speak, stay stuck. Takalam caps at six because research is clear: six is the largest size at which every student speaks in every session. There's nowhere to hide, and that's the point.</p>
-      </div>
-
-      <div class="diff-item reveal">
-        <div class="diff-header">
-          <span class="num">02</span>
-          <svg class="diff-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Two overlapping vertical bars: live + self-study -->
-            <rect x="14" y="12" width="14" height="40" fill="#31c48d" rx="1"/>
-            <rect x="36" y="20" width="14" height="32" fill="none" stroke="#31c48d" stroke-width="1.5" rx="1"/>
-            <!-- Crosshatch pattern in self-study bar to show "structured" -->
-            <line x1="36" y1="28" x2="50" y2="28" stroke="#31c48d" stroke-width="0.8" opacity="0.4"/>
-            <line x1="36" y1="36" x2="50" y2="36" stroke="#31c48d" stroke-width="0.8" opacity="0.4"/>
-            <line x1="36" y1="44" x2="50" y2="44" stroke="#31c48d" stroke-width="0.8" opacity="0.4"/>
-            <!-- Baseline -->
-            <line x1="8" y1="56" x2="56" y2="56" stroke="#31c48d" stroke-width="0.8"/>
-          </svg>
-        </div>
-        <h3>Three hours in class. Three at home. Every week.</h3>
-        <p>Class alone won't get you to B2. What gets you there is class plus structured, tracked self-study: spaced repetition vocabulary, curated listening, graded reading, weekly voice messages with teacher feedback. Half your learning happens between sessions. We build that half for you.</p>
-      </div>
-
-      <div class="diff-item reveal">
-        <div class="diff-header">
-          <span class="num">03</span>
-        </div>
-        <h3>Cambridge-validated outcomes.</h3>
-        <p>At month 18, you sit the Cambridge B2 First exam. A globally recognized credential from the same body that certifies professionals worldwide. Your level after Takalam isn't our opinion. It's on paper.</p>
-      </div>
-
-      <div class="diff-item reveal">
-        <div class="diff-header">
-          <span class="num">04</span>
-          <svg class="diff-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- A gate/filter icon: many arrows entering, one selected -->
-            <!-- Funnel shape -->
-            <path d="M 8 14 L 56 14 L 38 36 L 38 54 L 26 54 L 26 36 Z" fill="none" stroke="#31c48d" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- Inner filter line -->
-            <line x1="14" y1="22" x2="50" y2="22" stroke="#31c48d" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.5"/>
-            <!-- Selected dot at the bottom (the qualified candidate) -->
-            <circle cx="32" cy="46" r="3" fill="#31c48d"/>
-            <!-- Three "rejected" dots outside, faded -->
-            <circle cx="14" cy="8" r="2" fill="#31c48d" opacity="0.3"/>
-            <circle cx="32" cy="6" r="2" fill="#31c48d" opacity="0.3"/>
-            <circle cx="50" cy="8" r="2" fill="#31c48d" opacity="0.3"/>
-          </svg>
-        </div>
-        <h3>Selective enrollment.</h3>
-        <p>Every prospective student completes a 30-minute placement interview before enrollment. We verify your level, your goals, your ability to commit to six hours a week. If you're not ready, we'll tell you honestly. The interview protects the group dynamic and the outcome promise.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- THE JOURNEY -->
-<section class="journey">
-  <div class="container">
-    <div class="eyebrow reveal">THE 18-MONTH JOURNEY</div>
-    <h2 class="display reveal">Three levels.<br>Six cycles. <em>One destination.</em></h2>
-    <p class="journey-lead reveal">Every eight weeks, you complete a CEFR-aligned cycle assessment. The path is structured, the progress is measurable, the endpoint is verified by Cambridge.</p>
-
-    <div class="journey-viz reveal">
-      <svg viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" class="journey-svg" aria-label="The 18-month Takalam journey from A2 to B2">
-
-        <!-- Background ascending baseline curve representing growth -->
-        <path d="M 60 240 Q 400 230, 600 180 T 1140 60" fill="none" stroke="#31c48d" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.4"/>
-
-        <!-- Three level zones (subtle background blocks) -->
-        <rect x="60" y="55" width="340" height="220" fill="#31c48d" opacity="0.04" rx="4"/>
-        <rect x="430" y="55" width="340" height="220" fill="#31c48d" opacity="0.07" rx="4"/>
-        <rect x="800" y="55" width="340" height="220" fill="#31c48d" opacity="0.10" rx="4"/>
-
-        <!-- Vertical dividers between levels -->
-        <line x1="415" y1="55" x2="415" y2="275" stroke="#31c48d" stroke-width="0.5" opacity="0.3"/>
-        <line x1="785" y1="55" x2="785" y2="275" stroke="#31c48d" stroke-width="0.5" opacity="0.3"/>
-
-        <!-- LEVEL 1: months 0-6, A2 to A2+ -->
-        <text x="230" y="88" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#31c48d" letter-spacing="2.5">LEVEL 1</text>
-        <text x="230" y="120" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="32" fill="#0d4f37">A2 → A2+</text>
-        <text x="230" y="148" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#5a6670">Months 1–6 · Cycles 1–2</text>
-
-        <!-- LEVEL 2: months 6-12, A2+ to B1+ -->
-        <text x="600" y="88" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#31c48d" letter-spacing="2.5">LEVEL 2</text>
-        <text x="600" y="120" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="32" fill="#0d4f37">A2+ → B1+</text>
-        <text x="600" y="148" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#5a6670">Months 7–12 · Cycles 3–4</text>
-
-        <!-- LEVEL 3: months 12-18, B1+ to B2 -->
-        <text x="970" y="88" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#31c48d" letter-spacing="2.5">LEVEL 3</text>
-        <text x="970" y="120" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="32" fill="#0d4f37">B1+ → B2</text>
-        <text x="970" y="148" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#5a6670">Months 13–18 · Cycles 5–6</text>
-
-        <!-- Cycle dots along the timeline baseline -->
-        <g>
-          <!-- Cycle 1 -->
-          <circle cx="120" cy="245" r="5" fill="#31c48d"/>
-          <text x="120" y="268" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="10" fill="#5a6670">M2</text>
-          <!-- Cycle 2 -->
-          <circle cx="290" cy="245" r="5" fill="#31c48d"/>
-          <text x="290" y="268" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="10" fill="#5a6670">M4</text>
-          <!-- Cycle 3 -->
-          <circle cx="490" cy="245" r="5" fill="#31c48d"/>
-          <text x="490" y="268" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="10" fill="#5a6670">M8</text>
-          <!-- Cycle 4 -->
-          <circle cx="660" cy="245" r="5" fill="#31c48d"/>
-          <text x="660" y="268" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="10" fill="#5a6670">M12</text>
-          <!-- Cycle 5 -->
-          <circle cx="860" cy="245" r="5" fill="#31c48d"/>
-          <text x="860" y="268" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="10" fill="#5a6670">M14</text>
-          <!-- Cycle 6 (Cambridge exam) -->
-          <circle cx="1080" cy="245" r="9" fill="#0d4f37" stroke="#31c48d" stroke-width="2"/>
-          <text x="1080" y="232" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#0d4f37" letter-spacing="1.5">B2 EXAM</text>
-          <text x="1080" y="268" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="10" fill="#5a6670">M18</text>
-        </g>
-
-        <!-- Baseline timeline axis -->
-        <line x1="60" y1="245" x2="1140" y2="245" stroke="#d5dce0" stroke-width="1"/>
-
-        <!-- Start marker -->
-        <line x1="60" y1="240" x2="60" y2="250" stroke="#5a6670" stroke-width="1.5"/>
-        <text x="60" y="295" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#5a6670" letter-spacing="2">START</text>
-
-        <!-- End marker -->
-        <line x1="1140" y1="240" x2="1140" y2="250" stroke="#0d4f37" stroke-width="2"/>
-        <text x="1140" y="295" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="10" fill="#0d4f37" letter-spacing="2">CERTIFIED</text>
-
-      </svg>
-
-      <!-- Mobile-only vertical journey layout -->
-      <div class="journey-mobile" aria-label="The 18-month Takalam journey from A2 to B2">
-        <div class="jm-start">START</div>
-
-        <div class="jm-connector"></div>
-
-        <div class="jm-card">
-          <div class="jm-badge">LEVEL 1</div>
-          <div class="jm-prog">A2 → A2+</div>
-          <div class="jm-dur">Months 1–6 · Cycles 1–2</div>
-          <div class="jm-dots">
-            <span class="jm-dot"><span class="jm-dot-pip"></span>M2</span>
-            <span class="jm-dot"><span class="jm-dot-pip"></span>M4</span>
-          </div>
-        </div>
-
-        <div class="jm-connector"></div>
-
-        <div class="jm-card">
-          <div class="jm-badge">LEVEL 2</div>
-          <div class="jm-prog">A2+ → B1+</div>
-          <div class="jm-dur">Months 7–12 · Cycles 3–4</div>
-          <div class="jm-dots">
-            <span class="jm-dot"><span class="jm-dot-pip"></span>M8</span>
-            <span class="jm-dot"><span class="jm-dot-pip"></span>M12</span>
-          </div>
-        </div>
-
-        <div class="jm-connector"></div>
-
-        <div class="jm-card">
-          <div class="jm-badge">LEVEL 3</div>
-          <div class="jm-prog">B1+ → B2</div>
-          <div class="jm-dur">Months 13–18 · Cycles 5–6</div>
-          <div class="jm-dots">
-            <span class="jm-dot"><span class="jm-dot-pip"></span>M14</span>
-            <span class="jm-dot"><span class="jm-dot-pip jm-dot-pip-exam"></span>M18</span>
-          </div>
-        </div>
-
-        <div class="jm-connector"></div>
-
-        <div class="jm-dest">
-          <span class="jm-dest-pip"></span>
-          <span class="jm-dest-label">B2 EXAM · CERTIFIED</span>
-        </div>
-      </div>
-
-      <p class="journey-caption">Six measurable checkpoints across eighteen months. You always know where you stand.</p>
-    </div>
-  </div>
-</section>
-
-<!-- GUARANTEE -->
-<section class="guarantee">
-  <div class="container">
-
-    <div class="eyebrow reveal">OUR COMMITMENT</div>
-    <h2 class="display reveal">Our guarantee<br>is <em>mutual.</em></h2>
-    <p class="reveal">Complete every cycle assessment on time. Do the weekly self-study. Show up to class. Take the B2 First exam at month 18.</p>
-    <p class="pledge reveal">"If you follow the program and don't reach B2, we extend your enrollment at no additional cost until you do. No fine print."</p>
-    <p class="reveal">But be clear on the other side: if you skip the self-study, miss sessions, and don't do the work, no program on earth can make you fluent. Effort is the variable. The method is fixed.</p>
-  </div>
-</section>
-
-<!-- FIT CHECK -->
-<section class="fit-check">
-  <div class="container">
-    <div class="eyebrow reveal">IS THIS YOU?</div>
-    <h2 class="display reveal">Who Takalam Foundation<br>is <em>for.</em></h2>
-    <div class="fit-grid">
-      <div class="fit-col yes reveal">
-        <h3>THIS IS FOR YOU IF</h3>
-        <ul>
-          <li>You already have basic English (A2) and can hold short conversations</li>
-          <li>You're serious about reaching real working fluency, not just practicing</li>
-          <li>You can commit to 6 hours a week for 18 months</li>
-          <li>You want small-group accountability and a coach who knows your name</li>
-          <li>You're done with cheap courses that lead nowhere</li>
-        </ul>
-      </div>
-      <div class="fit-col no reveal">
-        <h3>THIS IS NOT FOR YOU IF</h3>
-        <ul>
-          <li>You're a complete beginner — Takalam Start is launching for this</li>
-          <li>You have an exam or deadline in the next few months — Takalam Private is built for this</li>
-          <li>You're already B2 and want to push to C1 — Takalam Advanced is for you</li>
-          <li>You want self-paced app learning — any app store has fifty</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCT LINE -->
-<section class="products">
-  <div class="container">
-    <div class="eyebrow reveal">THE TAKALAM PRODUCT LINE</div>
-    <h2 class="display reveal">One brand. Four programs.<br><em>Your stage determines your fit.</em></h2>
-    <p class="products-lead reveal">All programs start with the same 30-minute placement interview. That's where we figure out together which one fits you.</p>
-
-    <div class="product-grid">
-      <div class="product-card reveal">
-        <div class="label">TAKALAM START</div>
-        <h3>A1 → A2</h3>
-        <div class="range">6 months · Launching soon</div>
-        <p>For complete beginners who need the foundation before Foundation.</p>
-        <div class="price">500 MAD / month</div>
-      </div>
-      <div class="product-card flagship reveal">
-        <div class="label">FLAGSHIP</div>
-        <h3>Foundation</h3>
-        <div class="range">A2 → B2 · 18 months</div>
-        <p>Cambridge B2 First exam at the end. The core of the Takalam method.</p>
-        <div class="price">500 MAD / month</div>
-      </div>
-      <div class="product-card reveal">
-        <div class="label">TAKALAM ADVANCED</div>
-        <h3>B2 → C1</h3>
-        <div class="range">12 months</div>
-        <p>The premium continuation for Foundation graduates who want to go further.</p>
-        <div class="price">600 MAD / month</div>
-      </div>
-      <div class="product-card reveal">
-        <div class="label">TAKALAM PRIVATE</div>
-        <h3>One-on-one</h3>
-        <div class="range">Any level · Package-based</div>
-        <p>For learners with deadlines, exams, or specific professional goals that groups cannot serve.</p>
-        <div class="price">
-          4,500 MAD
-          <div class="price-detail">10 sessions · 450 MAD per session</div>
-          <div class="price-tag">Premium 1:1 starter package</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING (FOUNDATION) -->
-<section class="pricing">
-  <div class="container">
-    <div class="eyebrow reveal">FOUNDATION PRICING</div>
-    <h2 class="display reveal">One program.<br><em>Three ways to pay.</em></h2>
-    <p class="pricing-lead reveal">Pick the one that fits your commitment style.</p>
-
-    <div class="price-grid">
-      <div class="price-card reveal">
-        <div class="tag">MONTHLY</div>
-        <div class="amount">500<span style="font-size: 20px; font-weight: 400; color: var(--muted);"> MAD</span></div>
-        <div class="period">per month</div>
-        <p>Cancel anytime after the first month. Best if you want to start without a long commitment.</p>
-      </div>
-      <div class="price-card featured reveal">
-        <div class="tag">QUARTERLY</div>
-        <div class="amount">1,350<span style="font-size: 20px; font-weight: 400; color: var(--muted);"> MAD</span></div>
-        <div class="period">every 3 months</div>
-        <div class="saves">SAVE 150 MAD</div>
-        <p>Best if you're ready to commit to real progress. Most learners choose this.</p>
-      </div>
-      <div class="price-card reveal">
-        <div class="tag">ANNUAL</div>
-        <div class="amount">5,000<span style="font-size: 20px; font-weight: 400; color: var(--muted);"> MAD</span></div>
-        <div class="period">upfront</div>
-        <div class="saves">SAVE 1,000 MAD + COACHING</div>
-        <p>Includes quarterly 1:1 check-ins with the founder. Best value and deepest commitment.</p>
-      </div>
-    </div>
-
-    <div class="price-includes reveal">
-      <h4>ALL PLANS INCLUDE</h4>
-      <ul>
-        <li>Two 90-minute live sessions per week</li>
-        <li>Weekly structured self-study kit</li>
-        <li>Access to the Takalam learner community on WhatsApp</li>
-        <li>Formal CEFR-aligned assessment every 8 weeks</li>
-        <li>Cambridge B2 First exam preparation</li>
-        <li>Certificate of level completion at each milestone</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq">
-  <div class="container">
-    <div class="eyebrow reveal">HONEST ANSWERS</div>
-    <h2 class="display reveal">Questions you<br>probably <em>have.</em></h2>
-
-    <details class="faq-item reveal">
-      <summary>Will I actually reach B2 in 18 months?</summary>
-      <p>If you do the work, yes. Students who complete the program as designed — all cycle assessments, weekly self-study, attendance — reach confirmed B2. Our guarantee commits us to that. Students who skip the self-study reach B1. Students who skip everything stay where they are.</p>
-    </details>
-
-    <details class="faq-item reveal">
-      <summary>Why groups of six specifically?</summary>
-      <p>Because that's the largest group size where communicative teaching actually functions. Research on intensive language programs shows that at 6-8 learners, individual speaking time reaches 20-30 minutes per session. At 15-20, you listen to others speak while you stay silent. That's not language learning. That's an audience.</p>
-    </details>
-
-    <details class="faq-item reveal">
-      <summary>What if I miss a session?</summary>
-      <p>Life happens. Your teacher shares session notes with anyone who misses. You rejoin the next session. Session audio is available for review.</p>
-    </details>
-
-    <details class="faq-item reveal">
-      <summary>Do I need to be in Tangier?</summary>
-      <p>No. Takalam is 100% online. We have students across Morocco, from Nador to Laâyoune.</p>
-    </details>
-
-    <details class="faq-item reveal">
-      <summary>What if my level is below A2?</summary>
-      <p>We'll tell you at the placement interview and recommend Takalam Start when it launches, or a bridging resource in the meantime. We don't accept students into Foundation who aren't ready. It protects you and the group.</p>
-    </details>
-
-    <details class="faq-item reveal">
-      <summary>What about IELTS or TOEFL?</summary>
-      <p>Foundation prepares you for Cambridge B2 First as the natural endpoint. If you need IELTS or TOEFL specifically, on a deadline, Takalam Private is built for that. We'll assess which one fits you at the interview.</p>
-    </details>
-
-    <details class="faq-item reveal">
-      <summary>What if I lose motivation halfway through?</summary>
-      <p>The cycle assessments every 8 weeks are designed specifically to prevent this. Students who see their own progress don't quit. Most Takalam learners report that by month 4, they can feel the change in their speaking, and by month 8, other people notice it.</p>
-    </details>
-
-    <details class="faq-item reveal">
-      <summary>Can I switch between Takalam programs later?</summary>
-      <p>Yes. Students in Foundation sometimes need a short Private sprint for a job interview or specific deadline, then return to Foundation. Foundation graduates commonly move into Advanced. The programs are designed to connect.</p>
-    </details>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta" id="book">
-
-  <!-- Closing signature mark -->
-  <div class="cta-mark">
-    <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <!-- Centered ornamental rule with mark -->
-      <line x1="0" y1="30" x2="130" y2="30" stroke="#31c48d" stroke-width="0.6" opacity="0.5"/>
-      <line x1="190" y1="30" x2="320" y2="30" stroke="#31c48d" stroke-width="0.6" opacity="0.5"/>
-      <!-- Center mark: small diamond -->
-      <g transform="translate(160, 30)">
-        <circle r="10" fill="none" stroke="#31c48d" stroke-width="0.8"/>
-        <circle r="14" fill="none" stroke="#31c48d" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.5"/>
-        <circle r="3" fill="#31c48d"/>
-      </g>
+<!-- ============ CLOSING ============ -->
+<section class="section forest closing" id="closing">
+  <div class="flourish" aria-hidden="true">
+    <svg viewBox="0 0 1200 480" fill="none" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;">
+      <path class="float-a" d="M120 120h70a14 14 0 0 1 14 14v22a14 14 0 0 1-14 14h-30l-12 11 1-11h-29a14 14 0 0 1-14-14v-22a14 14 0 0 1 14-14Z" fill="#31c48d" opacity=".18"></path>
+      <path class="float-c" d="M980 300h70a14 14 0 0 1 14 14v22a14 14 0 0 1-14 14h-30l-12 11 1-11h-29a14 14 0 0 1-14-14v-22a14 14 0 0 1 14-14Z" fill="#e7ad44" opacity=".22"></path>
+      <path class="float-b" d="M1020 90c1.6 8.6 3.2 10.2 11.8 11.8-8.6 1.6-10.2 3.2-11.8 11.8-1.6-8.6-3.2-10.2-11.8-11.8 8.6-1.6 10.2-3.2 11.8-11.8Z" fill="#31c48d" opacity=".4"></path>
+      <path class="float-a" d="M150 360c1.6 8.6 3.2 10.2 11.8 11.8-8.6 1.6-10.2 3.2-11.8 11.8-1.6-8.6-3.2-10.2-11.8-11.8 8.6-1.6 10.2-3.2 11.8-11.8Z" fill="#df8a5d" opacity=".4"></path>
+      <circle class="float-c" cx="240" cy="240" r="10" fill="#e7ad44" opacity=".35"></circle>
+      <circle class="float-b" cx="940" cy="180" r="8" fill="#df8a5d" opacity=".4"></circle>
+      <circle class="float-a" cx="1080" cy="380" r="12" fill="#31c48d" opacity=".25"></circle>
     </svg>
   </div>
-
-  <div class="eyebrow reveal">THE FIRST STEP</div>
-  <h2 class="display reveal">The next step is a<br>30-minute <em>conversation.</em></h2>
-  <p class="reveal">The placement interview is free. We'll assess your level, understand your goals, and decide together whether Takalam is the right program for you. If it is, we'll show you your options. If not, we'll tell you honestly and point you toward what is.</p>
-  <p class="reveal">We're not the cheapest English program in Morocco. We're not trying to be. What we are is the program that takes your English seriously, and takes your time seriously. If that's what you're looking for, book the interview.</p>
-
-  <a href="https://wa.me/212722774753?text=Hi%2C%20I%20saw%20Takalam%20and%20want%20to%20apply%20for%20the%20placement%20interview." class="btn-primary reveal">Book your placement interview</a>
-  <span class="cta-meta reveal">30 minutes · Free · No obligation · We reply within 24 hours</span>
+  <div class="wrap closing-inner reveal">
+    <span class="eyebrow center" style="color:var(--gold);justify-content:center;">Still deciding</span>
+    <h2 style="margin-top:22px;">Not sure which one <em>fits?</em></h2>
+    <p>Book a free 30 minute call. We'll figure out where you are, what you need, and which path makes sense. No pressure, and we'll be honest if neither is right for you.</p>
+    <a class="btn btn--lg btn--emerald" href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
+      <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
+      Book a free call
+    </a>
+  </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-main">
+</main>
 
-    <div class="footer-brand-block">
-      <div class="footer-logo-row">
-        <svg class="footer-logo" viewBox="0 0 1000 189" aria-label="Takalam · Speak with purpose" role="img"><use href="#takalam-logo"/></svg>
+<!-- ============ FOOTER ============ -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top" aria-label="Takalam home">
+          <svg class="logo-wm logo-wm--lg" viewBox="0 0 1000 189" aria-label="Takalam English" role="img"><use href="#takalam-logo"/></svg>
+        </a>
+        <p class="foot-tag">Online English coaching for adults. Small-group speaking practice and one to one private coaching.</p>
       </div>
-      <p class="footer-tagline">The English program for ambitious Moroccan adults. Cambridge-validated, small-group, research-backed.</p>
+
+      <div class="foot-col">
+        <h4>Talk to us</h4>
+        <a href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
+          +212 722 774 753
+        </a>
+        <a href="mailto:Takalamenglishcenter@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.6"></rect><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+          Takalamenglishcenter@gmail.com
+        </a>
+      </div>
+
+      <div class="foot-col">
+        <h4>The two paths</h4>
+        <a href="#paths">Takalam Speak</a>
+        <a href="#paths">Takalam Private</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">Questions</a>
+      </div>
     </div>
-
-    <div class="footer-col">
-      <h4>GET IN TOUCH</h4>
-      <a href="https://wa.me/212722774753" class="footer-contact-item">WhatsApp · +212 722 774 753</a>
-      <a href="mailto:Takalamenglishcenter@gmail.com" class="footer-contact-item">Takalamenglishcenter@gmail.com</a>
-      <span class="footer-contact-item" style="color: var(--muted);">Morocco</span>
+    <div class="foot-bottom">
+      <span>© 2026 Takalam. Online English coaching.</span>
     </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <div>© 2026 Takalam English Center · All rights reserved</div>
   </div>
 </footer>
 
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+/* ---------- FAQ data ---------- */
+const FAQ = [
+  ["How do I know if Speak or Private is right for me?","If your English is solid but real conversations make you freeze, Speak is built for you. If you have a specific target like an exam, a job, or an interview, Private shapes everything around that goal. Still unsure? That is exactly what the free call is for."],
+  ["Are the classes online or in person?","Everything is fully online, so you can join from home, the office, or anywhere with a decent connection. No commute, no traffic, just you and the conversation."],
+  ["What level of English do I need to start?","You should already understand English and read and write it at an intermediate level or above. Takalam is for people who know the language but struggle to speak it freely, not for absolute beginners."],
+  ["What happens on the free call?","We talk for about thirty minutes, get a feel for your level, and understand what you actually need. No test, no pressure. By the end you will know which path fits, and we will tell you honestly if neither is right for you."],
+  ["How big are the Speak groups?","Six students maximum, always. Small enough that you speak in every session and never hide at the back, large enough to feel like a real conversation."],
+  ["How long is the Speak program?","Speak runs in 12-week cycles, with two 90-minute sessions a week. Twelve weeks is long enough to build a real speaking habit and see clear progress, and short enough to commit to without hesitation. But it is not a one-and-done course. Most people continue cycle after cycle, because each new cycle raises the difficulty: harder topics, tougher scenarios, more demanding conversations. You stay as long as you are still growing."],
+  ["What happens after the 12 weeks?","You keep going if you want to, and most people do. The next cycle picks up where you left off with more challenging topics and situations, so you are always being stretched rather than repeating yourself. Same group energy, same price, harder conversations. You can also pause between cycles if life gets busy and rejoin when you are ready."],
+  ["What happens in a Speak session?","You practice real situations through guided discussion: meetings, introductions, opinions, storytelling, disagreements. Early in a cycle the topics are approachable; as the weeks go on they get more demanding, so you are always being pushed just past comfortable. Your coach steers, gives feedback in the moment, and keeps everyone talking. You leave having actually spoken, not just listened."],
+  ["What can Private coaching help with?","Exam preparation for IELTS, TOEFL, or the Duolingo English Test. Business English for your role. Interview preparation. Or any personal target with a deadline. The whole program is built around you."],
+  ["How many sessions will I need for Private?","It depends entirely on your goal and your starting point. After the free call we suggest a realistic number, and you stay in control of the pace. Some people need a short sprint, others a longer runway."],
+  ["What if I miss a session?","Life happens. For Private we simply reschedule around you. For Speak, sessions follow the group, but your coach will help you catch up so you never feel left behind."],
+  ["How do I pay?","Speak is paid monthly at 600 MAD, or quarterly at 1,650 MAD which saves you 150 MAD. The quarterly option covers a full 12-week cycle. Private is paid per session from 250 MAD. We will walk you through the simplest way to pay on your free call."]
+];
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const list = document.getElementById('faqList');
+FAQ.forEach(([q,a]) => {
+  const item = document.createElement('div');
+  item.className = 'faq-item';
+  item.innerHTML =
+    '<button class="faq-q" aria-expanded="false"><span>'+q+'</span><span class="qmark"></span></button>' +
+    '<div class="faq-a"><div class="faq-a-inner">'+a+'</div></div>';
+  list.appendChild(item);
+});
 
-  // Hide nav on scroll down, show on scroll up
-  let lastScroll = 0;
-  const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    const current = window.pageYOffset;
-    if (current > lastScroll && current > 200) {
-      nav.style.transform = 'translateY(-100%)';
-    } else {
-      nav.style.transform = 'translateY(0)';
-    }
-    lastScroll = current;
-  }, { passive: true });
+list.addEventListener('click', (e) => {
+  const btn = e.target.closest('.faq-q');
+  if (!btn) return;
+  const item = btn.parentElement;
+  const panel = item.querySelector('.faq-a');
+  const open = item.classList.contains('open');
+  // close siblings
+  list.querySelectorAll('.faq-item.open').forEach(o => {
+    if (o !== item){ o.classList.remove('open'); o.querySelector('.faq-a').style.height = '0px'; o.querySelector('.faq-q').setAttribute('aria-expanded','false'); }
+  });
+  if (open){
+    item.classList.remove('open');
+    panel.style.height = '0px';
+    btn.setAttribute('aria-expanded','false');
+  } else {
+    item.classList.add('open');
+    panel.style.height = panel.firstElementChild.offsetHeight + 'px';
+    btn.setAttribute('aria-expanded','true');
+  }
+});
+window.addEventListener('resize', () => {
+  const open = list.querySelector('.faq-item.open');
+  if (open){ const p = open.querySelector('.faq-a'); p.style.height = p.firstElementChild.offsetHeight + 'px'; }
+});
+
+/* ---------- sticky header ---------- */
+const head = document.getElementById('head');
+const onScroll = () => head.classList.toggle('scrolled', window.scrollY > 24);
+onScroll();
+window.addEventListener('scroll', onScroll, { passive: true });
+
+/* ---------- scroll reveal ---------- */
+document.body.classList.add('is-in');
+const reveals = Array.from(document.querySelectorAll('.reveal'));
+const showNearViewport = () => {
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  reveals.forEach(el => {
+    if (el.classList.contains('in')) return;
+    const r = el.getBoundingClientRect();
+    if (r.top < vh * 0.92 && r.bottom > 0) el.classList.add('in');
+  });
+};
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+  reveals.forEach(el => io.observe(el));
+}
+// Immediate pass for above-the-fold content + re-check after layout settles
+showNearViewport();
+requestAnimationFrame(showNearViewport);
+window.addEventListener('load', showNearViewport);
+window.addEventListener('scroll', showNearViewport, { passive: true });
+// Safety net: never leave anything permanently hidden
+setTimeout(() => reveals.forEach(el => el.classList.add('in')), 2600);
 </script>
 
-</body>
-</html>
+
+</body></html>

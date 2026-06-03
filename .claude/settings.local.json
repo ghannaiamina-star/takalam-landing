@@ -2,7 +2,19 @@
   "permissions": {
     "allow": [
       "Bash(awk -F: '$1 <= 1845')",
-      "Bash(xdg-open *)"
+      "Bash(xdg-open *)",
+      "Bash(git *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(google-chrome *)",
+      "Bash(python3 *)",
+      "Bash(chromium-cli *)",
+      "Bash(node *)",
+      "Bash(pip show *)",
+      "Bash(pkill -f \"python3 -m http.server 7823\")",
+      "Bash(pkill -f \"python3 -m http.server 7824\")",
+      "Bash(pkill -f \"python3 -m http.server 7825\")",
+      "mcp__claude_ai_Vercel__deploy_to_vercel",
+      "Bash(vercel deploy *)"
     ]
   }
 }
