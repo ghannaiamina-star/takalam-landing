@@ -635,7 +635,7 @@ var state = {
   name:"", whatsapp:"",
   mediaStream:null, mimeType:"",
   s1:{ currentLevel:"B1", correctStreak:0, wrongStreak:0, askedIds:[], trajectory:[], itemCount:0, current:null },
-  s2:{ passageId:"", activeQuestions:[], answers:[], correctCount:0 },
+  s2:{ passageId:"", activeQuestions:[], answers:[], itemDetail:[], correctCount:0 },
   s3:{ resolvedPrompts:[], recordings:[null,null,null], durations:[0,0,0], retriesUsed:[0,0,0] }
 };
 
@@ -838,7 +838,15 @@ function answerS1(originalIndex, clickedDiv){
   clickedDiv.classList.add("selected");
 
   var correct = originalIndex === q.answer;
-  state.s1.trajectory.push({ id:q.id, level:q.level, correct:correct });
+  state.s1.trajectory.push({
+    id: q.id,
+    level: q.level,
+    tag: q.tag,
+    question: q.q,
+    studentAnswer: q.options[originalIndex],
+    correctAnswer: q.options[q.answer],
+    correct: correct
+  });
   state.s1.itemCount += 1;
 
   if (correct){
@@ -927,8 +935,16 @@ function finishSection2(){
   s2Finished = true;
   stopTimer();
   var correct = 0;
-  state.s2.activeQuestions.forEach(function(q, i){
-    if (state.s2.answers[i] === q.answer) correct += 1;
+  state.s2.itemDetail = state.s2.activeQuestions.map(function(q, i){
+    var studentIdx = state.s2.answers[i];
+    var isCorrect = studentIdx === q.answer;
+    if (isCorrect) correct += 1;
+    return {
+      question: q.q,
+      studentAnswer: (studentIdx === null || studentIdx === undefined) ? "No answer" : q.options[studentIdx],
+      correctAnswer: q.options[q.answer],
+      correct: isCorrect
+    };
   });
   state.s2.correctCount = correct;
   beginMicCheck();
@@ -1168,6 +1184,7 @@ function submitTest(retry){
   fd.append("section2", JSON.stringify({
     correctCount: state.s2.correctCount,
     answers: state.s2.answers,
+    itemDetail: state.s2.itemDetail,
     passageId: state.s2.passageId
   }));
   fd.append("prompts", JSON.stringify(state.s3.resolvedPrompts.map(function(p){ return p.text; })));

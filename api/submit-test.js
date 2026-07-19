@@ -310,6 +310,16 @@ For each prompt return: band, grammar_range (1-5), vocabulary_range (1-5), coher
 
 function buildReportEmail(data) {
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const CHECK = '&#10003;';
+  const CROSS = '&#10007;';
+  const mark = (ok) => ok
+    ? `<span style="color:#1a7a4c;font-weight:700;">${CHECK}</span>`
+    : `<span style="color:#b23b3b;font-weight:700;">${CROSS}</span>`;
+
+  const trajectory = data.section1.trajectory || [];
+  const promptBandList = (data.claudeResults || [])
+    .map((c, i) => `Prompt ${i + 1}: ${esc(c.band)}`)
+    .join(', ') || 'not graded';
 
   const speakingBlocks = data.speakingResults
     .map((r, i) => {
@@ -317,32 +327,101 @@ function buildReportEmail(data) {
       return `
         <div style="margin:16px 0;padding:12px;border:1px solid #e5e0d5;border-radius:8px;">
           <p style="margin:0 0 6px;font-weight:600;">Prompt ${i + 1}: ${esc(r.promptText)}</p>
-          ${r.transcript ? `<p style="margin:0 0 6px;white-space:pre-wrap;">${esc(r.transcript)}</p>` : `<p style="margin:0 0 6px;color:#b00;">${esc(r.error || 'No transcript')}</p>`}
-          ${r.metrics ? `<p style="margin:0 0 6px;font-size:13px;color:#555;">WPM ${r.metrics.wpm} · filler freq ${r.metrics.fillerFrequency} (${r.metrics.fillerCount} instances) · longest fluent run ${r.metrics.longestFluentRun} words · silence ratio ${r.metrics.silenceRatio === null ? 'n/a' : r.metrics.silenceRatio} · length ${r.metrics.durationSeconds}s</p>` : ''}
-          ${claude ? `<p style="margin:0 0 6px;font-size:13px;">Band: <strong>${esc(claude.band)}</strong> · grammar ${claude.grammar_range}/5 · vocabulary ${claude.vocabulary_range}/5 · coherence ${claude.coherence}/5</p>
+          ${claude ? `<p style="margin:0 0 6px;font-size:13px;">Band: <strong>${esc(claude.band)}</strong> &middot; grammar ${claude.grammar_range}/5 &middot; vocabulary ${claude.vocabulary_range}/5 &middot; coherence ${claude.coherence}/5</p>
           <p style="margin:0 0 6px;font-size:13px;">Freeze indicators: ${claude.freeze_indicators && claude.freeze_indicators.length ? esc(claude.freeze_indicators.join(', ')) : 'none observed'}</p>
-          <p style="margin:0;font-size:13px;">Example errors: ${esc((claude.example_errors || []).join(' | '))}</p>` : '<p style="margin:0;font-size:13px;color:#b00;">Not graded</p>'}
+          <p style="margin:0 0 6px;font-size:13px;">Example errors: ${esc((claude.example_errors || []).join(' | '))}</p>` : '<p style="margin:0 0 6px;font-size:13px;color:#b00;">Not graded</p>'}
+          ${r.metrics ? `<p style="margin:0 0 6px;font-size:13px;color:#555;">WPM ${r.metrics.wpm} &middot; filler freq ${r.metrics.fillerFrequency} (${r.metrics.fillerCount} instances) &middot; longest fluent run ${r.metrics.longestFluentRun} words &middot; silence ratio ${r.metrics.silenceRatio === null ? 'n/a' : r.metrics.silenceRatio} &middot; length ${r.metrics.durationSeconds}s</p>` : ''}
+          ${r.transcript ? `<p style="margin:0;white-space:pre-wrap;">${esc(r.transcript)}</p>` : `<p style="margin:0;color:#b00;">${esc(r.error || 'No transcript')}</p>`}
         </div>`;
     })
     .join('');
 
+  const trajectorySequence = trajectory.length
+    ? trajectory.map((t) => `${esc(t.level)} ${t.correct ? CHECK : CROSS}`).join(' &rarr; ')
+    : 'no items answered';
+
+  const grammarRows = trajectory.length
+    ? trajectory.map((t, i) => `
+        <tr>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${i + 1}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${esc(t.level)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${esc(t.question)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${esc(t.studentAnswer)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${esc(t.correctAnswer)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;text-align:center;">${mark(t.correct)}</td>
+        </tr>`).join('')
+    : `<tr><td colspan="6" style="padding:6px 8px;">No grammar and vocabulary item detail available.</td></tr>`;
+
+  const readingDetail = data.section2.itemDetail || [];
+  const readingRows = readingDetail.length
+    ? readingDetail.map((r, i) => `
+        <tr>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${i + 1}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${esc(r.question)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${esc(r.studentAnswer)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;">${esc(r.correctAnswer)}</td>
+          <td style="padding:6px 8px;border-bottom:1px solid #e5e0d5;text-align:center;">${mark(r.correct)}</td>
+        </tr>`).join('')
+    : `<tr><td colspan="5" style="padding:6px 8px;">No reading item detail available.</td></tr>`;
+
   return `
-  <div style="font-family:Arial,sans-serif;color:#1a2332;max-width:640px;">
+  <div style="font-family:Arial,sans-serif;color:#1a2332;max-width:680px;">
     <h2 style="color:#0d4f37;">Takalam Level Test result</h2>
     ${data.gradingIncomplete ? '<p style="background:#fff3cd;padding:8px 12px;border-radius:6px;color:#7a5c00;"><strong>Grading incomplete.</strong> One or more automated steps failed. Review the raw data below manually.</p>' : ''}
+
     <p><strong>Name:</strong> ${esc(data.name)}<br/>
     <strong>WhatsApp:</strong> ${esc(data.whatsapp)}<br/>
+    <strong>Final band:</strong> ${esc(data.finalBandLabel)}<br/>
     <strong>Submitted:</strong> ${esc(data.timestamp)}</p>
-    <h3 style="color:#0d4f37;">Final band: ${esc(data.finalBandLabel)}</h3>
-    <p><strong>Grammar &amp; vocabulary section:</strong> ${esc(data.grammarBand)} (final adaptive level: ${esc(data.section1.finalLevel || 'n/a')}, ${esc((data.section1.trajectory || []).length)} items answered)<br/>
-    <strong>Reading section:</strong> ${esc(data.readingBand)} (${esc(data.section2.correctCount)}/4 correct)<br/>
-    <strong>Speaking overall:</strong> ${esc(data.speakingBand)}</p>
+
+    <h3 style="color:#0d4f37;">Section scores</h3>
+    <p><strong>Grammar &amp; vocabulary:</strong> ${esc(data.grammarBand)} (final adaptive level: ${esc(data.section1.finalLevel || 'n/a')}, ${esc(trajectory.length)} items answered)<br/>
+    <strong>Reading:</strong> ${esc(data.readingBand)} (${esc(data.section2.correctCount)}/4 correct)<br/>
+    <strong>Speaking overall:</strong> ${esc(data.speakingBand)} (${esc(promptBandList)})</p>
+
     <h3 style="color:#0d4f37;">Test variant</h3>
     <p><strong>Reading passage:</strong> ${esc(data.passageId || 'n/a')}<br/>
     <strong>Speaking prompt variants:</strong> ${esc((data.promptVariants || []).join(', ') || 'n/a')}</p>
     ${data.attachmentNotes && data.attachmentNotes.length ? `<p style="background:#fff3cd;padding:8px 12px;border-radius:6px;color:#7a5c00;">${data.attachmentNotes.map(esc).join('<br/>')}</p>` : ''}
-    <h3 style="color:#0d4f37;">Speaking detail</h3>
+
+    <h3 style="color:#0d4f37;">Speaking assessment</h3>
     ${speakingBlocks}
+
+    <div style="margin-top:28px;padding:16px;background:#f7f5ee;border:1px solid #e5e0d5;border-radius:10px;">
+      <h3 style="color:#0d4f37;margin-top:0;">Item detail</h3>
+      <p style="font-size:13px;color:#555;">Full answer log for internal review. Not shown to the student.</p>
+
+      <p style="font-size:13px;"><strong>Adaptive difficulty trajectory:</strong><br/>${trajectorySequence}</p>
+
+      <p style="font-weight:600;font-size:13px;margin-bottom:6px;">Grammar &amp; vocabulary items</p>
+      <table style="width:100%;border-collapse:collapse;font-size:12px;background:#fff;">
+        <thead>
+          <tr style="background:#efece0;">
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">#</th>
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Level</th>
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Question</th>
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Student answer</th>
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Correct answer</th>
+            <th style="text-align:center;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Result</th>
+          </tr>
+        </thead>
+        <tbody>${grammarRows}</tbody>
+      </table>
+
+      <p style="font-weight:600;font-size:13px;margin:16px 0 6px;">Reading items (${esc(data.passageId || 'n/a')})</p>
+      <table style="width:100%;border-collapse:collapse;font-size:12px;background:#fff;">
+        <thead>
+          <tr style="background:#efece0;">
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">#</th>
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Question</th>
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Student answer</th>
+            <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Correct answer</th>
+            <th style="text-align:center;padding:6px 8px;border-bottom:1px solid #e5e0d5;">Result</th>
+          </tr>
+        </thead>
+        <tbody>${readingRows}</tbody>
+      </table>
+    </div>
   </div>`;
 }
 
