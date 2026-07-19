@@ -11,6 +11,9 @@ const REPORT_TO = 'mohammedsaidelbouzdoudi99@gmail.com';
 const REPORT_FROM = 'Takalam Level Test <onboarding@resend.dev>';
 const REPORT_REPLY_TO = 'mohammedsaidelbouzdoudi99@gmail.com';
 
+const MAX_ATTACHMENT_BYTES = 15 * 1024 * 1024; // per-clip safety cap, real clips are ~KB
+const MAX_TOTAL_ATTACHMENT_BYTES = 30 * 1024 * 1024; // combined safety cap, well under Resend's limit
+
 const CEFR_TOOL_SCHEMA = {
   name: 'record_cefr_assessment',
   description: 'Record a strict CEFR speaking assessment for three prompts.',
@@ -88,10 +91,12 @@ module.exports = async (req, res) => {
   let section1 = {};
   let section2 = {};
   let prompts = [];
+  let promptVariants = [];
   try {
     section1 = JSON.parse(formData.get('section1') || '{}');
     section2 = JSON.parse(formData.get('section2') || '{}');
     prompts = JSON.parse(formData.get('prompts') || '[]');
+    promptVariants = JSON.parse(formData.get('promptVariants') || '[]');
   } catch (err) {
     console.error('[submit-test] Failed to parse section JSON:', err);
   }
@@ -101,6 +106,10 @@ module.exports = async (req, res) => {
 
   let gradingIncomplete = missingKeys.includes('OPENAI_API_KEY') || missingKeys.includes('ANTHROPIC_API_KEY');
   const speakingResults = [];
+  const attachments = [];
+  const attachmentNotes = [];
+  const slug = slugify(name);
+  let totalAttachmentBytes = 0;
 
   for (let i = 0; i < 3; i += 1) {
     const audioFile = formData.get(`audio${i}`);
@@ -110,6 +119,25 @@ module.exports = async (req, res) => {
       gradingIncomplete = true;
       continue;
     }
+
+    // Attach the raw clip for manual pronunciation/accent review, independent
+    // of whether transcription succeeds below.
+    if (audioFile.size > MAX_ATTACHMENT_BYTES || totalAttachmentBytes + audioFile.size > MAX_TOTAL_ATTACHMENT_BYTES) {
+      attachmentNotes.push(`Prompt ${i + 1} recording (${(audioFile.size / 1024 / 1024).toFixed(1)}MB) was too large to attach.`);
+    } else {
+      try {
+        const buf = Buffer.from(await audioFile.arrayBuffer());
+        attachments.push({
+          filename: `${slug}-prompt${i + 1}.${extFromFile(audioFile)}`,
+          content: buf.toString('base64'),
+        });
+        totalAttachmentBytes += audioFile.size;
+      } catch (err) {
+        console.error(`[submit-test] Failed to read audio file for prompt ${i}:`, err);
+        attachmentNotes.push(`Prompt ${i + 1} recording could not be attached.`);
+      }
+    }
+
     if (missingKeys.includes('OPENAI_API_KEY')) {
       speakingResults.push({ promptText, error: 'Transcription unavailable' });
       continue;
@@ -159,10 +187,13 @@ module.exports = async (req, res) => {
     speakingBand: speakingBand ? CEFR_LABELS[speakingBand] : 'Not graded',
     speakingResults,
     claudeResults,
+    passageId: section2.passageId,
+    promptVariants,
+    attachmentNotes,
   });
 
   try {
-    await sendReportEmail(html, `Takalam Level Test: ${name}, ${finalBandLabel}`);
+    await sendReportEmail(html, `Takalam Level Test: ${name}, ${finalBandLabel}`, attachments);
   } catch (err) {
     console.error('[submit-test] Resend delivery failed:', err);
     res.status(502).json({ error: 'Could not deliver results. Please try again.' });
@@ -183,6 +214,23 @@ async function parseMultipart(req) {
     body: bodyBuffer,
   });
   return request.formData();
+}
+
+function slugify(str) {
+  return String(str)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-+|-+$)/g, '') || 'student';
+}
+
+function extFromFile(file) {
+  const type = (file.type || '').toLowerCase();
+  if (type.includes('mp4')) return 'm4a';
+  if (type.includes('ogg')) return 'ogg';
+  if (type.includes('webm')) return 'webm';
+  const nameMatch = /\.([a-z0-9]+)$/i.exec(file.name || '');
+  return nameMatch ? nameMatch[1] : 'webm';
 }
 
 async function transcribeAudio(file, apiKey) {
@@ -289,25 +337,33 @@ function buildReportEmail(data) {
     <p><strong>Grammar &amp; vocabulary section:</strong> ${esc(data.grammarBand)} (final adaptive level: ${esc(data.section1.finalLevel || 'n/a')}, ${esc((data.section1.trajectory || []).length)} items answered)<br/>
     <strong>Reading section:</strong> ${esc(data.readingBand)} (${esc(data.section2.correctCount)}/4 correct)<br/>
     <strong>Speaking overall:</strong> ${esc(data.speakingBand)}</p>
+    <h3 style="color:#0d4f37;">Test variant</h3>
+    <p><strong>Reading passage:</strong> ${esc(data.passageId || 'n/a')}<br/>
+    <strong>Speaking prompt variants:</strong> ${esc((data.promptVariants || []).join(', ') || 'n/a')}</p>
+    ${data.attachmentNotes && data.attachmentNotes.length ? `<p style="background:#fff3cd;padding:8px 12px;border-radius:6px;color:#7a5c00;">${data.attachmentNotes.map(esc).join('<br/>')}</p>` : ''}
     <h3 style="color:#0d4f37;">Speaking detail</h3>
     ${speakingBlocks}
   </div>`;
 }
 
-async function sendReportEmail(html, subject) {
+async function sendReportEmail(html, subject, attachments) {
+  const body = {
+    from: REPORT_FROM,
+    to: [REPORT_TO],
+    reply_to: REPORT_REPLY_TO,
+    subject,
+    html,
+  };
+  if (attachments && attachments.length) {
+    body.attachments = attachments;
+  }
   const resp = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({
-      from: REPORT_FROM,
-      to: [REPORT_TO],
-      reply_to: REPORT_REPLY_TO,
-      subject,
-      html,
-    }),
+    body: JSON.stringify(body),
   });
   if (!resp.ok) {
     const errText = await resp.text().catch(() => '');

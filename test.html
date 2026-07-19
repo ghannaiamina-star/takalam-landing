@@ -210,7 +210,6 @@ input[type=text]:focus,input[type=tel]:focus{
 }
 .option:active{background:var(--cream);}
 .option.selected{border-color:var(--emerald);background:rgba(49,196,141,.08);}
-.option input{margin:0;}
 .passage{
   font-family:var(--serif);
   font-size:1.05rem;
@@ -302,6 +301,15 @@ input[type=text]:focus,input[type=tel]:focus{
   opacity:.7;
   margin-bottom:6px;
 }
+.playback audio{width:100%;margin-bottom:16px;}
+.hint-box{
+  background:var(--cream);
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  padding:14px 16px;
+  margin-top:14px;
+}
+.hint-box p{margin:0;font-size:.85rem;opacity:.85;}
 </style>
 </head>
 <body>
@@ -319,6 +327,7 @@ input[type=text]:focus,input[type=tel]:focus{
       <div class="section-label">English Level Test</div>
       <h1>Let's find your level.</h1>
       <p class="lead">10 minutes, 3 short sections. Find a quiet place. You will speak out loud, so wear headphones if you can and make sure your microphone works.</p>
+      <p class="note">Your speaking recordings will be reviewed by our teaching team as part of your assessment.</p>
 
       <div class="card">
         <label for="inputName">Your name</label>
@@ -366,6 +375,38 @@ input[type=text]:focus,input[type=tel]:focus{
       <div class="passage" id="s2Passage"></div>
       <div id="s2Questions"></div>
       <button class="btn btn--emerald" id="btnS2Submit">Continue</button>
+    </section>
+
+    <!-- MIC CHECK -->
+    <section class="screen" id="screen-miccheck">
+      <div class="section-label">Before Section 3</div>
+      <h2>Let's check your microphone.</h2>
+      <p class="lead">Press record and answer: what did you eat today? You have 15 seconds.</p>
+
+      <div class="rec-stage">
+        <div class="rec-label" id="mcStageLabel">Ready when you are</div>
+        <div class="rec-clock" id="mcClock">15</div>
+        <div class="rec-label" id="mcSubLabel">&nbsp;</div>
+      </div>
+
+      <div class="playback" id="mcPlayback" style="display:none;">
+        <audio id="mcAudio" controls></audio>
+      </div>
+
+      <div class="btn-row" id="mcStartRow">
+        <button class="btn btn--emerald" id="btnMcStart">Start recording</button>
+      </div>
+      <div class="btn-row" id="mcStopRow" style="display:none;">
+        <button class="btn btn--outline" id="btnMcStop">Stop recording</button>
+      </div>
+      <div class="btn-row" id="mcReviewRow" style="display:none;">
+        <button class="btn btn--outline" id="btnMcRetry">Try again</button>
+        <button class="btn btn--emerald" id="btnMcConfirm">I can hear myself clearly</button>
+      </div>
+
+      <div class="hint-box" id="mcHints" style="display:none;">
+        <p>Still having trouble? A few things to try: check that your browser has microphone permission enabled, use headphones if you have them, or move somewhere quieter.</p>
+      </div>
     </section>
 
     <!-- SECTION 3: SPEAKING -->
@@ -424,76 +465,168 @@ var QUESTION_BANK = [
   {id:3,level:"A2",tag:"tense",q:"We ___ to the cinema last night.",options:["go","goes","went","gone"],answer:2},
   {id:4,level:"A2",tag:"collocation",q:"Can you ___ me a favor?",options:["do","make","take","give"],answer:0},
   {id:5,level:"A2",tag:"tense",q:"My brother ___ football every weekend.",options:["play","plays","playing","played"],answer:1},
-  {id:6,level:"A2",tag:"tense",q:"I ___ TV when you called.",options:["watch","watched","was watching","am watching"],answer:2},
+  {id:6,level:"A2",tag:"tense",q:"While I ___ TV, you called.",options:["watch","watched","was watching","am watching"],answer:2},
   {id:7,level:"A2",tag:"tense",q:"There ___ many people at the party.",options:["is","was","were","be"],answer:2},
   {id:8,level:"A2",tag:"vocabulary",q:"She is good ___ maths.",options:["in","at","on","for"],answer:1},
   {id:9,level:"A2",tag:"vocabulary",q:"Please ___ the door, it's cold.",options:["close","closed","closing","closes"],answer:0},
-  {id:10,level:"A2",tag:"tense",q:"She ___ in Rabat right now.",options:["live","lives","is living","was live"],answer:2},
+  {id:10,level:"A2",tag:"tense",q:"Look, it ___ outside!",options:["rain","rains","is raining","rained"],answer:2},
+  {id:45,level:"A2",tag:"tense",q:"My sister ___ a doctor.",options:["is","are","am","be"],answer:0},
+  {id:46,level:"A2",tag:"tense",q:"We ___ dinner at 7 o'clock yesterday.",options:["have","had","has","having"],answer:1},
+  {id:47,level:"A2",tag:"tense",q:"He can ___ three languages.",options:["speak","speaks","spoke","speaking"],answer:0},
+  {id:48,level:"A2",tag:"vocabulary",q:"I ___ born in Fez.",options:["was","am","were","is"],answer:0},
+  {id:49,level:"A2",tag:"tense",q:"They ___ swimming in the sea every summer.",options:["go","goes","going","gone"],answer:0},
+  {id:50,level:"A2",tag:"vocabulary",q:"This bag is ___ than that one.",options:["heavy","heavier","heaviest","more heavy"],answer:1},
+  {id:51,level:"A2",tag:"register",q:"___ you like some tea?",options:["Do","Would","Are","Have"],answer:1},
+  {id:52,level:"A2",tag:"vocabulary",q:"There isn't ___ milk left in the fridge.",options:["many","much","a few","several"],answer:1},
+  {id:53,level:"A2",tag:"tense",q:"She ___ her keys yesterday and couldn't find them.",options:["lost","loses","lose","losing"],answer:0},
+  {id:54,level:"A2",tag:"collocation",q:"My father works ___ Casablanca.",options:["for","at","in","on"],answer:2},
 
   // B1
   {id:11,level:"B1",tag:"tense",q:"I have never ___ sushi before.",options:["try","tried","tries","trying"],answer:1},
   {id:12,level:"B1",tag:"tense",q:"She's been working here ___ five years.",options:["for","since","from","at"],answer:0},
   {id:13,level:"B1",tag:"phrasal-verb",q:"Could you ___ the form before Friday?",options:["fill in","fill up","fill on","fill at"],answer:0},
-  {id:14,level:"B1",tag:"phrasal-verb",q:"He decided to ___ up smoking last year.",options:["give","take","put","get"],answer:0},
+  {id:14,level:"B1",tag:"phrasal-verb",q:"After his diagnosis, he decided to ___ up smoking for good last year.",options:["give","take","put","get"],answer:0},
   {id:15,level:"B1",tag:"collocation",q:"It's important to ___ a good impression at the interview.",options:["do","make","have","take"],answer:1},
   {id:16,level:"B1",tag:"tense",q:"If I ___ more time, I would travel more.",options:["have","had","has","having"],answer:1},
   {id:17,level:"B1",tag:"vocabulary",q:"This restaurant is ___ than the one we went to last week.",options:["good","better","best","gooder"],answer:1},
-  {id:18,level:"B1",tag:"phrasal-verb",q:"The meeting was ___ off because of the storm.",options:["called","put","taken","turned"],answer:0},
+  {id:18,level:"B1",tag:"phrasal-verb",q:"The meeting was ___ off because of the storm.",options:["called","turned","backed","kept"],answer:0},
   {id:19,level:"B1",tag:"tense",q:"By the time we arrived, the film ___.",options:["already started","had already started","already starts","has already started"],answer:1},
-  {id:20,level:"B1",tag:"collocation",q:"She always pays ___ attention in class.",options:["much","close","strong","hard"],answer:1},
+  {id:20,level:"B1",tag:"collocation",q:"She always pays ___ attention in class.",options:["close","strong","hard","heavy"],answer:0},
   {id:21,level:"B1",tag:"tense",q:"I'm not used to ___ up so early.",options:["get","getting","got","gets"],answer:1},
   {id:22,level:"B1",tag:"register",q:"___, could you tell me where the station is?",options:["Hey","Excuse me","Yo","What's up"],answer:1},
+  {id:55,level:"B1",tag:"tense",q:"I'm looking forward to ___ you next week.",options:["see","seeing","saw","seen"],answer:1},
+  {id:56,level:"B1",tag:"collocation",q:"He apologized ___ being late.",options:["for","to","about","with"],answer:0},
+  {id:57,level:"B1",tag:"tense",q:"You'd better ___ an umbrella, it looks like rain.",options:["take","took","taking","to take"],answer:0},
+  {id:58,level:"B1",tag:"vocabulary",q:"The children were tired ___ they had walked all day.",options:["because","so","but","although"],answer:0},
+  {id:59,level:"B1",tag:"phrasal-verb",q:"Could you turn ___ the music a little? I'm on a phone call.",options:["down","off","in","up"],answer:0},
+  {id:60,level:"B1",tag:"collocation",q:"She's very interested ___ learning new languages.",options:["in","at","on","for"],answer:0},
+  {id:61,level:"B1",tag:"tense",q:"By next year, I ___ here for a decade.",options:["will work","will have worked","work","worked"],answer:1},
+  {id:62,level:"B1",tag:"tense",q:"He's the man ___ car was stolen.",options:["who","whose","which","whom"],answer:1},
 
   // B2
-  {id:23,level:"B2",tag:"tense",q:"The report ___ by the end of the week.",options:["will finish","will be finished","finishes","is finishing"],answer:1},
+  {id:23,level:"B2",tag:"tense",q:"The new bridge ___ by the end of next year.",options:["will complete","will be completed","completes","is completing"],answer:1},
   {id:24,level:"B2",tag:"tense",q:"If she had studied harder, she ___ the exam.",options:["would pass","would have passed","will pass","passes"],answer:1},
   {id:25,level:"B2",tag:"phrasal-verb",q:"We need to ___ the problem before it gets worse.",options:["look into","look up","look after","look out"],answer:0},
-  {id:26,level:"B2",tag:"collocation",q:"He made a ___ decision without thinking it through.",options:["fast","quick","rash","rush"],answer:2},
+  {id:26,level:"B2",tag:"collocation",q:"Investors accused the CEO of making a ___ decision that ignored the company's long term interests.",options:["fast","quick","rash","rush"],answer:2},
   {id:27,level:"B2",tag:"tense",q:"Despite ___ tired, she finished the report.",options:["be","being","been","to be"],answer:1},
-  {id:28,level:"B2",tag:"phrasal-verb",q:"The company had to ___ down after the scandal.",options:["close","shut","turn","break"],answer:1},
+  {id:28,level:"B2",tag:"phrasal-verb",q:"The company had to ___ down after the scandal.",options:["shut","hold","turn","carry"],answer:0},
   {id:29,level:"B2",tag:"tense",q:"Not only ___ late, but he also forgot the documents.",options:["he was","was he","he is","is he"],answer:1},
-  {id:30,level:"B2",tag:"collocation",q:"The new policy will ___ a significant impact on small businesses.",options:["do","make","have","take"],answer:2},
-  {id:31,level:"B2",tag:"register",q:"___ to your email, please find the report attached.",options:["Referring","With reference","Reference","Referred"],answer:1},
+  {id:30,level:"B2",tag:"collocation",q:"The new policy will ___ a significant effect on small businesses.",options:["do","make","have","take"],answer:2},
+  {id:31,level:"B2",tag:"register",q:"___ to your email, please find the report attached.",options:["With reference","Regarding of","Referred","Reference"],answer:0},
   {id:32,level:"B2",tag:"vocabulary",q:"She's the kind of person who ___ up easily.",options:["never gives","never give","doesn't gives","isn't give"],answer:0},
   {id:33,level:"B2",tag:"phrasal-verb",q:"I can't ___ with all this noise anymore.",options:["put in","put up","put on","put off"],answer:1},
-  {id:34,level:"B2",tag:"vocabulary",q:"The candidate ___ have prepared better; her answers were vague.",options:["should","must","could","would"],answer:0},
+  {id:34,level:"B2",tag:"vocabulary",q:"The candidate clearly hadn't done her research; she really ___ have prepared better.",options:["should","must","could","would"],answer:0},
+  {id:63,level:"B2",tag:"tense",q:"By the time the ambulance arrived, the situation ___ completely unmanageable.",options:["had become","has become","became","becomes"],answer:0},
+  {id:64,level:"B2",tag:"tense",q:"Not until she moved abroad ___ how much she valued her family.",options:["did she realize","she realized","she did realize","did she realized"],answer:0},
+  {id:65,level:"B2",tag:"register",q:"The committee is ___ to make a final decision by Friday.",options:["expected","waited","hoped","wished"],answer:0},
+  {id:66,level:"B2",tag:"tense",q:"Sales figures suggest that demand is likely ___ over the next quarter.",options:["to rise","rising","risen","rise"],answer:0},
+  {id:67,level:"B2",tag:"phrasal-verb",q:"She turned ___ a great job offer because she wanted to stay close to her family.",options:["down","off","back","over"],answer:0},
+  {id:68,level:"B2",tag:"tense",q:"Given the current economic climate, the company would be wise ___ its expansion plans.",options:["to postpone","postponing","postpone","postponed"],answer:0},
+  {id:69,level:"B2",tag:"collocation",q:"The negotiations have reached a ___, with neither side willing to compromise.",options:["deadlock","breakdown","collision","conclusion"],answer:0},
+  {id:70,level:"B2",tag:"tense",q:"I'd rather you ___ smoke in the house.",options:["didn't","don't","won't","wouldn't"],answer:0},
 
   // C1
   {id:35,level:"C1",tag:"tense",q:"Had I known about the delay, I ___ a different route.",options:["would take","would have taken","will take","took"],answer:1},
   {id:36,level:"C1",tag:"collocation",q:"The board reached a ___ decision after hours of debate.",options:["unanimous","uniform","united","unified"],answer:0},
-  {id:37,level:"C1",tag:"phrasal-verb",q:"The deal fell ___ at the last minute.",options:["through","down","apart","off"],answer:0},
+  {id:37,level:"C1",tag:"phrasal-verb",q:"The deal fell ___ at the last minute.",options:["through","down","over","off"],answer:0},
   {id:38,level:"C1",tag:"register",q:"I would be grateful ___ you could confirm the details at your earliest convenience.",options:["if","that","when","whether"],answer:0},
-  {id:39,level:"C1",tag:"tense",q:"It is essential that the report ___ submitted by Friday.",options:["is","be","was","being"],answer:1},
+  {id:39,level:"C1",tag:"tense",q:"Little ___ that his career would take such an unexpected turn.",options:["did he know","he knew","he did know","did he knew"],answer:0},
   {id:40,level:"C1",tag:"collocation",q:"Her argument was ___ flawed from the outset.",options:["fundamentally","hardly","barely","roughly"],answer:0},
-  {id:41,level:"C1",tag:"phrasal-verb",q:"Sales have ___ off significantly since the new policy.",options:["tailed","fallen","tapered","leveled"],answer:0},
+  {id:41,level:"C1",tag:"phrasal-verb",q:"Sales have ___ off significantly since the new policy.",options:["tailed","picked","levelled","evened"],answer:0},
   {id:42,level:"C1",tag:"tense",q:"Rarely ___ such dedication in someone so young.",options:["we see","do we see","we do see","see we"],answer:1},
   {id:43,level:"C1",tag:"register",q:"I am writing to ___ my dissatisfaction with the service received.",options:["express","say","tell","speak"],answer:0},
-  {id:44,level:"C1",tag:"vocabulary",q:"The evidence was ___ circumstantial to warrant a conviction.",options:["too","so","such","very"],answer:0}
+  {id:44,level:"C1",tag:"vocabulary",q:"The evidence was ___ circumstantial to warrant a conviction.",options:["too","so","such","very"],answer:0},
+  {id:71,level:"C1",tag:"tense",q:"No sooner ___ the announcement than the stock price plummeted.",options:["had he made","he had made","did he make","he made"],answer:0},
+  {id:72,level:"C1",tag:"collocation",q:"She is widely regarded ___ one of the finest surgeons of her generation.",options:["as","for","to be","like"],answer:0},
+  {id:73,level:"C1",tag:"tense",q:"Had the board acted sooner, the crisis ___ averted.",options:["could have been","could be","can be","could have"],answer:0},
+  {id:74,level:"C1",tag:"register",q:"The findings, ___ groundbreaking, have yet to be replicated by other researchers.",options:["while","despite","because","since"],answer:0},
+  {id:75,level:"C1",tag:"register",q:"It was not until much later ___ the true extent of the damage became apparent.",options:["that","when","which","what"],answer:0},
+  {id:76,level:"C1",tag:"vocabulary",q:"The proposal was met with ___ skepticism from senior management.",options:["considerable","considering","considerate","consideration"],answer:0},
+  {id:77,level:"C1",tag:"tense",q:"Far from ___ the situation, his intervention made things considerably worse.",options:["resolving","resolve","resolved","to resolve"],answer:0},
+  {id:78,level:"C1",tag:"collocation",q:"The CEO's remarks were widely interpreted ___ a veiled threat to competitors.",options:["as","for","like","to be"],answer:0},
+  {id:79,level:"C1",tag:"tense",q:"Such ___ the outcry that the company was forced to issue a public apology.",options:["was","were","is","be"],answer:0},
+  {id:80,level:"C1",tag:"vocabulary",q:"The witness's account, ___ inconsistent with the physical evidence, was ultimately dismissed by the jury.",options:["markedly","marking","marks","marked"],answer:0}
 ];
 
-var READING_PASSAGE = "Amal opened her bakery in Rabat three years ago, after leaving a stable job in banking. At first she worked alone, arriving before sunrise to prepare the ovens and leaving late at night to plan the next day's orders. Her savings ran low within the first six months, and she nearly gave up. What kept her going, she says, was a regular customer who ordered the same loaf every morning and always asked how she was doing. Slowly, word spread, and by the second year she had hired two assistants. Today the bakery supplies bread to several cafes across the city, and Amal is planning to open a second branch. She still arrives before sunrise, though now she has help closing up at night.";
-
-var READING_QUESTIONS = [
-  {q:"What was Amal's job before she opened the bakery?",options:["Teaching","Banking","Cooking","Retail"],answer:1},
-  {q:"By the second year, how many assistants had she hired?",options:["None","One","Two","Four"],answer:2},
-  {q:"Why did the regular customer matter to Amal?",options:[
-    "He gave her money to keep the bakery open",
-    "He encouraged her during a difficult early period",
-    "He became her business partner",
-    "He complained about the bread"
-  ],answer:1},
-  {q:"What can we infer about the bakery today?",options:[
-    "It has closed since the second year",
-    "It has grown enough that Amal is expanding",
-    "Amal has gone back to banking",
-    "It only sells to one cafe"
-  ],answer:1}
+var READING_PASSAGES = [
+  {
+    id:"amal-bakery",
+    text:"Amal opened her bakery in Rabat three years ago, after leaving a stable job in banking. At first she worked alone, arriving before sunrise to prepare the ovens and leaving late at night to plan the next day's orders. Her savings ran low within the first six months, and she nearly gave up. What kept her going, she says, was a regular customer who ordered the same loaf every morning and always asked how she was doing. Slowly, word spread, and by the second year she had hired two assistants. Today the bakery supplies bread to several cafes across the city, and Amal is planning to open a second branch. She still arrives before sunrise, though now she has help closing up at night.",
+    questions:[
+      {q:"What was Amal's job before she opened the bakery?",options:["Teaching","Banking","Cooking","Retail"],answer:1},
+      {q:"By the second year, how many assistants had she hired?",options:["None","One","Two","Four"],answer:2},
+      {q:"Why did the regular customer matter to Amal?",options:[
+        "He gave her money to keep the bakery open",
+        "He encouraged her during a difficult early period",
+        "He became her business partner",
+        "He complained about the bread"
+      ],answer:1},
+      {q:"What can we infer about the bakery today?",options:[
+        "It has closed since the second year",
+        "It has grown enough that Amal is expanding",
+        "Amal has gone back to banking",
+        "It only sells to one cafe"
+      ],answer:1}
+    ]
+  },
+  {
+    id:"youssef-cycling",
+    text:"Youssef switched from driving to cycling to work two years ago, mainly to save money on fuel and parking. The change was harder than he expected. His first week left him exhausted, and he seriously considered giving up after a heavy rainstorm soaked him halfway to the office. A colleague who cycled every day lent him a waterproof jacket and showed him a quieter route away from the main traffic. Within a month, the ride felt easy, and Youssef noticed he was sleeping better and arriving at work in a calmer mood. He now cycles even in light rain and has persuaded two coworkers to try it. Recently, he calculated that he has saved enough on fuel to cover a short family trip this summer.",
+    questions:[
+      {q:"Why did Youssef originally start cycling to work?",options:["To train for a race","To save money on fuel and parking","Because his car broke down","Because a doctor advised him to"],answer:1},
+      {q:"What did his colleague give him?",options:["A new bicycle","Directions to the office","A waterproof jacket","A gym membership"],answer:2},
+      {q:"What can we infer about Youssef's first week of cycling?",options:[
+        "He found it easy from day one",
+        "He found it physically difficult and nearly quit",
+        "He was injured and had to stop",
+        "He hired someone to teach him"
+      ],answer:1},
+      {q:"What does the passage suggest about the overall effect of cycling on Youssef's life?",options:[
+        "It has only affected his finances",
+        "It has improved his finances, sleep, and mood",
+        "It has made him too tired to work well",
+        "It has had no noticeable effect"
+      ],answer:1}
+    ]
+  },
+  {
+    id:"nadia-design",
+    text:"Nadia signed up for an online graphic design course after her company announced budget cuts in her department. She had never studied design before and worried she had started too late to change careers at thirty five. The first lessons were confusing, and she often rewatched the same video several times before it made sense. She joined a small online study group where members reviewed each other's work every weekend, and their feedback pushed her to keep improving even when her early designs looked amateurish by comparison. Six months later, she finished her first paid freelance project, a menu redesign for a local cafe. She still works her original job part time, but now spends most evenings building a portfolio for a full freelance career next year.",
+    questions:[
+      {q:"Why did Nadia decide to learn graphic design?",options:["She had always dreamed of being a designer","Her company announced budget cuts in her department","A friend convinced her to try it","She lost her job completely"],answer:1},
+      {q:"How did Nadia get feedback on her design work?",options:["From a paid tutor","From her manager at work","Through a small online study group","From an AI design tool"],answer:2},
+      {q:"What can we infer about Nadia's early experience with the course?",options:[
+        "She found it easy and finished quickly",
+        "She struggled at first but kept going",
+        "She gave up after the first lesson",
+        "She already had design experience"
+      ],answer:1},
+      {q:"What can we reasonably conclude about Nadia's future plans?",options:[
+        "She plans to quit design and return to her old career fully",
+        "She hopes to eventually freelance full time",
+        "She wants to become a study group leader",
+        "She has decided design is not for her"
+      ],answer:1}
+    ]
+  }
 ];
 
-var SPEAKING_PROMPTS = [
-  {text:"Introduce yourself: your work, your city, your daily life.", prep:15, record:70},
-  {text:"Describe a problem you faced recently and how you handled it.", prep:15, record:75},
-  {text:"Some people say social media does more harm than good. What do you think, and why?", prep:15, record:75}
+var SPEAKING_SLOTS = [
+  { id:"b1", prep:15, record:70, variants:[
+    {id:"b1-A",text:"Introduce yourself: your work, your city, your daily life."},
+    {id:"b1-B",text:"Tell us about yourself: what you do for work, where you live, and what a normal day looks like for you."},
+    {id:"b1-C",text:"Introduce yourself. Talk about your job, the city you live in, and your everyday routine."}
+  ]},
+  { id:"b2", prep:15, record:75, variants:[
+    {id:"b2-A",text:"Describe a problem you faced recently and how you handled it."},
+    {id:"b2-B",text:"Talk about a recent challenge you dealt with and the steps you took to solve it."},
+    {id:"b2-C",text:"Describe a difficult situation you experienced recently and explain how you resolved it."}
+  ]},
+  { id:"c1", prep:15, record:75, variants:[
+    {id:"c1-A",text:"Some people say social media does more harm than good. What do you think, and why?"},
+    {id:"c1-B",text:"Many people believe technology is making us less connected to each other, not more. Do you agree, and why?"},
+    {id:"c1-C",text:"Some argue that remote work is better for both employees and companies than working in an office. What is your view, and why?"}
+  ]}
 ];
 
 /* ============================= STATE ============================= */
@@ -502,8 +635,8 @@ var state = {
   name:"", whatsapp:"",
   mediaStream:null, mimeType:"",
   s1:{ currentLevel:"B1", correctStreak:0, wrongStreak:0, askedIds:[], trajectory:[], itemCount:0, current:null },
-  s2:{ answers:[null,null,null,null], correctCount:0 },
-  s3:{ recordings:[null,null,null], durations:[0,0,0], retriesUsed:[0,0,0] }
+  s2:{ passageId:"", activeQuestions:[], answers:[], correctCount:0 },
+  s3:{ resolvedPrompts:[], recordings:[null,null,null], durations:[0,0,0], retriesUsed:[0,0,0] }
 };
 
 var timers = { interval:null };
@@ -549,6 +682,34 @@ function runTimer(totalSeconds, onTick, onExpire){
       onTick(remaining);
     }
   }, 1000);
+}
+
+// Fisher-Yates shuffle of [0..n-1]. Used to randomize option display order
+// while keeping the underlying correct-answer index (the "id") fixed.
+function shuffledIndices(n){
+  var arr = [];
+  for (var i=0;i<n;i++) arr.push(i);
+  for (var i=arr.length-1;i>0;i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+// Renders `options` (array of strings) into `container` in randomized order.
+// onSelect(originalIndex, clickedDiv) fires with the ORIGINAL index, never the
+// display position, so shuffling can never desync from scoring.
+function renderShuffledOptions(container, options, onSelect){
+  container.innerHTML = "";
+  var order = shuffledIndices(options.length);
+  order.forEach(function(originalIndex){
+    var div = document.createElement("div");
+    div.className = "option";
+    div.dataset.optionId = String(originalIndex);
+    div.innerHTML = "<span>" + options[originalIndex] + "</span>";
+    div.addEventListener("click", function(){ onSelect(originalIndex, div); });
+    container.appendChild(div);
+  });
 }
 
 /* ============================= START SCREEN ============================= */
@@ -622,12 +783,10 @@ $("btnMicRetry").addEventListener("click", function(){
 var S1_MAX_ITEMS = 15;
 var S1_MIN_ITEMS = 12;
 var S1_SECONDS = 180;
-var s1StartTime = 0;
 
 function beginSection1(){
   showScreen("screen-s1");
   setProgress(5);
-  s1StartTime = Date.now();
   nextS1Question();
   runTimer(S1_SECONDS, function(remaining){
     setTimerChip(remaining, 20);
@@ -668,25 +827,17 @@ function nextS1Question(){
   state.s1.askedIds.push(q.id);
   $("s1Tag").textContent = state.s1.currentLevel;
   $("s1Question").textContent = q.q;
-  var optWrap = $("s1Options");
-  optWrap.innerHTML = "";
-  q.options.forEach(function(optText, i){
-    var div = document.createElement("div");
-    div.className = "option";
-    div.innerHTML = "<span>" + optText + "</span>";
-    div.addEventListener("click", function(){ answerS1(i); });
-    optWrap.appendChild(div);
-  });
+  renderShuffledOptions($("s1Options"), q.options, answerS1);
 }
 
-function answerS1(choiceIndex){
+function answerS1(originalIndex, clickedDiv){
   var q = state.s1.current;
   if (!q) return;
   var opts = $("s1Options").children;
   for (var i=0;i<opts.length;i++) opts[i].style.pointerEvents = "none";
-  opts[choiceIndex].classList.add("selected");
+  clickedDiv.classList.add("selected");
 
-  var correct = choiceIndex === q.answer;
+  var correct = originalIndex === q.answer;
   state.s1.trajectory.push({ id:q.id, level:q.level, correct:correct });
   state.s1.itemCount += 1;
 
@@ -734,27 +885,29 @@ var S2_SECONDS = 120;
 function beginSection2(){
   showScreen("screen-s2");
   setProgress(35);
-  $("s2Passage").textContent = READING_PASSAGE;
+
+  var passage = READING_PASSAGES[Math.floor(Math.random()*READING_PASSAGES.length)];
+  state.s2.passageId = passage.id;
+  state.s2.activeQuestions = passage.questions;
+  state.s2.answers = passage.questions.map(function(){ return null; });
+
+  $("s2Passage").textContent = passage.text;
   var qWrap = $("s2Questions");
   qWrap.innerHTML = "";
-  READING_QUESTIONS.forEach(function(q, qi){
+  passage.questions.forEach(function(q, qi){
     var block = document.createElement("div");
     block.className = "q-block";
     var qt = document.createElement("div");
     qt.className = "question-text";
     qt.textContent = (qi+1) + ". " + q.q;
     block.appendChild(qt);
-    q.options.forEach(function(optText, oi){
-      var div = document.createElement("div");
-      div.className = "option";
-      div.innerHTML = "<span>" + optText + "</span>";
-      div.addEventListener("click", function(){
-        var siblings = block.querySelectorAll(".option");
-        for (var i=0;i<siblings.length;i++) siblings[i].classList.remove("selected");
-        div.classList.add("selected");
-        state.s2.answers[qi] = oi;
-      });
-      block.appendChild(div);
+    var optWrap = document.createElement("div");
+    block.appendChild(optWrap);
+    renderShuffledOptions(optWrap, q.options, function(originalIndex, clickedDiv){
+      var siblings = block.querySelectorAll(".option");
+      for (var i=0;i<siblings.length;i++) siblings[i].classList.remove("selected");
+      clickedDiv.classList.add("selected");
+      state.s2.answers[qi] = originalIndex;
     });
     qWrap.appendChild(block);
   });
@@ -774,36 +927,125 @@ function finishSection2(){
   s2Finished = true;
   stopTimer();
   var correct = 0;
-  READING_QUESTIONS.forEach(function(q, i){
+  state.s2.activeQuestions.forEach(function(q, i){
     if (state.s2.answers[i] === q.answer) correct += 1;
   });
   state.s2.correctCount = correct;
-  beginSection3();
+  beginMicCheck();
 }
+
+/* ============================= MIC CHECK (local only, never uploaded) ============================= */
+
+var mc = { recorder:null, chunks:[], blob:null, objectUrl:null, retries:0, interval:null };
+
+function beginMicCheck(){
+  showScreen("screen-miccheck");
+  $("timerChip").style.display = "none";
+  setProgress(48);
+  resetMicCheckUI();
+}
+
+function resetMicCheckUI(){
+  $("mcStageLabel").textContent = "Ready when you are";
+  $("mcSubLabel").innerHTML = "&nbsp;";
+  $("mcClock").textContent = "15";
+  $("mcClock").classList.remove("recording");
+  $("mcPlayback").style.display = "none";
+  $("mcStartRow").style.display = "flex";
+  $("mcStopRow").style.display = "none";
+  $("mcReviewRow").style.display = "none";
+  if (mc.objectUrl){ URL.revokeObjectURL(mc.objectUrl); mc.objectUrl = null; }
+  mc.blob = null;
+  $("mcAudio").removeAttribute("src");
+}
+
+function startMicCheckRecording(){
+  if (!state.mediaStream) return;
+  mc.chunks = [];
+  var opts = state.mimeType ? { mimeType: state.mimeType } : {};
+  try {
+    mc.recorder = new MediaRecorder(state.mediaStream, opts);
+  } catch (err){
+    $("mcStageLabel").textContent = "Could not start recording. Try again.";
+    return;
+  }
+  mc.recorder.ondataavailable = function(e){ if (e.data && e.data.size > 0) mc.chunks.push(e.data); };
+  mc.recorder.onstop = function(){
+    if (mc.interval){ clearInterval(mc.interval); mc.interval = null; }
+    mc.blob = new Blob(mc.chunks, { type: state.mimeType || "audio/webm" });
+    mc.objectUrl = URL.createObjectURL(mc.blob);
+    $("mcAudio").src = mc.objectUrl;
+    $("mcPlayback").style.display = "block";
+    $("mcStopRow").style.display = "none";
+    $("mcReviewRow").style.display = "flex";
+    $("mcStageLabel").textContent = "Listen back";
+    $("mcSubLabel").innerHTML = "&nbsp;";
+    $("mcClock").classList.remove("recording");
+  };
+  mc.recorder.start();
+  $("mcStageLabel").innerHTML = '<span class="rec-dot"></span>Recording';
+  $("mcSubLabel").textContent = "Speak now";
+  $("mcClock").classList.add("recording");
+  $("mcStartRow").style.display = "none";
+  $("mcStopRow").style.display = "flex";
+
+  var remaining = 15;
+  $("mcClock").textContent = remaining;
+  mc.interval = setInterval(function(){
+    remaining -= 1;
+    if (remaining <= 0){
+      if (mc.recorder && mc.recorder.state === "recording") mc.recorder.stop();
+    } else {
+      $("mcClock").textContent = remaining;
+    }
+  }, 1000);
+}
+
+function stopMicCheckRecording(){
+  if (mc.interval){ clearInterval(mc.interval); mc.interval = null; }
+  if (mc.recorder && mc.recorder.state === "recording") mc.recorder.stop();
+}
+
+$("btnMcStart").addEventListener("click", startMicCheckRecording);
+$("btnMcStop").addEventListener("click", stopMicCheckRecording);
+$("btnMcRetry").addEventListener("click", function(){
+  mc.retries += 1;
+  if (mc.retries > 2){ $("mcHints").style.display = "block"; }
+  resetMicCheckUI();
+});
+$("btnMcConfirm").addEventListener("click", function(){
+  // Discard the local check clip: it is never added to any upload.
+  if (mc.objectUrl){ URL.revokeObjectURL(mc.objectUrl); mc.objectUrl = null; }
+  mc.blob = null;
+  mc.chunks = [];
+  beginSection3();
+});
 
 /* ============================= SECTION 3: SPEAKING ============================= */
 
 var s3PromptIndex = 0;
 var s3Recorder = null;
 var s3Chunks = [];
-var s3Phase = "prep"; // prep | recording
 var s3RecordStart = 0;
 
 function beginSection3(){
   showScreen("screen-s3");
   setProgress(55);
+  state.s3.resolvedPrompts = SPEAKING_SLOTS.map(function(slot){
+    var variant = slot.variants[Math.floor(Math.random()*slot.variants.length)];
+    return { variantId: variant.id, text: variant.text, prep: slot.prep, record: slot.record };
+  });
   s3PromptIndex = 0;
   startPrompt(0);
 }
 
 function startPrompt(i){
   s3PromptIndex = i;
-  var prompt = SPEAKING_PROMPTS[i];
+  var prompt = state.s3.resolvedPrompts[i];
   $("s3PromptNum").textContent = "Prompt " + (i+1) + " of 3";
   $("s3PromptText").textContent = prompt.text;
   $("s3ErrorBox").classList.remove("show");
   $("s3RetryRow").style.display = "none";
-  s3Phase = "prep";
   $("s3StageLabel").textContent = "Get ready";
   $("s3SubLabel").textContent = "Recording starts automatically";
   $("s3Clock").classList.remove("recording");
@@ -819,8 +1061,7 @@ function startPrompt(i){
 }
 
 function startRecording(i){
-  var prompt = SPEAKING_PROMPTS[i];
-  s3Phase = "recording";
+  var prompt = state.s3.resolvedPrompts[i];
   $("s3StageLabel").innerHTML = '<span class="rec-dot"></span>Recording';
   $("s3SubLabel").textContent = "Speak now";
   $("s3Clock").classList.add("recording");
@@ -863,7 +1104,7 @@ function startRecording(i){
 }
 
 function advanceAfterRecording(i){
-  if (i < SPEAKING_PROMPTS.length - 1){
+  if (i < state.s3.resolvedPrompts.length - 1){
     startPrompt(i+1);
   } else {
     stopTimer();
@@ -926,9 +1167,11 @@ function submitTest(retry){
   }));
   fd.append("section2", JSON.stringify({
     correctCount: state.s2.correctCount,
-    answers: state.s2.answers
+    answers: state.s2.answers,
+    passageId: state.s2.passageId
   }));
-  fd.append("prompts", JSON.stringify(SPEAKING_PROMPTS.map(function(p){ return p.text; })));
+  fd.append("prompts", JSON.stringify(state.s3.resolvedPrompts.map(function(p){ return p.text; })));
+  fd.append("promptVariants", JSON.stringify(state.s3.resolvedPrompts.map(function(p){ return p.variantId; })));
 
   var ext = extForMime(state.mimeType);
   state.s3.recordings.forEach(function(blob, i){
