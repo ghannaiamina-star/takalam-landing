@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "api/submit-test.js": { "maxDuration": 60 }
+  },
   "redirects": [
     { "source": "/about",            "destination": "https://takalamenglish.ma/", "permanent": true },
     { "source": "/careers",          "destination": "https://takalamenglish.ma/", "permanent": true },

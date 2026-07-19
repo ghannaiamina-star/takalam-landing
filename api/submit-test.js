@@ -1,0 +1,316 @@
+const {
+  CEFR_LABELS,
+  bandFromGrammarLevel,
+  bandFromReadingScore,
+  speakingOverallBand,
+  computeFinalBand,
+  computeFluencyMetrics,
+} = require('../lib/scoring');
+
+const REPORT_TO = 'mohammedsaidelbouzdoudi99@gmail.com';
+const REPORT_FROM = 'Takalam Level Test <onboarding@resend.dev>';
+const REPORT_REPLY_TO = 'mohammedsaidelbouzdoudi99@gmail.com';
+
+const CEFR_TOOL_SCHEMA = {
+  name: 'record_cefr_assessment',
+  description: 'Record a strict CEFR speaking assessment for three prompts.',
+  input_schema: {
+    type: 'object',
+    properties: {
+      prompts: {
+        type: 'array',
+        minItems: 3,
+        maxItems: 3,
+        items: {
+          type: 'object',
+          properties: {
+            band: { type: 'string', enum: ['below-b1', 'b1', 'b2', 'c1'] },
+            grammar_range: { type: 'integer', minimum: 1, maximum: 5 },
+            vocabulary_range: { type: 'integer', minimum: 1, maximum: 5 },
+            coherence: { type: 'integer', minimum: 1, maximum: 5 },
+            freeze_indicators: { type: 'array', items: { type: 'string' } },
+            example_errors: {
+              type: 'array',
+              items: { type: 'string' },
+              minItems: 2,
+              maxItems: 2,
+            },
+          },
+          required: [
+            'band',
+            'grammar_range',
+            'vocabulary_range',
+            'coherence',
+            'freeze_indicators',
+            'example_errors',
+          ],
+        },
+      },
+    },
+    required: ['prompts'],
+  },
+};
+
+module.exports = async (req, res) => {
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+
+  const missingKeys = ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'RESEND_API_KEY'].filter(
+    (key) => !process.env[key]
+  );
+  if (missingKeys.length) {
+    console.error(`[submit-test] Missing environment variable(s): ${missingKeys.join(', ')}`);
+  }
+  if (!process.env.RESEND_API_KEY) {
+    // Without Resend there is no way to deliver the report at all.
+    res.status(500).json({ error: 'Server is not configured to send results. Contact the site owner.' });
+    return;
+  }
+
+  let formData;
+  try {
+    formData = await parseMultipart(req);
+  } catch (err) {
+    console.error('[submit-test] Failed to parse submission body:', err);
+    res.status(400).json({ error: 'Could not read submission.' });
+    return;
+  }
+
+  const name = String(formData.get('name') || '').trim();
+  const whatsapp = String(formData.get('whatsapp') || '').trim();
+  if (!name || !whatsapp) {
+    res.status(400).json({ error: 'Name and WhatsApp number are required.' });
+    return;
+  }
+
+  let section1 = {};
+  let section2 = {};
+  let prompts = [];
+  try {
+    section1 = JSON.parse(formData.get('section1') || '{}');
+    section2 = JSON.parse(formData.get('section2') || '{}');
+    prompts = JSON.parse(formData.get('prompts') || '[]');
+  } catch (err) {
+    console.error('[submit-test] Failed to parse section JSON:', err);
+  }
+
+  const grammarBand = bandFromGrammarLevel(section1.finalLevel);
+  const readingBand = bandFromReadingScore(Number(section2.correctCount) || 0);
+
+  let gradingIncomplete = missingKeys.includes('OPENAI_API_KEY') || missingKeys.includes('ANTHROPIC_API_KEY');
+  const speakingResults = [];
+
+  for (let i = 0; i < 3; i += 1) {
+    const audioFile = formData.get(`audio${i}`);
+    const promptText = prompts[i] || `Prompt ${i + 1}`;
+    if (!audioFile || typeof audioFile === 'string') {
+      speakingResults.push({ promptText, error: 'No recording received' });
+      gradingIncomplete = true;
+      continue;
+    }
+    if (missingKeys.includes('OPENAI_API_KEY')) {
+      speakingResults.push({ promptText, error: 'Transcription unavailable' });
+      continue;
+    }
+    try {
+      const whisperResult = await transcribeAudio(audioFile, process.env.OPENAI_API_KEY);
+      const metrics = computeFluencyMetrics(whisperResult, Number(formData.get(`audioDuration${i}`)) || 0);
+      speakingResults.push({ promptText, transcript: whisperResult.text || '', metrics });
+    } catch (err) {
+      console.error(`[submit-test] Whisper transcription failed for prompt ${i}:`, err);
+      speakingResults.push({ promptText, error: 'Transcription failed' });
+      gradingIncomplete = true;
+    }
+  }
+
+  let claudeResults = null;
+  const transcribedOk = speakingResults.filter((r) => r.transcript);
+  if (!missingKeys.includes('ANTHROPIC_API_KEY') && transcribedOk.length > 0) {
+    try {
+      claudeResults = await gradeWithClaude(speakingResults, process.env.ANTHROPIC_API_KEY);
+    } catch (err) {
+      console.error('[submit-test] Claude grading failed:', err);
+      gradingIncomplete = true;
+    }
+  } else if (transcribedOk.length === 0) {
+    gradingIncomplete = true;
+  }
+
+  const promptBands = claudeResults ? claudeResults.map((r) => r.band) : [];
+  const speakingBand = speakingOverallBand(promptBands);
+  const finalBand = speakingBand
+    ? computeFinalBand({ speakingBand, grammarBand, readingBand })
+    : null;
+
+  const finalBandLabel = finalBand ? CEFR_LABELS[finalBand] : 'Pending manual review';
+
+  const html = buildReportEmail({
+    name,
+    whatsapp,
+    timestamp: new Date().toISOString(),
+    gradingIncomplete,
+    finalBandLabel,
+    grammarBand,
+    readingBand,
+    section1,
+    section2,
+    speakingBand: speakingBand ? CEFR_LABELS[speakingBand] : 'Not graded',
+    speakingResults,
+    claudeResults,
+  });
+
+  try {
+    await sendReportEmail(html, `Takalam Level Test: ${name}, ${finalBandLabel}`);
+  } catch (err) {
+    console.error('[submit-test] Resend delivery failed:', err);
+    res.status(502).json({ error: 'Could not deliver results. Please try again.' });
+    return;
+  }
+
+  res.status(200).json({ success: true });
+};
+
+async function parseMultipart(req) {
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  const bodyBuffer = Buffer.concat(chunks);
+  const contentType = req.headers['content-type'] || '';
+  const request = new Request('http://localhost/api/submit-test', {
+    method: 'POST',
+    headers: { 'content-type': contentType },
+    body: bodyBuffer,
+  });
+  return request.formData();
+}
+
+async function transcribeAudio(file, apiKey) {
+  const form = new FormData();
+  form.append('file', file, file.name || 'audio.webm');
+  form.append('model', 'whisper-1');
+  form.append('response_format', 'verbose_json');
+
+  const resp = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${apiKey}` },
+    body: form,
+  });
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => '');
+    throw new Error(`Whisper API error ${resp.status}: ${errText}`);
+  }
+  return resp.json();
+}
+
+async function gradeWithClaude(speakingResults, apiKey) {
+  const rubric = buildRubricPrompt(speakingResults);
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 2000,
+      tools: [CEFR_TOOL_SCHEMA],
+      tool_choice: { type: 'tool', name: 'record_cefr_assessment' },
+      messages: [{ role: 'user', content: rubric }],
+    }),
+  });
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => '');
+    throw new Error(`Claude API error ${resp.status}: ${errText}`);
+  }
+  const data = await resp.json();
+  const toolUse = (data.content || []).find((c) => c.type === 'tool_use');
+  if (!toolUse || !toolUse.input || !Array.isArray(toolUse.input.prompts)) {
+    throw new Error('Claude did not return structured grading');
+  }
+  return toolUse.input.prompts;
+}
+
+function buildRubricPrompt(speakingResults) {
+  const transcriptBlocks = speakingResults
+    .map((r, i) => {
+      if (!r.transcript) return `Prompt ${i + 1}: "${r.promptText}"\n[No usable transcript: ${r.error || 'unknown error'}]`;
+      const m = r.metrics || {};
+      return [
+        `Prompt ${i + 1}: "${r.promptText}"`,
+        `Transcript: "${r.transcript}"`,
+        `Metrics: words per minute ${m.wpm}, filler frequency ${m.fillerFrequency} (${m.fillerCount} filler/repeat instances out of ${m.wordCount} words), longest fluent run ${m.longestFluentRun} words, silence ratio ${m.silenceRatio === null ? 'unavailable' : m.silenceRatio}, recording length ${m.durationSeconds}s.`,
+      ].join('\n');
+    })
+    .join('\n\n');
+
+  return `You are a strict CEFR speaking examiner grading a spoken English placement test. Grade honestly and conservatively. Do not round up out of politeness. Use the transcripts and the fluency metrics together; if metrics suggest heavy hesitation or very low word counts, that should pull the band down even if vocabulary looks reasonable on paper.
+
+CEFR band reference:
+- below-b1: Frequent basic errors, very limited vocabulary, long pauses, cannot sustain a coherent answer, often answers off topic or with single words.
+- b1: Can describe familiar topics in simple connected speech, noticeable grammar errors, limited range of vocabulary, some hesitation.
+- b2: Can explain a viewpoint with reasonable fluency and detail, occasional errors that do not block understanding, decent range of vocabulary and connectors.
+- c1: Fluent and spontaneous, wide vocabulary and idiomatic range, coherent and well structured argument, only minor and infrequent errors.
+
+Grade each of the three prompts below (they rise in difficulty: introduction, then a problem narrative, then an opinion argument).
+
+${transcriptBlocks}
+
+For each prompt return: band, grammar_range (1-5), vocabulary_range (1-5), coherence (1-5), freeze_indicators (a list of observed signs such as hesitation, avoidance, or unusually short answers; empty list if none), and example_errors (exactly two errors quoted verbatim from that prompt's transcript; if there are fewer than two clear errors, quote what is available and note "no further errors observed" for the second). Do not use em dashes anywhere in your response. Call the record_cefr_assessment tool with your results.`;
+}
+
+function buildReportEmail(data) {
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+  const speakingBlocks = data.speakingResults
+    .map((r, i) => {
+      const claude = data.claudeResults ? data.claudeResults[i] : null;
+      return `
+        <div style="margin:16px 0;padding:12px;border:1px solid #e5e0d5;border-radius:8px;">
+          <p style="margin:0 0 6px;font-weight:600;">Prompt ${i + 1}: ${esc(r.promptText)}</p>
+          ${r.transcript ? `<p style="margin:0 0 6px;white-space:pre-wrap;">${esc(r.transcript)}</p>` : `<p style="margin:0 0 6px;color:#b00;">${esc(r.error || 'No transcript')}</p>`}
+          ${r.metrics ? `<p style="margin:0 0 6px;font-size:13px;color:#555;">WPM ${r.metrics.wpm} · filler freq ${r.metrics.fillerFrequency} (${r.metrics.fillerCount} instances) · longest fluent run ${r.metrics.longestFluentRun} words · silence ratio ${r.metrics.silenceRatio === null ? 'n/a' : r.metrics.silenceRatio} · length ${r.metrics.durationSeconds}s</p>` : ''}
+          ${claude ? `<p style="margin:0 0 6px;font-size:13px;">Band: <strong>${esc(claude.band)}</strong> · grammar ${claude.grammar_range}/5 · vocabulary ${claude.vocabulary_range}/5 · coherence ${claude.coherence}/5</p>
+          <p style="margin:0 0 6px;font-size:13px;">Freeze indicators: ${claude.freeze_indicators && claude.freeze_indicators.length ? esc(claude.freeze_indicators.join(', ')) : 'none observed'}</p>
+          <p style="margin:0;font-size:13px;">Example errors: ${esc((claude.example_errors || []).join(' | '))}</p>` : '<p style="margin:0;font-size:13px;color:#b00;">Not graded</p>'}
+        </div>`;
+    })
+    .join('');
+
+  return `
+  <div style="font-family:Arial,sans-serif;color:#1a2332;max-width:640px;">
+    <h2 style="color:#0d4f37;">Takalam Level Test result</h2>
+    ${data.gradingIncomplete ? '<p style="background:#fff3cd;padding:8px 12px;border-radius:6px;color:#7a5c00;"><strong>Grading incomplete.</strong> One or more automated steps failed. Review the raw data below manually.</p>' : ''}
+    <p><strong>Name:</strong> ${esc(data.name)}<br/>
+    <strong>WhatsApp:</strong> ${esc(data.whatsapp)}<br/>
+    <strong>Submitted:</strong> ${esc(data.timestamp)}</p>
+    <h3 style="color:#0d4f37;">Final band: ${esc(data.finalBandLabel)}</h3>
+    <p><strong>Grammar &amp; vocabulary section:</strong> ${esc(data.grammarBand)} (final adaptive level: ${esc(data.section1.finalLevel || 'n/a')}, ${esc((data.section1.trajectory || []).length)} items answered)<br/>
+    <strong>Reading section:</strong> ${esc(data.readingBand)} (${esc(data.section2.correctCount)}/4 correct)<br/>
+    <strong>Speaking overall:</strong> ${esc(data.speakingBand)}</p>
+    <h3 style="color:#0d4f37;">Speaking detail</h3>
+    ${speakingBlocks}
+  </div>`;
+}
+
+async function sendReportEmail(html, subject) {
+  const resp = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: REPORT_FROM,
+      to: [REPORT_TO],
+      reply_to: REPORT_REPLY_TO,
+      subject,
+      html,
+    }),
+  });
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => '');
+    throw new Error(`Resend API error ${resp.status}: ${errText}`);
+  }
+}
