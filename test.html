@@ -44,12 +44,10 @@ header.top{
   justify-content:space-between;
   margin-bottom:24px;
 }
-.brand{
-  font-family:var(--serif);
-  font-weight:600;
-  font-style:italic;
-  font-size:1.3rem;
-  color:var(--forest);
+.brand-logo{
+  height:26px;
+  width:auto;
+  display:block;
 }
 .timer{
   font-family:var(--sans);
@@ -315,7 +313,7 @@ input[type=text]:focus,input[type=tel]:focus{
 <body>
 <div class="wrap">
   <header class="top">
-    <span class="brand">Takalam</span>
+    <img class="brand-logo" src="/logo.svg" alt="Takalam English" width="140" height="26">
     <span class="timer" id="timerChip" style="display:none;">10:00</span>
   </header>
   <div class="progress-bar" id="progressBar" style="display:none;"><div class="progress-fill" id="progressFill"></div></div>
