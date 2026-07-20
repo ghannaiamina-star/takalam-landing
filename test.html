@@ -338,6 +338,22 @@ input[type=text]:focus,input[type=tel]:focus{
   padding:4px;
 }
 .skip-link:active{opacity:.8;}
+.debug-panel{
+  display:none;
+  margin:0;
+  position:fixed;
+  left:0;right:0;bottom:0;
+  max-height:35vh;
+  overflow-y:auto;
+  background:rgba(0,0,0,.88);
+  color:#7CFC9A;
+  font-family:"SFMono-Regular",Consolas,Menlo,monospace;
+  font-size:11px;
+  line-height:1.5;
+  white-space:pre-wrap;
+  padding:8px 10px;
+  z-index:9999;
+}
 </style>
 </head>
 <body>
@@ -491,6 +507,8 @@ input[type=text]:focus,input[type=tel]:focus{
 
   </main>
 </div>
+
+<pre class="debug-panel" id="debugPanel"></pre>
 
 <script>
 (function(){
@@ -675,7 +693,7 @@ var SPEAKING_SLOTS = [
 
 var state = {
   name:"", whatsapp:"",
-  mediaStream:null, mimeType:"",
+  micGranted:false, mimeType:"",
   s1:{ currentLevel:"B1", correctStreak:0, wrongStreak:0, askedIds:[], trajectory:[], itemCount:0, current:null },
   s2:{ passageId:"", activeQuestions:[], answers:[], itemDetail:[], correctCount:0 },
   s3:{ resolvedPrompts:[], recordings:[null,null,null], durations:[0,0,0], retriesUsed:[0,0,0], promptStatus:["pending","pending","pending"], skipped:false, skipReason:"", speakingResults:[null,null,null], transcribePromises:[null,null,null] }
@@ -684,6 +702,56 @@ var state = {
 var micDenialCount = 0;
 
 var timers = { interval:null };
+
+/* ============================= DEBUG (?debug=1) ============================= */
+// On-screen readout for diagnosing recording issues on a phone with no
+// attached devtools. Every actual recording attempt (mic check and each
+// speaking prompt, first try and every retry) logs one line: attempt
+// number, that attempt's MediaStream id (must differ every time, since
+// every attempt now requests a brand-new stream), the chosen mimeType,
+// how many ondataavailable events fired, and total bytes captured.
+
+var DEBUG = /(?:^|[?&])debug=1(?:&|$)/.test(location.search);
+var debugLog = [];
+var debugAttemptCounter = 0;
+
+function debugStreamId(stream){
+  return (stream && stream.id) ? stream.id.slice(0, 8) : "n/a";
+}
+
+function startDebugAttempt(label, stream, mimeType){
+  if (!DEBUG) return null;
+  debugAttemptCounter += 1;
+  var entry = {
+    n: debugAttemptCounter,
+    label: label,
+    streamId: debugStreamId(stream),
+    mimeType: mimeType || "(browser default)",
+    dataEvents: 0,
+    totalBytes: 0
+  };
+  debugLog.push(entry);
+  renderDebugPanel();
+  return entry;
+}
+
+function debugRecordChunk(entry, size){
+  if (!entry) return;
+  entry.dataEvents += 1;
+  entry.totalBytes += size;
+  renderDebugPanel();
+}
+
+function renderDebugPanel(){
+  if (!DEBUG) return;
+  var el = $("debugPanel");
+  if (!el) return;
+  el.style.display = "block";
+  el.textContent = debugLog.map(function(e){
+    return "#" + e.n + " [" + e.label + "] stream=" + e.streamId +
+      " mime=" + e.mimeType + " events=" + e.dataEvents + " bytes=" + e.totalBytes;
+  }).join("\n");
+}
 
 /* ============================= HELPERS ============================= */
 
@@ -764,8 +832,12 @@ function renderShuffledOptions(container, options, onSelect){
 // so there is no echo. If Web Audio is unavailable or throws, we just hide the
 // meter and let recording continue untouched.
 
-var levelMeter = { ctx:null, analyser:null, source:null, raf:null, dataArray:null };
+var levelMeter = { ctx:null, analyser:null, source:null, raf:null, dataArray:null, stream:null };
 
+// Callers pass a clone of the recording stream (see startRecording / mic
+// check), never the stream MediaRecorder itself is using, so this consumer
+// owns fully independent track instances and stopping either one can never
+// affect the other.
 function startLevelMeter(stream, containerEl){
   if (!containerEl || !stream) return;
   var AC = window.AudioContext || window.webkitAudioContext;
@@ -782,6 +854,7 @@ function startLevelMeter(stream, containerEl){
     levelMeter.ctx = ctx;
     levelMeter.analyser = analyser;
     levelMeter.source = source;
+    levelMeter.stream = stream;
     levelMeter.dataArray = new Uint8Array(analyser.frequencyBinCount);
 
     var bars = containerEl.querySelectorAll(".level-bar");
@@ -814,6 +887,7 @@ function stopLevelMeter(containerEl){
   if (levelMeter.source){ try{ levelMeter.source.disconnect(); }catch(e){} levelMeter.source = null; }
   if (levelMeter.analyser){ try{ levelMeter.analyser.disconnect(); }catch(e){} levelMeter.analyser = null; }
   if (levelMeter.ctx){ try{ levelMeter.ctx.close(); }catch(e){} levelMeter.ctx = null; }
+  if (levelMeter.stream){ levelMeter.stream.getTracks().forEach(function(t){ try{ t.stop(); }catch(e){} }); levelMeter.stream = null; }
   levelMeter.dataArray = null;
   if (containerEl){
     containerEl.style.display = "none";
@@ -859,7 +933,12 @@ function requestMic(){
   $("btnStart").textContent = "Checking microphone...";
   navigator.mediaDevices.getUserMedia({ audio:true })
     .then(function(stream){
-      state.mediaStream = stream;
+      // This is only a permission and codec check, never held open or reused
+      // for actual recording: iOS Safari has been observed to silently stop
+      // delivering audio data on a stream that's already been recorded from,
+      // so every real recording attempt below requests its own fresh stream.
+      stream.getTracks().forEach(function(t){ t.stop(); });
+      state.micGranted = true;
       state.mimeType = pickMimeType();
       $("micDot").classList.add("ok");
       $("micStatusText").textContent = "Microphone ready.";
@@ -1074,7 +1153,11 @@ function finishSection2(){
 
 /* ============================= MIC CHECK (local only, never uploaded) ============================= */
 
-var mc = { recorder:null, chunks:[], blob:null, objectUrl:null, retries:0, interval:null };
+var mc = { recorder:null, stream:null, chunks:[], blob:null, objectUrl:null, retries:0, interval:null };
+
+function releaseMcStream(){
+  if (mc.stream){ mc.stream.getTracks().forEach(function(t){ try{ t.stop(); }catch(e){} }); mc.stream = null; }
+}
 
 function beginMicCheck(){
   showScreen("screen-miccheck");
@@ -1124,53 +1207,79 @@ function registerMicCheckFailure(){
 }
 
 function startMicCheckRecording(){
-  // Triggered directly by the "Start recording" tap, as iOS requires.
-  if (!state.mediaStream) return;
-  mc.chunks = [];
-  var opts = state.mimeType ? { mimeType: state.mimeType } : {};
-  try {
-    mc.recorder = new MediaRecorder(state.mediaStream, opts);
-  } catch (err){
-    registerMicCheckFailure();
-    return;
-  }
-  mc.recorder.ondataavailable = function(e){ if (e.data && e.data.size > 0) mc.chunks.push(e.data); };
-  mc.recorder.onstop = function(){
-    stopLevelMeter($("mcMeter"));
-    if (mc.interval){ clearInterval(mc.interval); mc.interval = null; }
-    var blob = new Blob(mc.chunks, { type: state.mimeType || "audio/webm" });
-    if (blob.size < 500){
-      registerMicCheckFailure();
-      return;
-    }
-    mc.blob = blob;
-    mc.objectUrl = URL.createObjectURL(mc.blob);
-    $("mcAudio").src = mc.objectUrl;
-    $("mcPlayback").style.display = "block";
-    $("mcStopRow").style.display = "none";
-    $("mcReviewRow").style.display = "flex";
-    $("mcStageLabel").textContent = "Listen back";
-    $("mcSubLabel").innerHTML = "&nbsp;";
-    $("mcClock").classList.remove("recording");
-  };
-  mc.recorder.start();
-  startLevelMeter(state.mediaStream, $("mcMeter"));
-  $("mcStageLabel").innerHTML = '<span class="rec-dot"></span>Recording';
-  $("mcSubLabel").textContent = "Speak now";
-  $("mcClock").classList.add("recording");
-  $("mcStartRow").style.display = "none";
-  $("mcStopRow").style.display = "flex";
+  // Triggered directly by the "Start recording" tap, as iOS requires, and
+  // every single tap (first attempt and every retry alike) requests its own
+  // brand-new stream here. Reusing one long-lived stream across attempts is
+  // what caused every retry after the first to record silence on iOS Safari.
+  $("btnMcStart").disabled = true;
+  navigator.mediaDevices.getUserMedia({ audio:true })
+    .then(function(stream){
+      $("btnMcStart").disabled = false;
+      mc.stream = stream;
+      mc.chunks = [];
+      var debugEntry = startDebugAttempt("mic-check", stream, state.mimeType);
+      var opts = state.mimeType ? { mimeType: state.mimeType } : {};
+      try {
+        mc.recorder = new MediaRecorder(stream, opts);
+      } catch (err){
+        releaseMcStream();
+        registerMicCheckFailure();
+        return;
+      }
+      mc.recorder.ondataavailable = function(e){
+        if (e.data && e.data.size > 0){
+          mc.chunks.push(e.data);
+          debugRecordChunk(debugEntry, e.data.size);
+        }
+      };
+      mc.recorder.onstop = function(){
+        stopLevelMeter($("mcMeter"));
+        if (mc.interval){ clearInterval(mc.interval); mc.interval = null; }
+        var blob = new Blob(mc.chunks, { type: state.mimeType || "audio/webm" });
+        // Only release this attempt's stream now that the blob is fully
+        // assembled, and never reuse it for the next attempt.
+        releaseMcStream();
+        mc.recorder = null;
+        if (blob.size < 500){
+          registerMicCheckFailure();
+          return;
+        }
+        mc.blob = blob;
+        mc.objectUrl = URL.createObjectURL(mc.blob);
+        $("mcAudio").src = mc.objectUrl;
+        $("mcPlayback").style.display = "block";
+        $("mcStopRow").style.display = "none";
+        $("mcReviewRow").style.display = "flex";
+        $("mcStageLabel").textContent = "Listen back";
+        $("mcSubLabel").innerHTML = "&nbsp;";
+        $("mcClock").classList.remove("recording");
+      };
+      mc.recorder.start();
+      // The level meter taps a clone so it never shares track instances with
+      // the recorder's own stream.
+      startLevelMeter(stream.clone(), $("mcMeter"));
+      $("mcStageLabel").innerHTML = '<span class="rec-dot"></span>Recording';
+      $("mcSubLabel").textContent = "Speak now";
+      $("mcClock").classList.add("recording");
+      $("mcStartRow").style.display = "none";
+      $("mcStopRow").style.display = "flex";
 
-  var remaining = 15;
-  $("mcClock").textContent = remaining;
-  mc.interval = setInterval(function(){
-    remaining -= 1;
-    if (remaining <= 0){
-      if (mc.recorder && mc.recorder.state === "recording") mc.recorder.stop();
-    } else {
+      var remaining = 15;
       $("mcClock").textContent = remaining;
-    }
-  }, 1000);
+      mc.interval = setInterval(function(){
+        remaining -= 1;
+        if (remaining <= 0){
+          if (mc.recorder && mc.recorder.state === "recording") mc.recorder.stop();
+        } else {
+          $("mcClock").textContent = remaining;
+        }
+      }, 1000);
+    })
+    .catch(function(err){
+      $("btnMcStart").disabled = false;
+      console.error("Mic check getUserMedia failed:", err);
+      registerMicCheckFailure();
+    });
 }
 
 function stopMicCheckRecording(){
@@ -1192,6 +1301,8 @@ $("btnMcConfirm").addEventListener("click", function(){
   beginSection3();
 });
 $("btnMcSkip").addEventListener("click", function(){
+  if (mc.recorder && mc.recorder.state === "recording"){ try{ mc.recorder.stop(); }catch(e){} }
+  releaseMcStream();
   disposeMicCheckAudio();
   mc.chunks = [];
   skipSpeakingAndSubmit("Could not get a usable microphone recording after several attempts during the mic check.");
@@ -1201,10 +1312,15 @@ $("btnMcSkip").addEventListener("click", function(){
 
 var s3PromptIndex = 0;
 var s3Recorder = null;
+var s3Stream = null;
 var s3Chunks = [];
 var s3RecordStart = 0;
 var s3FinishTimeout = null;
 var S3_MIN_RECORD_SECONDS = 20;
+
+function releaseS3Stream(){
+  if (s3Stream){ s3Stream.getTracks().forEach(function(t){ try{ t.stop(); }catch(e){} }); s3Stream = null; }
+}
 
 function beginSection3(){
   showScreen("screen-s3");
@@ -1277,57 +1393,82 @@ function startRecording(i){
   $("s3SubLabel").textContent = "Speak now";
   $("s3Clock").classList.add("recording");
 
-  if (!state.mediaStream){
-    handleRecordingFailure(i, "No microphone stream available.");
-    return;
-  }
-
-  try {
-    s3Chunks = [];
-    var opts = state.mimeType ? { mimeType: state.mimeType } : {};
-    s3Recorder = new MediaRecorder(state.mediaStream, opts);
-    s3RecordStart = Date.now();
-    s3Recorder.ondataavailable = function(e){ if (e.data && e.data.size > 0) s3Chunks.push(e.data); };
-    s3Recorder.onerror = function(){ stopLevelMeter($("s3Meter")); handleRecordingFailure(i, "Recording failed unexpectedly."); };
-    s3Recorder.onstop = function(){
-      stopLevelMeter($("s3Meter"));
-      clearS3FinishTimeout();
-      $("s3FinishRow").style.display = "none";
-      var durationSec = (Date.now() - s3RecordStart) / 1000;
-      var blob = new Blob(s3Chunks, { type: state.mimeType || "audio/webm" });
-      if (blob.size < 500){
-        handleRecordingFailure(i, "Recording came out empty.");
+  // Every prompt, first attempt and every retry, requests its own brand-new
+  // stream here inside the tap handler. Prompt 2 must never inherit prompt
+  // 1's stream, and a retry of the same prompt must never inherit the
+  // failed attempt's stream either: iOS Safari can silently stop delivering
+  // audio data on a stream that has already been recorded from once.
+  navigator.mediaDevices.getUserMedia({ audio:true })
+    .then(function(stream){
+      s3Stream = stream;
+      var debugEntry = startDebugAttempt("prompt" + (i + 1), stream, state.mimeType);
+      try {
+        s3Chunks = [];
+        var opts = state.mimeType ? { mimeType: state.mimeType } : {};
+        s3Recorder = new MediaRecorder(stream, opts);
+        s3RecordStart = Date.now();
+        s3Recorder.ondataavailable = function(e){
+          if (e.data && e.data.size > 0){
+            s3Chunks.push(e.data);
+            debugRecordChunk(debugEntry, e.data.size);
+          }
+        };
+        s3Recorder.onerror = function(){
+          stopLevelMeter($("s3Meter"));
+          releaseS3Stream();
+          handleRecordingFailure(i, "Recording failed unexpectedly.");
+        };
+        s3Recorder.onstop = function(){
+          stopLevelMeter($("s3Meter"));
+          clearS3FinishTimeout();
+          $("s3FinishRow").style.display = "none";
+          var durationSec = (Date.now() - s3RecordStart) / 1000;
+          var blob = new Blob(s3Chunks, { type: state.mimeType || "audio/webm" });
+          // Only release this attempt's stream now that the blob is fully
+          // assembled, and never reuse it for the next prompt or retry.
+          releaseS3Stream();
+          s3Recorder = null;
+          if (blob.size < 500){
+            handleRecordingFailure(i, "Recording came out empty.");
+            return;
+          }
+          state.s3.recordings[i] = blob;
+          state.s3.durations[i] = durationSec;
+          state.s3.promptStatus[i] = "ok";
+          state.s3.transcribePromises[i] = backgroundTranscribe(i, blob, durationSec, prompt.text);
+          advanceAfterRecording(i);
+        };
+        s3Recorder.start();
+        // The level meter taps a clone so it never shares track instances
+        // with the recorder's own stream.
+        startLevelMeter(stream.clone(), $("s3Meter"));
+      } catch (err){
+        releaseS3Stream();
+        handleRecordingFailure(i, "Could not start recording.");
         return;
       }
-      state.s3.recordings[i] = blob;
-      state.s3.durations[i] = durationSec;
-      state.s3.promptStatus[i] = "ok";
-      state.s3.transcribePromises[i] = backgroundTranscribe(i, blob, durationSec, prompt.text);
-      advanceAfterRecording(i);
-    };
-    s3Recorder.start();
-    startLevelMeter(state.mediaStream, $("s3Meter"));
-  } catch (err){
-    handleRecordingFailure(i, "Could not start recording.");
-    return;
-  }
 
-  // Lets students who run out of things to say stop early instead of
-  // sitting through dead air, but only once they've had a fair chance to
-  // give a gradeable answer.
-  $("s3FinishRow").style.display = "flex";
-  $("btnS3Finish").disabled = true;
-  clearS3FinishTimeout();
-  s3FinishTimeout = setTimeout(function(){
-    $("btnS3Finish").disabled = false;
-  }, S3_MIN_RECORD_SECONDS * 1000);
+      // Lets students who run out of things to say stop early instead of
+      // sitting through dead air, but only once they've had a fair chance to
+      // give a gradeable answer.
+      $("s3FinishRow").style.display = "flex";
+      $("btnS3Finish").disabled = true;
+      clearS3FinishTimeout();
+      s3FinishTimeout = setTimeout(function(){
+        $("btnS3Finish").disabled = false;
+      }, S3_MIN_RECORD_SECONDS * 1000);
 
-  runTimer(prompt.record, function(remaining){
-    $("s3Clock").textContent = remaining;
-    setTimerChip(remaining);
-  }, function(){
-    if (s3Recorder && s3Recorder.state === "recording") s3Recorder.stop();
-  });
+      runTimer(prompt.record, function(remaining){
+        $("s3Clock").textContent = remaining;
+        setTimerChip(remaining);
+      }, function(){
+        if (s3Recorder && s3Recorder.state === "recording") s3Recorder.stop();
+      });
+    })
+    .catch(function(err){
+      console.error("Prompt getUserMedia failed:", err);
+      handleRecordingFailure(i, "No microphone stream available.");
+    });
 }
 
 function advanceAfterRecording(i){
@@ -1343,6 +1484,7 @@ function handleRecordingFailure(i, message){
   stopTimer();
   clearS3FinishTimeout();
   $("s3FinishRow").style.display = "none";
+  releaseS3Stream();
   if (state.s3.retriesUsed[i] < 1){
     state.s3.retriesUsed[i] += 1;
     $("s3ErrorBox").textContent = message + " You get one retry.";
@@ -1369,9 +1511,9 @@ var s3Finished = false;
 function finishSection3(){
   if (s3Finished) return;
   s3Finished = true;
-  if (state.mediaStream){
-    state.mediaStream.getTracks().forEach(function(t){ t.stop(); });
-  }
+  // Each prompt already released its own stream in onstop; this is just a
+  // safety net in case anything is still open.
+  releaseS3Stream();
   setProgress(92);
   submitTest();
 }
@@ -1387,10 +1529,11 @@ function skipSpeakingAndSubmit(reason){
   if (mc.interval){ clearInterval(mc.interval); mc.interval = null; }
   stopLevelMeter($("mcMeter"));
   stopLevelMeter($("s3Meter"));
-  if (state.mediaStream){
-    state.mediaStream.getTracks().forEach(function(t){ t.stop(); });
-    state.mediaStream = null;
-  }
+  if (mc.recorder && mc.recorder.state === "recording"){ try{ mc.recorder.stop(); }catch(e){} }
+  releaseMcStream();
+  if (s3Recorder && s3Recorder.state === "recording"){ try{ s3Recorder.stop(); }catch(e){} }
+  releaseS3Stream();
+  clearS3FinishTimeout();
   state.s3.skipped = true;
   state.s3.skipReason = reason;
   setProgress(92);
