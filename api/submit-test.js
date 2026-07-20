@@ -92,14 +92,19 @@ module.exports = async (req, res) => {
   let section2 = {};
   let prompts = [];
   let promptVariants = [];
+  let promptStatus = [];
   try {
     section1 = JSON.parse(formData.get('section1') || '{}');
     section2 = JSON.parse(formData.get('section2') || '{}');
     prompts = JSON.parse(formData.get('prompts') || '[]');
     promptVariants = JSON.parse(formData.get('promptVariants') || '[]');
+    promptStatus = JSON.parse(formData.get('promptStatus') || '[]');
   } catch (err) {
     console.error('[submit-test] Failed to parse section JSON:', err);
   }
+
+  const speakingSkipped = String(formData.get('speakingSkipped') || 'false') === 'true';
+  const speakingSkipReason = String(formData.get('speakingSkipReason') || '').trim();
 
   const grammarBand = bandFromGrammarLevel(section1.finalLevel);
   const readingBand = bandFromReadingScore(Number(section2.correctCount) || 0);
@@ -111,45 +116,55 @@ module.exports = async (req, res) => {
   const slug = slugify(name);
   let totalAttachmentBytes = 0;
 
-  for (let i = 0; i < 3; i += 1) {
-    const audioFile = formData.get(`audio${i}`);
-    const promptText = prompts[i] || `Prompt ${i + 1}`;
-    if (!audioFile || typeof audioFile === 'string') {
-      speakingResults.push({ promptText, error: 'No recording received' });
-      gradingIncomplete = true;
-      continue;
-    }
-
-    // Attach the raw clip for manual pronunciation/accent review, independent
-    // of whether transcription succeeds below.
-    if (audioFile.size > MAX_ATTACHMENT_BYTES || totalAttachmentBytes + audioFile.size > MAX_TOTAL_ATTACHMENT_BYTES) {
-      attachmentNotes.push(`Prompt ${i + 1} recording (${(audioFile.size / 1024 / 1024).toFixed(1)}MB) was too large to attach.`);
-    } else {
-      try {
-        const buf = Buffer.from(await audioFile.arrayBuffer());
-        attachments.push({
-          filename: `${slug}-prompt${i + 1}.${extFromFile(audioFile)}`,
-          content: buf.toString('base64'),
+  // A partially or fully failed speaking section must never block the report:
+  // MCQ and reading results below are independent of everything in this loop.
+  if (speakingSkipped) {
+    gradingIncomplete = true;
+  } else {
+    for (let i = 0; i < 3; i += 1) {
+      const audioFile = formData.get(`audio${i}`);
+      const promptText = prompts[i] || `Prompt ${i + 1}`;
+      if (!audioFile || typeof audioFile === 'string') {
+        const failedAfterRetry = promptStatus[i] === 'failed';
+        speakingResults.push({
+          promptText,
+          error: failedAfterRetry ? 'Recording failed (retry used, still no usable audio)' : 'No recording received',
         });
-        totalAttachmentBytes += audioFile.size;
-      } catch (err) {
-        console.error(`[submit-test] Failed to read audio file for prompt ${i}:`, err);
-        attachmentNotes.push(`Prompt ${i + 1} recording could not be attached.`);
+        gradingIncomplete = true;
+        continue;
       }
-    }
 
-    if (missingKeys.includes('OPENAI_API_KEY')) {
-      speakingResults.push({ promptText, error: 'Transcription unavailable' });
-      continue;
-    }
-    try {
-      const whisperResult = await transcribeAudio(audioFile, process.env.OPENAI_API_KEY);
-      const metrics = computeFluencyMetrics(whisperResult, Number(formData.get(`audioDuration${i}`)) || 0);
-      speakingResults.push({ promptText, transcript: whisperResult.text || '', metrics });
-    } catch (err) {
-      console.error(`[submit-test] Whisper transcription failed for prompt ${i}:`, err);
-      speakingResults.push({ promptText, error: 'Transcription failed' });
-      gradingIncomplete = true;
+      // Attach the raw clip for manual pronunciation/accent review, independent
+      // of whether transcription succeeds below.
+      if (audioFile.size > MAX_ATTACHMENT_BYTES || totalAttachmentBytes + audioFile.size > MAX_TOTAL_ATTACHMENT_BYTES) {
+        attachmentNotes.push(`Prompt ${i + 1} recording (${(audioFile.size / 1024 / 1024).toFixed(1)}MB) was too large to attach.`);
+      } else {
+        try {
+          const buf = Buffer.from(await audioFile.arrayBuffer());
+          attachments.push({
+            filename: `${slug}-prompt${i + 1}.${extFromFile(audioFile)}`,
+            content: buf.toString('base64'),
+          });
+          totalAttachmentBytes += audioFile.size;
+        } catch (err) {
+          console.error(`[submit-test] Failed to read audio file for prompt ${i}:`, err);
+          attachmentNotes.push(`Prompt ${i + 1} recording could not be attached.`);
+        }
+      }
+
+      if (missingKeys.includes('OPENAI_API_KEY')) {
+        speakingResults.push({ promptText, error: 'Transcription unavailable' });
+        continue;
+      }
+      try {
+        const whisperResult = await transcribeAudio(audioFile, process.env.OPENAI_API_KEY);
+        const metrics = computeFluencyMetrics(whisperResult, Number(formData.get(`audioDuration${i}`)) || 0);
+        speakingResults.push({ promptText, transcript: whisperResult.text || '', metrics });
+      } catch (err) {
+        console.error(`[submit-test] Whisper transcription failed for prompt ${i}:`, err);
+        speakingResults.push({ promptText, error: 'Transcription failed' });
+        gradingIncomplete = true;
+      }
     }
   }
 
@@ -186,6 +201,8 @@ module.exports = async (req, res) => {
     section2,
     speakingBand: speakingBand ? CEFR_LABELS[speakingBand] : 'Not graded',
     speakingResults,
+    speakingSkipped,
+    speakingSkipReason,
     claudeResults,
     passageId: section2.passageId,
     promptVariants,
@@ -321,20 +338,22 @@ function buildReportEmail(data) {
     .map((c, i) => `Prompt ${i + 1}: ${esc(c.band)}`)
     .join(', ') || 'not graded';
 
-  const speakingBlocks = data.speakingResults
-    .map((r, i) => {
-      const claude = data.claudeResults ? data.claudeResults[i] : null;
-      return `
-        <div style="margin:16px 0;padding:12px;border:1px solid #e5e0d5;border-radius:8px;">
-          <p style="margin:0 0 6px;font-weight:600;">Prompt ${i + 1}: ${esc(r.promptText)}</p>
-          ${claude ? `<p style="margin:0 0 6px;font-size:13px;">Band: <strong>${esc(claude.band)}</strong> &middot; grammar ${claude.grammar_range}/5 &middot; vocabulary ${claude.vocabulary_range}/5 &middot; coherence ${claude.coherence}/5</p>
-          <p style="margin:0 0 6px;font-size:13px;">Freeze indicators: ${claude.freeze_indicators && claude.freeze_indicators.length ? esc(claude.freeze_indicators.join(', ')) : 'none observed'}</p>
-          <p style="margin:0 0 6px;font-size:13px;">Example errors: ${esc((claude.example_errors || []).join(' | '))}</p>` : '<p style="margin:0 0 6px;font-size:13px;color:#b00;">Not graded</p>'}
-          ${r.metrics ? `<p style="margin:0 0 6px;font-size:13px;color:#555;">WPM ${r.metrics.wpm} &middot; filler freq ${r.metrics.fillerFrequency} (${r.metrics.fillerCount} instances) &middot; longest fluent run ${r.metrics.longestFluentRun} words &middot; silence ratio ${r.metrics.silenceRatio === null ? 'n/a' : r.metrics.silenceRatio} &middot; length ${r.metrics.durationSeconds}s</p>` : ''}
-          ${r.transcript ? `<p style="margin:0;white-space:pre-wrap;">${esc(r.transcript)}</p>` : `<p style="margin:0;color:#b00;">${esc(r.error || 'No transcript')}</p>`}
-        </div>`;
-    })
-    .join('');
+  const speakingBlocks = data.speakingSkipped
+    ? `<p style="font-size:13px;color:#7a5c00;">Speaking not completed, see note above. No prompts were attempted.</p>`
+    : data.speakingResults
+      .map((r, i) => {
+        const claude = data.claudeResults ? data.claudeResults[i] : null;
+        return `
+          <div style="margin:16px 0;padding:12px;border:1px solid #e5e0d5;border-radius:8px;">
+            <p style="margin:0 0 6px;font-weight:600;">Prompt ${i + 1}: ${esc(r.promptText)}</p>
+            ${claude ? `<p style="margin:0 0 6px;font-size:13px;">Band: <strong>${esc(claude.band)}</strong> &middot; grammar ${claude.grammar_range}/5 &middot; vocabulary ${claude.vocabulary_range}/5 &middot; coherence ${claude.coherence}/5</p>
+            <p style="margin:0 0 6px;font-size:13px;">Freeze indicators: ${claude.freeze_indicators && claude.freeze_indicators.length ? esc(claude.freeze_indicators.join(', ')) : 'none observed'}</p>
+            <p style="margin:0 0 6px;font-size:13px;">Example errors: ${esc((claude.example_errors || []).join(' | '))}</p>` : '<p style="margin:0 0 6px;font-size:13px;color:#b00;">Not graded</p>'}
+            ${r.metrics ? `<p style="margin:0 0 6px;font-size:13px;color:#555;">WPM ${r.metrics.wpm} &middot; filler freq ${r.metrics.fillerFrequency} (${r.metrics.fillerCount} instances) &middot; longest fluent run ${r.metrics.longestFluentRun} words &middot; silence ratio ${r.metrics.silenceRatio === null ? 'n/a' : r.metrics.silenceRatio} &middot; length ${r.metrics.durationSeconds}s</p>` : ''}
+            ${r.transcript ? `<p style="margin:0;white-space:pre-wrap;">${esc(r.transcript)}</p>` : `<p style="margin:0;color:#b00;">${esc(r.error || 'No transcript')}</p>`}
+          </div>`;
+      })
+      .join('');
 
   const trajectorySequence = trajectory.length
     ? trajectory.map((t) => `${esc(t.level)} ${t.correct ? CHECK : CROSS}`).join(' &rarr; ')
@@ -368,6 +387,7 @@ function buildReportEmail(data) {
   <div style="font-family:Arial,sans-serif;color:#1a2332;max-width:680px;">
     <h2 style="color:#0d4f37;">Takalam Level Test result</h2>
     ${data.gradingIncomplete ? '<p style="background:#fff3cd;padding:8px 12px;border-radius:6px;color:#7a5c00;"><strong>Grading incomplete.</strong> One or more automated steps failed. Review the raw data below manually.</p>' : ''}
+    ${data.speakingSkipped ? `<p style="background:#fff3cd;padding:8px 12px;border-radius:6px;color:#7a5c00;"><strong>Speaking section not completed.</strong> ${esc(data.speakingSkipReason || 'The student could not get the microphone working.')} Grammar and reading results below are still complete.</p>` : ''}
 
     <p><strong>Name:</strong> ${esc(data.name)}<br/>
     <strong>WhatsApp:</strong> ${esc(data.whatsapp)}<br/>
