@@ -323,6 +323,21 @@ input[type=text]:focus,input[type=tel]:focus{
   border-radius:3px;
   transition:height .07s ease-out;
 }
+.skip-link{
+  display:block;
+  text-align:center;
+  font-size:.82rem;
+  color:var(--ink);
+  opacity:.55;
+  text-decoration:underline;
+  margin-top:14px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  font-family:var(--sans);
+  padding:4px;
+}
+.skip-link:active{opacity:.8;}
 </style>
 </head>
 <body>
@@ -369,9 +384,7 @@ input[type=text]:focus,input[type=tel]:focus{
         <p>Section 3 of this test is spoken, so your browser needs permission to use your microphone.</p>
         <p class="note" id="micInstructions">Tap the lock or site info icon next to the address bar, find "Microphone", and set it to Allow. Then reload this page.</p>
         <button class="btn btn--forest" id="btnMicRetry">Try again</button>
-        <div class="btn-row" id="micDeniedSkipRow" style="display:none;margin-top:12px;">
-          <button class="btn btn--outline" id="btnMicDeniedSkip">Continue without speaking section</button>
-        </div>
+        <button class="skip-link" id="btnMicDeniedSkip" style="display:none;">Continue without the speaking section (your assessment will be incomplete)</button>
       </div>
     </section>
 
@@ -426,9 +439,7 @@ input[type=text]:focus,input[type=tel]:focus{
       <div class="hint-box" id="mcHints" style="display:none;">
         <p>Still having trouble? A few things to try: check that your browser has microphone permission enabled, use headphones if you have them, or move somewhere quieter.</p>
       </div>
-      <div class="btn-row" id="mcSkipRow" style="display:none;">
-        <button class="btn btn--outline" id="btnMcSkip">Continue without speaking section</button>
-      </div>
+      <button class="skip-link" id="btnMcSkip" style="display:none;">Continue without the speaking section (your assessment will be incomplete)</button>
     </section>
 
     <!-- SECTION 3: SPEAKING -->
@@ -450,6 +461,9 @@ input[type=text]:focus,input[type=tel]:focus{
       <div class="btn-row" id="s3StartRow" style="display:none;">
         <button class="btn btn--emerald" id="btnS3Start">Start recording</button>
       </div>
+      <div class="btn-row" id="s3FinishRow" style="display:none;">
+        <button class="btn btn--outline" id="btnS3Finish" disabled>I'm finished</button>
+      </div>
       <div id="s3RetryRow" class="btn-row" style="display:none;">
         <button class="btn btn--outline" id="btnS3Retry">Retry recording</button>
       </div>
@@ -459,8 +473,8 @@ input[type=text]:focus,input[type=tel]:focus{
     <section class="screen" id="screen-submitting">
       <div class="center-msg">
         <div class="spinner"></div>
-        <h2>Sending your results</h2>
-        <p class="note">This can take up to a minute. Please stay on this page.</p>
+        <h2 id="submitHeading">Uploading your answers...</h2>
+        <p class="note">This can take a minute. Please stay on this page.</p>
       </div>
     </section>
 
@@ -664,7 +678,7 @@ var state = {
   mediaStream:null, mimeType:"",
   s1:{ currentLevel:"B1", correctStreak:0, wrongStreak:0, askedIds:[], trajectory:[], itemCount:0, current:null },
   s2:{ passageId:"", activeQuestions:[], answers:[], itemDetail:[], correctCount:0 },
-  s3:{ resolvedPrompts:[], recordings:[null,null,null], durations:[0,0,0], retriesUsed:[0,0,0], promptStatus:["pending","pending","pending"], skipped:false, skipReason:"" }
+  s3:{ resolvedPrompts:[], recordings:[null,null,null], durations:[0,0,0], retriesUsed:[0,0,0], promptStatus:["pending","pending","pending"], skipped:false, skipReason:"", speakingResults:[null,null,null], transcribePromises:[null,null,null] }
 };
 
 var micDenialCount = 0;
@@ -823,11 +837,14 @@ function validateStart(){
 }
 
 function pickMimeType(){
-  // iOS Safari does not support the webm/opus container, only mp4 (AAC). Ask the
-  // browser at runtime instead of assuming, and always use whatever it confirms
-  // consistently for the mic check and all three prompts, so recording and the
-  // upload filename extension never disagree with the actual container.
-  var candidates = ["audio/webm;codecs=opus","audio/webm","audio/mp4;codecs=mp4a.40.2","audio/mp4","audio/ogg;codecs=opus","audio/ogg"];
+  // mp4/AAC plays back everywhere, including iPhone Mail and Messages, while
+  // webm attachments are silent on iOS. Current desktop and Android Chrome
+  // both support mp4 recording too, so prefer it on every platform and only
+  // fall back to webm where mp4 truly isn't available. Ask the browser at
+  // runtime instead of assuming, and always use whatever it confirms
+  // consistently for the mic check and all three prompts, so recording and
+  // the upload filename extension never disagree with the actual container.
+  var candidates = ["audio/mp4;codecs=mp4a.40.2","audio/mp4","audio/webm;codecs=opus","audio/webm","audio/ogg;codecs=opus","audio/ogg"];
   for (var i=0;i<candidates.length;i++){
     if (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(candidates[i])){
       return candidates[i];
@@ -867,7 +884,7 @@ function showMicDenied(){
     msg = "Tap the three dots or the lock icon in your browser, open Site settings, and set Microphone to Allow. Then reload this page.";
   }
   $("micInstructions").textContent = msg;
-  $("micDeniedSkipRow").style.display = micDenialCount >= 2 ? "flex" : "none";
+  $("btnMicDeniedSkip").style.display = micDenialCount >= 3 ? "block" : "none";
   showScreen("screen-mic-denied");
 }
 
@@ -1066,6 +1083,18 @@ function beginMicCheck(){
   resetMicCheckUI();
 }
 
+// Guarantees the previous take is fully stopped and its resources released
+// before a new recording can start, so a "Try again" tap never leaves the
+// old clip audibly playing underneath the new one.
+function disposeMicCheckAudio(){
+  var audioEl = $("mcAudio");
+  try { audioEl.pause(); } catch(e){}
+  audioEl.removeAttribute("src");
+  try { audioEl.load(); } catch(e){}
+  if (mc.objectUrl){ URL.revokeObjectURL(mc.objectUrl); mc.objectUrl = null; }
+  mc.blob = null;
+}
+
 function resetMicCheckUI(){
   $("mcStageLabel").textContent = "Ready when you are";
   $("mcSubLabel").innerHTML = "&nbsp;";
@@ -1075,17 +1104,15 @@ function resetMicCheckUI(){
   $("mcStartRow").style.display = "flex";
   $("mcStopRow").style.display = "none";
   $("mcReviewRow").style.display = "none";
-  if (mc.objectUrl){ URL.revokeObjectURL(mc.objectUrl); mc.objectUrl = null; }
-  mc.blob = null;
-  $("mcAudio").removeAttribute("src");
+  disposeMicCheckAudio();
 }
 
 // Shows the "still stuck" hints and the escape hatch once the student has
 // had several tries, so no one gets stuck on a mic that will never work.
 function applyMicCheckThreshold(){
-  if (mc.retries >= 2){
+  if (mc.retries >= 3){
     $("mcHints").style.display = "block";
-    $("mcSkipRow").style.display = "flex";
+    $("btnMcSkip").style.display = "block";
   }
 }
 
@@ -1160,14 +1187,12 @@ $("btnMcRetry").addEventListener("click", function(){
 });
 $("btnMcConfirm").addEventListener("click", function(){
   // Discard the local check clip: it is never added to any upload.
-  if (mc.objectUrl){ URL.revokeObjectURL(mc.objectUrl); mc.objectUrl = null; }
-  mc.blob = null;
+  disposeMicCheckAudio();
   mc.chunks = [];
   beginSection3();
 });
 $("btnMcSkip").addEventListener("click", function(){
-  if (mc.objectUrl){ URL.revokeObjectURL(mc.objectUrl); mc.objectUrl = null; }
-  mc.blob = null;
+  disposeMicCheckAudio();
   mc.chunks = [];
   skipSpeakingAndSubmit("Could not get a usable microphone recording after several attempts during the mic check.");
 });
@@ -1178,6 +1203,8 @@ var s3PromptIndex = 0;
 var s3Recorder = null;
 var s3Chunks = [];
 var s3RecordStart = 0;
+var s3FinishTimeout = null;
+var S3_MIN_RECORD_SECONDS = 20;
 
 function beginSection3(){
   showScreen("screen-s3");
@@ -1190,6 +1217,10 @@ function beginSection3(){
   startPrompt(0);
 }
 
+function clearS3FinishTimeout(){
+  if (s3FinishTimeout){ clearTimeout(s3FinishTimeout); s3FinishTimeout = null; }
+}
+
 function startPrompt(i){
   s3PromptIndex = i;
   var prompt = state.s3.resolvedPrompts[i];
@@ -1198,6 +1229,9 @@ function startPrompt(i){
   $("s3ErrorBox").classList.remove("show");
   $("s3RetryRow").style.display = "none";
   $("s3StartRow").style.display = "none";
+  clearS3FinishTimeout();
+  $("s3FinishRow").style.display = "none";
+  $("btnS3Finish").disabled = true;
   $("s3StageLabel").textContent = "Get ready";
   $("s3SubLabel").textContent = "When the countdown ends, tap start to record";
   $("s3Clock").classList.remove("recording");
@@ -1228,6 +1262,15 @@ $("btnS3Start").addEventListener("click", function(){
   startRecording(s3PromptIndex);
 });
 
+$("btnS3Finish").addEventListener("click", function(){
+  // Same path as the timer running out: stop the recorder, which triggers
+  // onstop and advances normally. Only reachable once enabled, i.e. after
+  // the minimum recording time has passed.
+  if ($("btnS3Finish").disabled) return;
+  stopTimer();
+  if (s3Recorder && s3Recorder.state === "recording") s3Recorder.stop();
+});
+
 function startRecording(i){
   var prompt = state.s3.resolvedPrompts[i];
   $("s3StageLabel").innerHTML = '<span class="rec-dot"></span>Recording';
@@ -1248,6 +1291,8 @@ function startRecording(i){
     s3Recorder.onerror = function(){ stopLevelMeter($("s3Meter")); handleRecordingFailure(i, "Recording failed unexpectedly."); };
     s3Recorder.onstop = function(){
       stopLevelMeter($("s3Meter"));
+      clearS3FinishTimeout();
+      $("s3FinishRow").style.display = "none";
       var durationSec = (Date.now() - s3RecordStart) / 1000;
       var blob = new Blob(s3Chunks, { type: state.mimeType || "audio/webm" });
       if (blob.size < 500){
@@ -1257,6 +1302,7 @@ function startRecording(i){
       state.s3.recordings[i] = blob;
       state.s3.durations[i] = durationSec;
       state.s3.promptStatus[i] = "ok";
+      state.s3.transcribePromises[i] = backgroundTranscribe(i, blob, durationSec, prompt.text);
       advanceAfterRecording(i);
     };
     s3Recorder.start();
@@ -1265,6 +1311,16 @@ function startRecording(i){
     handleRecordingFailure(i, "Could not start recording.");
     return;
   }
+
+  // Lets students who run out of things to say stop early instead of
+  // sitting through dead air, but only once they've had a fair chance to
+  // give a gradeable answer.
+  $("s3FinishRow").style.display = "flex";
+  $("btnS3Finish").disabled = true;
+  clearS3FinishTimeout();
+  s3FinishTimeout = setTimeout(function(){
+    $("btnS3Finish").disabled = false;
+  }, S3_MIN_RECORD_SECONDS * 1000);
 
   runTimer(prompt.record, function(remaining){
     $("s3Clock").textContent = remaining;
@@ -1285,6 +1341,8 @@ function advanceAfterRecording(i){
 
 function handleRecordingFailure(i, message){
   stopTimer();
+  clearS3FinishTimeout();
+  $("s3FinishRow").style.display = "none";
   if (state.s3.retriesUsed[i] < 1){
     state.s3.retriesUsed[i] += 1;
     $("s3ErrorBox").textContent = message + " You get one retry.";
@@ -1348,10 +1406,68 @@ function extForMime(mime){
   return "webm";
 }
 
+// Transcribes one prompt's recording as soon as it's captured, while the
+// student is reading the next prompt (or already on the completion screen
+// for the last one), so this slow network round trip runs during otherwise
+// idle time instead of stacking up sequentially at final submit.
+function backgroundTranscribe(i, blob, durationSec, promptText){
+  var fd = new FormData();
+  var ext = extForMime(state.mimeType);
+  fd.append("audio", blob, "prompt" + i + "." + ext);
+  fd.append("duration", String(durationSec));
+  return fetch("/api/transcribe-prompt", { method:"POST", body: fd })
+    .then(function(resp){
+      if (!resp.ok) throw new Error("Transcribe failed: " + resp.status);
+      return resp.json();
+    })
+    .then(function(data){
+      state.s3.speakingResults[i] = data;
+      return data;
+    })
+    .catch(function(err){
+      console.error("Background transcription failed for prompt " + i + ":", err);
+      var fallback = { error: "Transcription failed" };
+      state.s3.speakingResults[i] = fallback;
+      return fallback;
+    });
+}
+
+var SUBMIT_MESSAGES = [
+  "Uploading your answers...",
+  "Analyzing your speaking...",
+  "Putting your results together..."
+];
+var submitMsgInterval = null;
+
+function startSubmittingMessages(){
+  stopSubmittingMessages();
+  var idx = 0;
+  $("submitHeading").textContent = SUBMIT_MESSAGES[idx];
+  submitMsgInterval = setInterval(function(){
+    idx = (idx + 1) % SUBMIT_MESSAGES.length;
+    $("submitHeading").textContent = SUBMIT_MESSAGES[idx];
+  }, 2800);
+}
+
+function stopSubmittingMessages(){
+  if (submitMsgInterval){ clearInterval(submitMsgInterval); submitMsgInterval = null; }
+}
+
 function submitTest(retry){
   showScreen("screen-submitting");
   setProgress(96);
+  startSubmittingMessages();
 
+  // Most prompts finish transcribing during the idle time between prompts;
+  // this only ever actually waits on the one still in flight, usually the
+  // last prompt recorded.
+  var pending = (state.s3.transcribePromises || []).filter(Boolean);
+  Promise.all(pending).then(function(){
+    doSubmit(retry);
+  });
+}
+
+function doSubmit(retry){
   var fd = new FormData();
   fd.append("name", state.name);
   fd.append("whatsapp", state.whatsapp);
@@ -1378,6 +1494,8 @@ function submitTest(retry){
       fd.append("audio" + i, blob, "prompt" + i + "." + ext);
       fd.append("audioDuration" + i, String(state.s3.durations[i]));
     }
+    var precomputed = state.s3.speakingResults[i];
+    if (precomputed) fd.append("speakingResult" + i, JSON.stringify(precomputed));
   });
 
   fetch("/api/submit-test", { method:"POST", body: fd })
@@ -1386,15 +1504,17 @@ function submitTest(retry){
       return resp.json();
     })
     .then(function(){
+      stopSubmittingMessages();
       setProgress(100);
       showScreen("screen-done");
     })
     .catch(function(err){
       console.error("Submission error:", err);
       if (!retry){
-        submitTest(true);
+        doSubmit(true);
       } else {
         // Best effort: the student cannot do anything more from here.
+        stopSubmittingMessages();
         setProgress(100);
         showScreen("screen-done");
       }

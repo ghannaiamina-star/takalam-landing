@@ -6,6 +6,7 @@ const {
   computeFinalBand,
   computeFluencyMetrics,
 } = require('../lib/scoring');
+const { transcribeAudio } = require('../lib/transcribe');
 
 const REPORT_TO = 'mohammedsaidelbouzdoudi99@gmail.com';
 const REPORT_FROM = 'Takalam Level Test <onboarding@resend.dev>';
@@ -110,14 +111,17 @@ module.exports = async (req, res) => {
   const readingBand = bandFromReadingScore(Number(section2.correctCount) || 0);
 
   let gradingIncomplete = missingKeys.includes('OPENAI_API_KEY') || missingKeys.includes('ANTHROPIC_API_KEY');
-  const speakingResults = [];
   const attachments = [];
   const attachmentNotes = [];
   const slug = slugify(name);
   let totalAttachmentBytes = 0;
 
-  // A partially or fully failed speaking section must never block the report:
-  // MCQ and reading results below are independent of everything in this loop.
+  // Each slot ends up either already resolved (from the client's background
+  // transcription, or a missing/skipped recording) or marked needsTranscription
+  // for the parallel fallback pass below. A partially or fully failed speaking
+  // section must never block the report: MCQ and reading results are
+  // independent of everything in this loop.
+  const promptSlots = [];
   if (speakingSkipped) {
     gradingIncomplete = true;
   } else {
@@ -126,9 +130,11 @@ module.exports = async (req, res) => {
       const promptText = prompts[i] || `Prompt ${i + 1}`;
       if (!audioFile || typeof audioFile === 'string') {
         const failedAfterRetry = promptStatus[i] === 'failed';
-        speakingResults.push({
-          promptText,
-          error: failedAfterRetry ? 'Recording failed (retry used, still no usable audio)' : 'No recording received',
+        promptSlots.push({
+          result: {
+            promptText,
+            error: failedAfterRetry ? 'Recording failed (retry used, still no usable audio)' : 'No recording received',
+          },
         });
         gradingIncomplete = true;
         continue;
@@ -152,21 +158,52 @@ module.exports = async (req, res) => {
         }
       }
 
-      if (missingKeys.includes('OPENAI_API_KEY')) {
-        speakingResults.push({ promptText, error: 'Transcription unavailable' });
-        continue;
+      // The client transcribes each prompt in the background right after it's
+      // recorded, so by submit time this is usually already done. Use that
+      // result directly and only fall back to transcribing here (in parallel,
+      // below) when it never arrived, e.g. an older client or a failed upload.
+      let precomputed = null;
+      const rawPrecomputed = formData.get(`speakingResult${i}`);
+      if (typeof rawPrecomputed === 'string' && rawPrecomputed) {
+        try {
+          precomputed = JSON.parse(rawPrecomputed);
+        } catch (err) {
+          precomputed = null;
+        }
       }
-      try {
-        const whisperResult = await transcribeAudio(audioFile, process.env.OPENAI_API_KEY);
-        const metrics = computeFluencyMetrics(whisperResult, Number(formData.get(`audioDuration${i}`)) || 0);
-        speakingResults.push({ promptText, transcript: whisperResult.text || '', metrics });
-      } catch (err) {
-        console.error(`[submit-test] Whisper transcription failed for prompt ${i}:`, err);
-        speakingResults.push({ promptText, error: 'Transcription failed' });
+
+      if (precomputed && precomputed.transcript) {
+        promptSlots.push({ result: { promptText, transcript: precomputed.transcript, metrics: precomputed.metrics } });
+      } else if (precomputed && precomputed.error) {
+        promptSlots.push({ result: { promptText, error: precomputed.error } });
         gradingIncomplete = true;
+      } else if (missingKeys.includes('OPENAI_API_KEY')) {
+        promptSlots.push({ result: { promptText, error: 'Transcription unavailable' } });
+      } else {
+        promptSlots.push({ needsTranscription: true, promptText, audioFile, durationField: `audioDuration${i}` });
       }
     }
   }
+
+  // Transcribe whatever the background upload didn't already resolve, all at
+  // once instead of one after another, so a submit that has to fall back for
+  // every prompt is no slower than transcribing them sequentially would be.
+  await Promise.all(
+    promptSlots.map(async (slot) => {
+      if (!slot.needsTranscription) return;
+      try {
+        const whisperResult = await transcribeAudio(slot.audioFile, process.env.OPENAI_API_KEY);
+        const metrics = computeFluencyMetrics(whisperResult, Number(formData.get(slot.durationField)) || 0);
+        slot.result = { promptText: slot.promptText, transcript: whisperResult.text || '', metrics };
+      } catch (err) {
+        console.error('[submit-test] Whisper transcription failed:', err);
+        slot.result = { promptText: slot.promptText, error: 'Transcription failed' };
+        gradingIncomplete = true;
+      }
+    })
+  );
+
+  const speakingResults = promptSlots.map((slot) => slot.result);
 
   let claudeResults = null;
   const transcribedOk = speakingResults.filter((r) => r.transcript);
@@ -250,24 +287,6 @@ function extFromFile(file) {
   return nameMatch ? nameMatch[1] : 'webm';
 }
 
-async function transcribeAudio(file, apiKey) {
-  const form = new FormData();
-  form.append('file', file, file.name || 'audio.webm');
-  form.append('model', 'whisper-1');
-  form.append('response_format', 'verbose_json');
-
-  const resp = await fetch('https://api.openai.com/v1/audio/transcriptions', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${apiKey}` },
-    body: form,
-  });
-  if (!resp.ok) {
-    const errText = await resp.text().catch(() => '');
-    throw new Error(`Whisper API error ${resp.status}: ${errText}`);
-  }
-  return resp.json();
-}
-
 async function gradeWithClaude(speakingResults, apiKey) {
   const rubric = buildRubricPrompt(speakingResults);
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
@@ -310,19 +329,25 @@ function buildRubricPrompt(speakingResults) {
     })
     .join('\n\n');
 
-  return `You are a strict CEFR speaking examiner grading a spoken English placement test. Grade honestly and conservatively. Do not round up out of politeness. Use the transcripts and the fluency metrics together; if metrics suggest heavy hesitation or very low word counts, that should pull the band down even if vocabulary looks reasonable on paper.
+  return `You are a CEFR speaking examiner grading a spoken English placement test. Grade honestly, but grade what is actually there: the language demonstrated, not how impressive or well developed the topic is. Use the transcripts and the fluency metrics together.
 
-CEFR band reference:
-- below-b1: Frequent basic errors, very limited vocabulary, long pauses, cannot sustain a coherent answer, often answers off topic or with single words.
-- b1: Can describe familiar topics in simple connected speech, noticeable grammar errors, limited range of vocabulary, some hesitation.
-- b2: Can explain a viewpoint with reasonable fluency and detail, occasional errors that do not block understanding, decent range of vocabulary and connectors.
-- c1: Fluent and spontaneous, wide vocabulary and idiomatic range, coherent and well structured argument, only minor and infrequent errors.
+Spontaneous spoken language is not scripted writing. Self repair, restarts, false starts, casual closers such as "yeah" or "so anyway", and an informal conversational register are normal features of natural speech at every level, including C1, and must not by themselves be treated as errors or as signs the speaker is struggling. Only count these as freeze indicators when they cluster together with real signs of breakdown: an idea abandoned and never completed, an inability to continue the answer, or very short output overall. A fluent speaker who restarts a sentence once and moves on smoothly is not freezing.
+
+Give the hard fluency metrics real, explicit weight in banding, not just as color commentary. A sustained fluent run of over 100 words at 120+ words per minute with minimal fillers is strong direct evidence of B2 or higher fluency, regardless of minor grammatical slips or self corrections elsewhere in the same answer. C1 is earned through range and control (a wide vocabulary, accurate complex structures, coherent organization across a long turn) and is not disqualified by the ordinary self repair or hesitation that any fluent speaker produces.
+
+CEFR spoken production anchors:
+- below-b1: Frequent basic errors, very limited vocabulary, long unnatural pauses, cannot sustain a coherent answer, often answers off topic or with single words.
+- b1: Can reasonably fluently sustain a straightforward description of a familiar topic, presenting it as a linear sequence of points, with noticeable pauses and grammar errors that do not block the message.
+- b2: Can give clear, systematically developed descriptions and viewpoints, with appropriate highlighting of significant points and relevant supporting detail, at a fluency that requires little effort from the listener.
+- c1: Can give clear, detailed descriptions of complex subjects, integrating sub themes, developing particular points, and rounding off with an appropriate conclusion, fluently and with only occasional searches for the right expression.
+
+Grade the language, not the depth of the argument. If a student gives a short, safe, or underdeveloped answer but the language inside it is accurate, fluent, and well controlled, that should lower the coherence score for that prompt, not the overall band. A thin idea expressed in strong language is still strong language.
 
 Grade each of the three prompts below (they rise in difficulty: introduction, then a problem narrative, then an opinion argument).
 
 ${transcriptBlocks}
 
-For each prompt return: band, grammar_range (1-5), vocabulary_range (1-5), coherence (1-5), freeze_indicators (a list of observed signs such as hesitation, avoidance, or unusually short answers; empty list if none), and example_errors (exactly two errors quoted verbatim from that prompt's transcript; if there are fewer than two clear errors, quote what is available and note "no further errors observed" for the second). Do not use em dashes anywhere in your response. Call the record_cefr_assessment tool with your results.`;
+For each prompt return: band, grammar_range (1-5), vocabulary_range (1-5), coherence (1-5), freeze_indicators (a list of genuine breakdown signs only, per the guidance above; empty list if none), and example_errors (exactly two errors quoted verbatim from that prompt's transcript; if there are fewer than two clear errors, quote what is available and note "no further errors observed" for the second). Do not use em dashes anywhere in your response. Call the record_cefr_assessment tool with your results.`;
 }
 
 function buildReportEmail(data) {

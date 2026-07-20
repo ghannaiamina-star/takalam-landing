@@ -1,7 +1,8 @@
 {
   "cleanUrls": true,
   "functions": {
-    "api/submit-test.js": { "maxDuration": 60 }
+    "api/submit-test.js": { "maxDuration": 60 },
+    "api/transcribe-prompt.js": { "maxDuration": 30 }
   },
   "redirects": [
     { "source": "/about",            "destination": "https://takalamenglish.ma/", "permanent": true },
