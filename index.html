@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="fr"><head>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -19,12 +19,15 @@ src="https://www.facebook.com/tr?id=2048783262707096&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Takalam, Online English Speaking Coaching</title>
-<meta name="description" content="Online English coaching for adults who understand English but freeze when they speak. Small-group speaking practice and one to one private coaching. Fully online. Book a free call.">
-<meta name="keywords" content="english classes morocco, english program morocco, online english morocco, takalam english center, english speaking practice, learn english morocco">
+<title>Takalam — Take the free English speaking test</title>
+<meta name="description" content="Free 10-minute English speaking test with a real diagnosis. Online coaching for adults who understand English but freeze when they speak. Small groups or one to one.">
+<meta name="keywords" content="english classes morocco, english program morocco, online english morocco, takalam english center, english speaking practice, learn english morocco, english level test">
 <meta name="author" content="Takalam English Center">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://takalamenglish.ma">
+<link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/">
+<link rel="alternate" hreflang="en" href="https://takalamenglish.ma/en">
+<link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <meta property="og:title" content="Takalam, Online English Speaking Coaching">
@@ -228,6 +231,13 @@ a { color: inherit; }
 .logo .word b { color: var(--emerald-dim); font-weight: 600; font-style: italic; }
 
 .head-cta { display: inline-flex; align-items: center; gap: 16px; }
+.lang-switch {
+  font-family: var(--sans); font-weight: 600; font-size: .82rem;
+  text-decoration: none; color: var(--ink-soft); border: 1.5px solid rgba(26,35,50,.22);
+  border-radius: 999px; padding: .4em .8em; letter-spacing: .04em;
+}
+.lang-switch:hover { color: var(--ink); border-color: rgba(26,35,50,.4); }
+@media (max-width: 720px){ .head-cta .btn--ghost span { display: none; } .head-cta .btn--ghost { padding: 1.02em 1.1em; } }
 .head-note { font-size: .92rem; color: var(--ink-soft); }
 @media (max-width: 720px){ .head-note { display: none; } }
 
@@ -595,9 +605,11 @@ a { color: inherit; }
       <svg class="logo-wm" viewBox="0 0 1000 189" aria-label="Takalam English" role="img"><use href="#takalam-logo"/></svg>
     </a>
     <div class="head-cta">
+      <a class="lang-switch" id="langSwitch" href="/en" aria-label="Switch language">EN</a>
+      <a class="btn btn--ghost" href="/test" data-i18n="nav.test_cta">Take the free 10-minute test</a>
       <a class="btn btn--emerald" data-cta-wa href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
         <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z" fill="currentColor" opacity=".18"></path><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
-        <span class="lbl">Book a free call</span>
+        <span class="lbl" data-i18n="nav.wa_cta">Book a free call</span>
       </a>
     </div>
   </div>
@@ -609,17 +621,18 @@ a { color: inherit; }
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="hero-kicker reveal"><span class="eyebrow">Online English coaching</span></div>
-      <h1 class="reveal d1">You know English.<br>Now speak it with
+      <div class="hero-kicker reveal"><span class="eyebrow" data-i18n="hero.eyebrow">Online English coaching</span></div>
+      <h1 class="reveal d1" data-i18n-html="hero.headline">You know English.<br>Now speak it with
         <span class="pop">confidence<svg class="underline" viewBox="0 0 320 40" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26c52-14 210-22 308-12" stroke="currentColor" stroke-width="9" stroke-linecap="round"></path></svg></span>.
       </h1>
-      <p class="hero-sub reveal d2">Takalam helps adults who understand English but freeze when it's time to speak. Two ways to get there. Pick the one that fits you.</p>
+      <p class="hero-sub reveal d2" data-i18n="hero.sub">Takalam helps adults who understand English but freeze when it's time to speak. Two ways to get there. Pick the one that fits you.</p>
       <div class="hero-actions reveal d3">
-        <a class="btn btn--lg btn--emerald" data-cta-wa href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
+        <a class="btn btn--lg btn--emerald" href="/test" data-i18n="hero.test_cta">Take the free 10-minute test</a>
+        <a class="btn btn--lg btn--ghost" data-cta-wa href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
           <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
-          Book a free call
+          <span data-i18n="nav.wa_cta">Book a free call</span>
         </a>
-        <span class="hero-meta"><span class="dot"></span> 30 minutes, no pressure</span>
+        <span class="hero-meta"><span class="dot"></span> <span data-i18n="hero.meta">10 minutes, free, no signup</span></span>
       </div>
     </div>
 
@@ -667,8 +680,8 @@ a { color: inherit; }
   <div class="wrap">
     <div class="doors-intro reveal">
       <div>
-        <span class="eyebrow">Two paths</span>
-        <h2>Two doors. The same place on the other side: you, speaking freely.</h2>
+        <span class="eyebrow" data-i18n="doors.eyebrow">Two paths</span>
+        <h2 data-i18n="doors.heading">Two doors. The same place on the other side: you, speaking freely.</h2>
       </div>
     </div>
 
@@ -676,7 +689,7 @@ a { color: inherit; }
       <!-- CARD 1: SPEAK -->
       <article class="door door--speak reveal d1">
         <div class="door-top">
-          <span class="door-label"><span class="chip"></span> Takalam Speak</span>
+          <span class="door-label"><span class="chip"></span> <span data-i18n="speak.label">Takalam Speak</span></span>
           <span class="door-num">01</span>
         </div>
 
@@ -699,39 +712,32 @@ a { color: inherit; }
           </svg>
         </div>
 
-        <p class="door-tag">For when your English is good, but speaking still <em>scares you.</em></p>
-        <p class="door-body">Your grammar is solid. Your vocabulary is there. You can handle the tenses. But in a real conversation you hesitate, you fill the silence with ums, you freeze in meetings, and speaking with others stresses you out. Speak fixes exactly this. In small groups of six, you practice real scenarios through guided discussion until speaking becomes natural instead of frightening. You join in 12-week cycles: topics start approachable and get more demanding as you go, so every cycle stretches you a little further. Most people stay for several, because confidence is a habit you keep building, not a box you tick once.</p>
+        <p class="door-tag" data-i18n-html="speak.tag">For when your English is good, but speaking still <em>scares you.</em></p>
+        <p class="door-body" data-i18n="speak.body">Your grammar is solid. Your vocabulary is there. You can handle the tenses. But in a real conversation you hesitate, you fill the silence with ums, you freeze in meetings, and speaking with others stresses you out. Speak fixes exactly this. In small groups of ten, you practice real scenarios through guided breakout discussion until speaking becomes natural instead of frightening.</p>
 
         <ul class="door-facts">
-          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Small groups, 6 students maximum</li>
-          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> 12-week cycles, 2 sessions a week, 90 minutes each</li>
-          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Continue cycle after cycle as topics get harder</li>
-          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Fully online, join from anywhere</li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="speak.fact1">Groups, 10 students target</span></li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="speak.fact2">2 live sessions a week, 90 minutes each</span></li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="speak.fact3">Breakout pairs and trios, so everyone speaks</span></li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#31c48d"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#06281c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="speak.fact4">Cancel any time</span></li>
         </ul>
 
         <div class="price-block">
           <div class="price-rows">
-            <div class="price-row">
-              <span class="plan">Monthly<small>Pay as you go</small></span>
-              <span class="amt">600 MAD<small>~$60</small></span>
-            </div>
-            <div class="price-row">
-              <span class="plan">Quarterly<small>Best value <span class="save-pill">Save 150 MAD</span></small></span>
-              <span class="amt">1,650 MAD<small>~$165</small></span>
+            <div class="price-row" id="priceSpeak">
+              <span class="plan"><span data-i18n="speak.price_label">Monthly</span><small data-i18n="speak.price_small">Cancel any time</small></span>
+              <span class="amt">&hellip;</span>
             </div>
           </div>
         </div>
 
-        <a class="btn btn--emerald" data-cta-wa href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'm%20interested%20in%20Takalam%20Speak.%20Can%20we%20book%20a%20free%20call?" target="_blank" rel="noopener">
-          <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
-          Book a free call
-        </a>
+        <a class="btn btn--emerald" href="/test" data-i18n="speak.cta">Take the free test</a>
       </article>
 
       <!-- CARD 2: PRIVATE -->
       <article class="door door--private reveal d2">
         <div class="door-top">
-          <span class="door-label"><span class="chip"></span> Takalam Private</span>
+          <span class="door-label"><span class="chip"></span> <span data-i18n="private.label">Takalam Private</span></span>
           <span class="door-num">02</span>
         </div>
 
@@ -755,29 +761,26 @@ a { color: inherit; }
           </svg>
         </div>
 
-        <p class="door-tag">For when you have a specific goal and need a plan built <em>around you.</em></p>
-        <p class="door-body">Some goals need a program shaped entirely around one person. Exam preparation like IELTS, TOEFL, or the Duolingo English Test. Business English for your specific role. Interview preparation. A personal target with a deadline. Private is one to one coaching focused only on you, your level, and what you need to achieve.</p>
+        <p class="door-tag" data-i18n-html="private.tag">For when you have a specific goal and need a plan built <em>around you.</em></p>
+        <p class="door-body" data-i18n="private.body">Some goals need a program shaped entirely around one person. Exam preparation like IELTS, TOEFL, or the Duolingo English Test. Interview preparation. Presentations. A personal target with a deadline. Private is one to one coaching focused only on you, your level, and what you need to achieve.</p>
 
         <ul class="door-facts">
-          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> One to one, fully online</li>
-          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Flexible scheduling around your week</li>
-          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Built around your specific goal</li>
-          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> Private WhatsApp summary after every session.</li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="private.fact1">One to one, 50 minutes, fully online</span></li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="private.fact2">You book your own slot, flexible scheduling</span></li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="private.fact3">Built around your specific goal</span></li>
+          <li><svg class="tick" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#e7ad44"></circle><path d="M5 9.2 7.8 12 13 6.5" stroke="#0a3d2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="private.fact4">Single sessions or packs of 3, 5, 10</span></li>
         </ul>
 
         <div class="price-block">
           <div class="price-rows">
-            <div class="price-row solo">
-              <span class="plan">Per session<small>Pay as you go</small></span>
-              <span class="amt">From 250 MAD<small>~$25</small></span>
+            <div class="price-row solo" id="pricePrivate">
+              <span class="plan"><span data-i18n="private.price_label">Per session</span><small data-i18n="private.price_small">Pay as you go</small></span>
+              <span class="amt">&hellip;</span>
             </div>
           </div>
         </div>
 
-        <a class="btn btn--cream" data-cta-wa href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'm%20interested%20in%20Takalam%20Private.%20Can%20we%20book%20a%20free%20call?" target="_blank" rel="noopener">
-          <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
-          Book a free call
-        </a>
+        <a class="btn btn--cream" href="/test" data-i18n="private.cta">Take the free test</a>
       </article>
     </div>
   </div>
@@ -787,8 +790,8 @@ a { color: inherit; }
 <section class="section band" id="how">
   <div class="wrap">
     <div class="section-head center reveal">
-      <span class="eyebrow center">How it works</span>
-      <h2>Three steps to speaking.</h2>
+      <span class="eyebrow center" data-i18n="how.eyebrow">How it works</span>
+      <h2 data-i18n="how.heading">Three steps to speaking.</h2>
     </div>
     <div class="steps">
       <div class="step reveal d1">
@@ -799,9 +802,9 @@ a { color: inherit; }
             <path d="M29 31c.2-.4.4-.4.6-.4h.4c.2 0 .3 0 .5.4l.5 1.2c0 .2 0 .3 0 .4l-.3.3c0 .2-.2.2 0 .4.1.3.5.9 1.1 1.3.7.5 1.1.6 1.3.7.1 0 .3 0 .4-.1l.4-.5c.1-.1.3-.1.4 0l1.1.6c.2 0 .3.1.3.2 0 .2 0 .6-.2.9-.2.3-.9.7-1.3.7-.3 0-.7 0-2.5-.7-2-.9-3.2-3-3.3-3.2 0-.1-.8-1-.8-1.9 0-1 .5-1.4.7-1.6Z" fill="#31c48d"></path>
           </svg>
         </div>
-        <p class="step-n">Step one</p>
-        <h3>Book a free call</h3>
-        <p>Tell us where you are. We listen, no test, no pressure.</p>
+        <p class="step-n" data-i18n="step1.n">Step one</p>
+        <h3 data-i18n="step1.h">Take the free test</h3>
+        <p data-i18n="step1.p">Ten minutes, three spoken answers, a real diagnosis of where you are.</p>
       </div>
 
       <div class="step reveal d2">
@@ -815,9 +818,9 @@ a { color: inherit; }
             <circle cx="32" cy="30" r="2" fill="#faf8f2"></circle>
           </svg>
         </div>
-        <p class="step-n">Step two</p>
-        <h3>Get your plan</h3>
-        <p>We point you to Speak or Private and map what comes next.</p>
+        <p class="step-n" data-i18n="step2.n">Step two</p>
+        <h3 data-i18n="step2.h">See your results</h3>
+        <p data-i18n="step2.p">Your band, your own words, and the one thing to fix next.</p>
       </div>
 
       <div class="step reveal d3">
@@ -829,9 +832,9 @@ a { color: inherit; }
             <path d="M44 13c5 4.5 5 19 0 23" stroke="#df8a5d" stroke-width="2.5" stroke-linecap="round" opacity=".55"></path>
           </svg>
         </div>
-        <p class="step-n">Step three</p>
-        <h3>Start speaking</h3>
-        <p>Show up, practice for real, and watch the fear shrink.</p>
+        <p class="step-n" data-i18n="step3.n">Step three</p>
+        <h3 data-i18n="step3.h">Start speaking</h3>
+        <p data-i18n="step3.p">Show up, practice for real, and watch the fear shrink.</p>
       </div>
     </div>
   </div>
@@ -841,9 +844,9 @@ a { color: inherit; }
 <section class="section" id="faq">
   <div class="wrap faq-grid">
     <div class="faq-aside reveal">
-      <span class="eyebrow">Questions</span>
-      <h2 style="font-size:clamp(2.1rem,4.6vw,3.5rem);font-weight:520;margin-top:18px;">Things people ask us.</h2>
-      <p style="margin-top:18px;color:var(--ink-soft);font-size:1.1rem;">Still wondering about something? The free call is the easiest way to get a real answer.</p>
+      <span class="eyebrow" data-i18n="faq.eyebrow">Questions</span>
+      <h2 style="font-size:clamp(2.1rem,4.6vw,3.5rem);font-weight:520;margin-top:18px;" data-i18n="faq.heading">Things people ask us.</h2>
+      <p style="margin-top:18px;color:var(--ink-soft);font-size:1.1rem;" data-i18n="faq.sub">Still wondering about something? Take the free test, or message us on WhatsApp.</p>
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M30 30h150a20 20 0 0 1 20 20v50a20 20 0 0 1-20 20H90l-30 26 4-26h-34a20 20 0 0 1-20-20V50a20 20 0 0 1 20-20Z" fill="#31c48d"></path>
@@ -876,13 +879,10 @@ a { color: inherit; }
     </svg>
   </div>
   <div class="wrap closing-inner reveal">
-    <span class="eyebrow center" style="color:var(--gold);justify-content:center;">Still deciding</span>
-    <h2 style="margin-top:22px;">Not sure which one <em>fits?</em></h2>
-    <p>Book a free 30 minute call. We'll figure out where you are, what you need, and which path makes sense. No pressure, and we'll be honest if neither is right for you.</p>
-    <a class="btn btn--lg btn--emerald" data-cta-wa href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
-      <svg class="wa" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
-      Book a free call
-    </a>
+    <span class="eyebrow center" style="color:var(--gold);justify-content:center;" data-i18n="closing.eyebrow">Still deciding</span>
+    <h2 style="margin-top:22px;" data-i18n-html="closing.heading">Not sure which one <em>fits?</em></h2>
+    <p data-i18n="closing.body">Take the free ten-minute test. It gives you a real diagnosis either way, and if you're a fit for Takalam it tells you exactly which path and why.</p>
+    <a class="btn btn--lg btn--emerald" href="/test" data-i18n="closing.cta">Take the free test</a>
   </div>
 </section>
 
@@ -896,11 +896,11 @@ a { color: inherit; }
         <a class="logo" href="#top" aria-label="Takalam home">
           <svg class="logo-wm logo-wm--lg" viewBox="0 0 1000 189" aria-label="Takalam English" role="img"><use href="#takalam-logo"/></svg>
         </a>
-        <p class="foot-tag">Online English coaching for adults. Small-group speaking practice and one to one private coaching.</p>
+        <p class="foot-tag" data-i18n="footer.tag">Online English coaching for adults. Small-group speaking practice and one to one private coaching.</p>
       </div>
 
       <div class="foot-col">
-        <h3>Talk to us</h3>
+        <h3 data-i18n="footer.talk_heading">Talk to us</h3>
         <a data-cta-wa href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2a7.8 7.8 0 0 0-6.6 12l.3.5-.7 2.6 2.7-.7.5.3A7.8 7.8 0 1 0 12 4.2Z" stroke="currentColor" stroke-width="1.6"></path><path d="M9.3 8.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4 0 .5l-.4.5c-.1.2-.3.3-.1.6.2.4.8 1.3 1.6 1.9 1 .8 1.6.9 1.9 1 .2 0 .4 0 .5-.2l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.3 0 .3 0 .9-.3 1.3-.3.5-1.3 1-1.9 1-.5 0-1.1.1-3.6-1-2.9-1.3-4.7-4.4-4.9-4.6-.1-.2-1.1-1.5-1.1-2.8 0-1.4.7-2 1-2.3Z" fill="currentColor"></path></svg>
           +212 722 774 753
@@ -912,44 +912,50 @@ a { color: inherit; }
       </div>
 
       <div class="foot-col">
-        <h3>The two paths</h3>
-        <a href="#paths">Takalam Speak</a>
-        <a href="#paths">Takalam Private</a>
-        <a href="#how">How it works</a>
-        <a href="#faq">Questions</a>
+        <h3 data-i18n="footer.paths_heading">The two paths</h3>
+        <a href="/test" data-i18n="footer.link_test">Take the free test</a>
+        <a href="#paths" data-i18n="footer.link_speak">Takalam Speak</a>
+        <a href="#paths" data-i18n="footer.link_private">Takalam Private</a>
+        <a href="/privacy" data-i18n="footer.link_privacy">Privacy &amp; data</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Takalam. Online English coaching.</span>
+      <span data-i18n="footer.copyright">© 2026 Takalam. Online English coaching.</span>
     </div>
   </div>
 </footer>
 
 <script>
 /* ---------- FAQ data ---------- */
-const FAQ = [
-  ["How do I know if Speak or Private is right for me?","If your English is solid but real conversations make you freeze, Speak is built for you. If you have a specific target like an exam, a job, or an interview, Private shapes everything around that goal. Still unsure? That is exactly what the free call is for."],
+// Fallback (English) in case the i18n dictionary fails to load; the
+// localized version (assets/i18n.js) replaces this via the "faq" key.
+const FAQ_FALLBACK = [
+  ["How do I know if Speak or Private is right for me?","Take the free test. It gives you a real diagnosis and, if you're a fit, one clear recommendation between the two, based on your actual level and goal."],
   ["Are the classes online or in person?","Everything is fully online, so you can join from home, the office, or anywhere with a decent connection. No commute, no traffic, just you and the conversation."],
   ["What level of English do I need to start?","You should already understand English and read and write it at an intermediate level or above. Takalam is for people who know the language but struggle to speak it freely, not for absolute beginners."],
-  ["What happens on the free call?","We talk for about thirty minutes, get a feel for your level, and understand what you actually need. No test, no pressure. By the end you will know which path fits, and we will tell you honestly if neither is right for you."],
-  ["How big are the Speak groups?","Six students maximum, always. Small enough that you speak in every session and never hide at the back, large enough to feel like a real conversation."],
-  ["How long is the Speak program?","Speak runs in 12-week cycles, with two 90-minute sessions a week. Twelve weeks is long enough to build a real speaking habit and see clear progress, and short enough to commit to without hesitation. But it is not a one-and-done course. Most people continue cycle after cycle, because each new cycle raises the difficulty: harder topics, tougher scenarios, more demanding conversations. You stay as long as you are still growing."],
-  ["What happens after the 12 weeks?","You keep going if you want to, and most people do. The next cycle picks up where you left off with more challenging topics and situations, so you are always being stretched rather than repeating yourself. Same group energy, same price, harder conversations. You can also pause between cycles if life gets busy and rejoin when you are ready."],
-  ["What happens in a Speak session?","You practice real situations through guided discussion: meetings, introductions, opinions, storytelling, disagreements. Early in a cycle the topics are approachable; as the weeks go on they get more demanding, so you are always being pushed just past comfortable. Your coach steers, gives feedback in the moment, and keeps everyone talking. You leave having actually spoken, not just listened."],
-  ["What can Private coaching help with?","Exam preparation for IELTS, TOEFL, or the Duolingo English Test. Business English for your role. Interview preparation. Or any personal target with a deadline. The whole program is built around you."],
-  ["How many sessions will I need for Private?","It depends entirely on your goal and your starting point. After the free call we suggest a realistic number, and you stay in control of the pace. Some people need a short sprint, others a longer runway."],
-  ["What if I miss a session?","Life happens. For Private we simply reschedule around you. For Speak, sessions follow the group, but your coach will help you catch up so you never feel left behind."],
-  ["How do I pay?","Speak is paid monthly at 600 MAD, or quarterly at 1,650 MAD which saves you 150 MAD. The quarterly option covers a full 12-week cycle. Private is paid per session from 250 MAD. We will walk you through the simplest way to pay on your free call."]
+  ["What happens after I take the free test?","You get a results page immediately: your level, your own words transcribed, and one honest recommendation. No call, no chat needed unless you want one."],
+  ["How big are the Speak groups?","Ten students target per group. Sessions run in breakout pairs and trios, so you speak for real every session instead of listening at the back."],
+  ["What can Private coaching help with?","Exam preparation for IELTS, TOEFL, or the Duolingo English Test. Interview preparation. Presentations. Or any personal target with a deadline. The whole program is built around you."],
+  ["How many sessions will I need for Private?","It depends entirely on your goal and your starting point. You can book a single session or a pack of 3, 5, or 10, and stay in control of the pace."],
+  ["What if I miss a session?","For Private, reschedule free up to 24 hours before. For Speak, sessions follow the group and are not made up individually, which is exactly why the price is low."],
+  ["Can I cancel?","Yes, any time, in two clicks. And if you've attended two sessions or fewer, you get a full refund within 14 days."]
 ];
 
 const list = document.getElementById('faqList');
-FAQ.forEach(([q,a]) => {
-  const item = document.createElement('div');
-  item.className = 'faq-item';
-  item.innerHTML =
-    '<button class="faq-q" aria-expanded="false"><span>'+q+'</span><span class="qmark"></span></button>' +
-    '<div class="faq-a"><div class="faq-a-inner">'+a+'</div></div>';
-  list.appendChild(item);
+function renderFaq(faq) {
+  list.innerHTML = '';
+  faq.forEach(([q,a]) => {
+    const item = document.createElement('div');
+    item.className = 'faq-item';
+    item.innerHTML =
+      '<button class="faq-q" aria-expanded="false"><span>'+q+'</span><span class="qmark"></span></button>' +
+      '<div class="faq-a"><div class="faq-a-inner">'+a+'</div></div>';
+    list.appendChild(item);
+  });
+}
+renderFaq(FAQ_FALLBACK);
+document.addEventListener('takalam:i18n-ready', (e) => {
+  if (e.detail && Array.isArray(e.detail.faq)) renderFaq(e.detail.faq);
 });
 
 list.addEventListener('click', (e) => {
@@ -1014,8 +1020,29 @@ document.addEventListener('click', (e) => {
   if (!btn) return;
   if (typeof fbq === 'function') fbq('track', 'Lead');
 });
+
+/* ---------- Locale-aware WhatsApp prefill text ---------- */
+document.addEventListener('takalam:i18n-ready', (e) => {
+  const msg = e.detail && e.detail['cta.wa_message'];
+  if (!msg) return;
+  document.querySelectorAll('[data-cta-wa]').forEach((el) => {
+    const base = el.href.split('?')[0];
+    el.href = base + '?text=' + encodeURIComponent(msg);
+  });
+});
+
+/* ---------- Live prices (never hardcoded, see /api/products) ---------- */
+fetch('/api/products?locale=' + (/^\/en(\/|$)/.test(window.location.pathname) ? 'en' : 'fr'))
+  .then((r) => r.json())
+  .then(({ products }) => {
+    (products || []).forEach((p) => {
+      const row = document.getElementById(p.type === 'speak' ? 'priceSpeak' : 'pricePrivate');
+      if (row) row.querySelector('.amt').textContent = '€' + p.priceEur;
+    });
+  })
+  .catch((err) => console.error('[index] Failed to load live prices', err));
 </script>
 
-
+<script src="/assets/i18n.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body></html>

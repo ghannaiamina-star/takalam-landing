@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -110,7 +110,7 @@ label{
   margin-bottom:6px;
   color:var(--forest);
 }
-input[type=text],input[type=tel]{
+input[type=text],input[type=tel],input[type=email],input[type=number],select{
   width:100%;
   padding:14px 16px;
   border:1.5px solid var(--line);
@@ -121,7 +121,7 @@ input[type=text],input[type=tel]{
   color:var(--ink);
   margin-bottom:16px;
 }
-input[type=text]:focus,input[type=tel]:focus{
+input[type=text]:focus,input[type=tel]:focus,input[type=email]:focus,input[type=number]:focus,select:focus{
   outline:none;
   border-color:var(--emerald);
 }
@@ -368,45 +368,65 @@ input[type=text]:focus,input[type=tel]:focus{
 
     <!-- START SCREEN -->
     <section class="screen active" id="screen-start">
-      <div class="section-label">English Level Test</div>
-      <h1>Let's find your level.</h1>
-      <p class="lead">10 minutes, 3 short sections. Find a quiet place. You will speak out loud, so wear headphones if you can and make sure your microphone works.</p>
-      <p class="note">Your speaking recordings will be reviewed by our teaching team as part of your assessment.</p>
+      <div class="section-label" data-i18n="test.section_label">English Level Test</div>
+      <h1 data-i18n="test.h1">Let's find your level.</h1>
+      <p class="lead" data-i18n="test.lead">10 minutes, 3 short sections. Find a quiet place. You will speak out loud, so wear headphones if you can and make sure your microphone works.</p>
 
       <div class="card">
-        <label for="inputName">Your name</label>
-        <input type="text" id="inputName" placeholder="Full name" autocomplete="name">
-        <div class="field-error" id="errName">Please enter your name.</div>
+        <label for="inputName" data-i18n="test.name_label">Your name</label>
+        <input type="text" id="inputName" data-i18n-placeholder="test.name_placeholder" placeholder="Full name" autocomplete="name">
+        <div class="field-error" id="errName" data-i18n="test.err_name">Please enter your name.</div>
 
-        <label for="inputWhatsapp">WhatsApp number</label>
-        <input type="tel" id="inputWhatsapp" placeholder="+212 6XX XXX XXX" autocomplete="tel">
-        <div class="field-error" id="errWhatsapp">Please enter a valid WhatsApp number.</div>
+        <label for="inputWhatsapp" data-i18n="test.whatsapp_label">WhatsApp number</label>
+        <input type="tel" id="inputWhatsapp" data-i18n-placeholder="test.whatsapp_placeholder" placeholder="+33 6 12 34 56 78" autocomplete="tel">
+        <div class="field-error" id="errWhatsapp" data-i18n="test.err_whatsapp">Please enter a valid WhatsApp number.</div>
+
+        <label for="inputEmail" data-i18n="test.email_label">Email (optional, so we can send you your results link)</label>
+        <input type="email" id="inputEmail" placeholder="you@email.com" autocomplete="email">
+
+        <label for="inputGoal" data-i18n="test.goal_question">What are you working towards right now?</label>
+        <select id="inputGoal">
+          <option value="general" data-i18n="test.goal_general">General fluency and confidence</option>
+          <option value="exam" data-i18n="test.goal_exam">An exam (IELTS, TOEFL, Duolingo...)</option>
+          <option value="interview" data-i18n="test.goal_interview">A job interview</option>
+          <option value="presentation" data-i18n="test.goal_presentation">A presentation</option>
+          <option value="writing" data-i18n="test.goal_writing">Writing / reports</option>
+        </select>
+
+        <label for="inputDeadline" data-i18n="test.deadline_question">Any deadline? (optional)</label>
+        <input type="number" id="inputDeadline" min="1" max="104" data-i18n-placeholder="test.deadline_placeholder" placeholder="e.g. 4 weeks">
       </div>
+
+      <label class="consent-line" style="display:flex;gap:.6em;align-items:flex-start;font-size:.9rem;color:var(--ink-soft, #555);margin:14px 0;">
+        <input type="checkbox" id="inputConsent" style="margin-top:.25em;">
+        <span><span data-i18n="test.consent">By recording, you agree to Takalam storing your voice recording and transcript to generate your results. Kept for 12 months, then deleted. Read our</span> <a href="/privacy" target="_blank" data-i18n="test.consent_link">privacy policy</a>.</span>
+      </label>
+      <div class="field-error" id="errConsent" data-i18n="test.err_consent">Please confirm to continue.</div>
 
       <div class="mic-status" id="micStatus">
         <span class="mic-dot" id="micDot"></span>
-        <span id="micStatusText">Section 3 is spoken, so we will ask for microphone access when you start.</span>
+        <span id="micStatusText" data-i18n="test.mic_status_default">Section 3 is spoken, so I'll ask for microphone access when you start.</span>
       </div>
       <div class="field-error" id="errMic"></div>
 
-      <button class="btn btn--emerald" id="btnStart">Start test</button>
-      <p class="note">Your recordings and answers go straight to our team. You will not see a score on screen, we will send your level on WhatsApp within 24 hours.</p>
+      <button class="btn btn--emerald" id="btnStart" data-i18n="test.start_btn">Start test</button>
+      <p class="note" data-i18n="test.note_footer">You'll see your results and level immediately after the test, on your own results page.</p>
     </section>
 
     <!-- MIC DENIED SCREEN -->
     <section class="screen" id="screen-mic-denied">
       <div class="center-msg">
-        <h2>We need microphone access</h2>
-        <p>Section 3 of this test is spoken, so your browser needs permission to use your microphone.</p>
-        <p class="note" id="micInstructions">Tap the lock or site info icon next to the address bar, find "Microphone", and set it to Allow. Then reload this page.</p>
-        <button class="btn btn--forest" id="btnMicRetry">Try again</button>
-        <button class="skip-link" id="btnMicDeniedSkip" style="display:none;">Continue without the speaking section (your assessment will be incomplete)</button>
+        <h2 data-i18n="test.mic_denied_h2">We need microphone access</h2>
+        <p data-i18n="test.mic_denied_p">Section 3 of this test is spoken, so your browser needs permission to use your microphone.</p>
+        <p class="note" id="micInstructions" data-i18n="test.mic_instructions_default">Tap the lock or site info icon next to the address bar, find "Microphone", and set it to Allow. Then reload this page.</p>
+        <button class="btn btn--forest" id="btnMicRetry" data-i18n="test.mic_retry_btn">Try again</button>
+        <button class="skip-link" id="btnMicDeniedSkip" data-i18n="test.mic_skip_btn" style="display:none;">Continue without the speaking section (your assessment will be incomplete)</button>
       </div>
     </section>
 
     <!-- SECTION 1: GRAMMAR & VOCAB -->
     <section class="screen" id="screen-s1">
-      <div class="section-label">Section 1 of 3 &middot; Grammar &amp; Vocabulary</div>
+      <div class="section-label" data-i18n="test.section1_label">Section 1 of 3 &middot; Grammar &amp; Vocabulary</div>
       <div class="card">
         <div class="question-tag" id="s1Tag">B1</div>
         <div class="question-text" id="s1Question"></div>
@@ -416,17 +436,17 @@ input[type=text]:focus,input[type=tel]:focus{
 
     <!-- SECTION 2: READING -->
     <section class="screen" id="screen-s2">
-      <div class="section-label">Section 2 of 3 &middot; Reading</div>
+      <div class="section-label" data-i18n="test.section2_label">Section 2 of 3 &middot; Reading</div>
       <div class="passage" id="s2Passage"></div>
       <div id="s2Questions"></div>
-      <button class="btn btn--emerald" id="btnS2Submit">Continue</button>
+      <button class="btn btn--emerald" id="btnS2Submit" data-i18n="test.continue_btn">Continue</button>
     </section>
 
     <!-- MIC CHECK -->
     <section class="screen" id="screen-miccheck">
-      <div class="section-label">Before Section 3</div>
-      <h2>Let's check your microphone.</h2>
-      <p class="lead">Press record and answer: what did you eat today? You have 15 seconds.</p>
+      <div class="section-label" data-i18n="test.miccheck_label">Before Section 3</div>
+      <h2 data-i18n="test.miccheck_h2">Let's check your microphone.</h2>
+      <p class="lead" data-i18n="test.miccheck_lead">Press record and answer: what did you eat today? You have 15 seconds.</p>
 
       <div class="rec-stage">
         <div class="rec-label" id="mcStageLabel">Ready when you are</div>
@@ -442,25 +462,25 @@ input[type=text]:focus,input[type=tel]:focus{
       </div>
 
       <div class="btn-row" id="mcStartRow">
-        <button class="btn btn--emerald" id="btnMcStart">Start recording</button>
+        <button class="btn btn--emerald" id="btnMcStart" data-i18n="test.start_recording_btn">Start recording</button>
       </div>
       <div class="btn-row" id="mcStopRow" style="display:none;">
-        <button class="btn btn--outline" id="btnMcStop">Stop recording</button>
+        <button class="btn btn--outline" id="btnMcStop" data-i18n="test.stop_recording_btn">Stop recording</button>
       </div>
       <div class="btn-row" id="mcReviewRow" style="display:none;">
-        <button class="btn btn--outline" id="btnMcRetry">Try again</button>
-        <button class="btn btn--emerald" id="btnMcConfirm">I can hear myself clearly</button>
+        <button class="btn btn--outline" id="btnMcRetry" data-i18n="test.mic_retry_btn">Try again</button>
+        <button class="btn btn--emerald" id="btnMcConfirm" data-i18n="test.mic_confirm_btn">I can hear myself clearly</button>
       </div>
 
       <div class="hint-box" id="mcHints" style="display:none;">
-        <p>Still having trouble? A few things to try: check that your browser has microphone permission enabled, use headphones if you have them, or move somewhere quieter.</p>
+        <p data-i18n="test.mic_hint">Still having trouble? A few things to try: check that your browser has microphone permission enabled, use headphones if you have them, or move somewhere quieter.</p>
       </div>
-      <button class="skip-link" id="btnMcSkip" style="display:none;">Continue without the speaking section (your assessment will be incomplete)</button>
+      <button class="skip-link" id="btnMcSkip" data-i18n="test.mic_skip_btn" style="display:none;">Continue without the speaking section (your assessment will be incomplete)</button>
     </section>
 
     <!-- SECTION 3: SPEAKING -->
     <section class="screen" id="screen-s3">
-      <div class="section-label">Section 3 of 3 &middot; Speaking</div>
+      <div class="section-label" data-i18n="test.section3_label">Section 3 of 3 &middot; Speaking</div>
       <div class="prompt-badge" id="s3PromptNum">Prompt 1 of 3</div>
       <div class="prompt-text" id="s3PromptText"></div>
 
@@ -475,13 +495,13 @@ input[type=text]:focus,input[type=tel]:focus{
 
       <div id="s3ErrorBox" class="field-error"></div>
       <div class="btn-row" id="s3StartRow" style="display:none;">
-        <button class="btn btn--emerald" id="btnS3Start">Start recording</button>
+        <button class="btn btn--emerald" id="btnS3Start" data-i18n="test.start_recording_btn">Start recording</button>
       </div>
       <div class="btn-row" id="s3FinishRow" style="display:none;">
-        <button class="btn btn--outline" id="btnS3Finish" disabled>I'm finished</button>
+        <button class="btn btn--outline" id="btnS3Finish" data-i18n="test.finish_btn" disabled>I'm finished</button>
       </div>
       <div id="s3RetryRow" class="btn-row" style="display:none;">
-        <button class="btn btn--outline" id="btnS3Retry">Retry recording</button>
+        <button class="btn btn--outline" id="btnS3Retry" data-i18n="test.retry_recording_btn">Retry recording</button>
       </div>
     </section>
 
@@ -490,16 +510,16 @@ input[type=text]:focus,input[type=tel]:focus{
       <div class="center-msg">
         <div class="spinner"></div>
         <h2 id="submitHeading">Uploading your answers...</h2>
-        <p class="note">This can take a minute. Please stay on this page.</p>
+        <p class="note" data-i18n="test.submitting_note">This can take a minute. Please stay on this page.</p>
       </div>
     </section>
 
     <!-- DONE -->
     <section class="screen" id="screen-done">
       <div class="center-msg">
-        <h2>Test complete!</h2>
-        <p class="lead">Your results are with our team. We'll send your level and recommendation on WhatsApp within 24 hours.</p>
-        <a class="wa-btn" href="https://wa.me/212722774753?text=Hi%20Takalam!%20I%20just%20finished%20the%20English%20level%20test." target="_blank" rel="noopener">
+        <h2 data-i18n="test.done_h2">Test complete!</h2>
+        <p class="lead" data-i18n="test.done_lead">Your results are ready. I'll send you your level and recommendation on WhatsApp within 24 hours.</p>
+        <a class="wa-btn" id="doneWaBtn" href="https://wa.me/212722774753?text=Hi%20Takalam!%20I%20just%20finished%20the%20English%20level%20test." target="_blank" rel="noopener" data-i18n="test.done_wa_btn">
           Message us on WhatsApp
         </a>
       </div>
@@ -692,7 +712,7 @@ var SPEAKING_SLOTS = [
 /* ============================= STATE ============================= */
 
 var state = {
-  name:"", whatsapp:"",
+  name:"", whatsapp:"", email:"", goal:"", goalDeadlineWeeks:null,
   micGranted:false, mimeType:"",
   s1:{ currentLevel:"B1", correctStreak:0, wrongStreak:0, askedIds:[], trajectory:[], itemCount:0, current:null },
   s2:{ passageId:"", activeQuestions:[], answers:[], itemDetail:[], correctCount:0 },
@@ -756,6 +776,20 @@ function renderDebugPanel(){
 /* ============================= HELPERS ============================= */
 
 function $(id){ return document.getElementById(id); }
+// Reads the dictionary assets/i18n.js populates on window.__takalamI18n once
+// its fetch resolves. Used only for strings this script also sets at
+// runtime (so they don't revert to English after a [data-i18n] swap); falls
+// back to the English literal if the dictionary hasn't loaded yet.
+function t(key, fallback){
+  var dict = window.__takalamI18n;
+  return (dict && dict[key] != null) ? dict[key] : fallback;
+}
+function prepareDoneScreen(){
+  var waBtn = $("doneWaBtn");
+  if (!waBtn) return;
+  var msg = t("test.done_wa_text", "Hi Takalam! I just finished the English level test.");
+  waBtn.href = "https://wa.me/212722774753?text=" + encodeURIComponent(msg);
+}
 function showScreen(id){
   var screens = document.querySelectorAll(".screen");
   for (var i=0;i<screens.length;i++) screens[i].classList.remove("active");
@@ -903,11 +937,17 @@ function validateStart(){
   var wa = $("inputWhatsapp").value.trim();
   var okName = name.length >= 2;
   var okWa = /^[+0-9][0-9\s-]{6,}$/.test(wa);
+  var okConsent = $("inputConsent").checked;
   $("errName").classList.toggle("show", !okName);
   $("errWhatsapp").classList.toggle("show", !okWa);
+  $("errConsent").classList.toggle("show", !okConsent);
   if (okName) state.name = name;
   if (okWa) state.whatsapp = wa;
-  return okName && okWa;
+  state.email = $("inputEmail").value.trim();
+  state.goal = $("inputGoal").value;
+  var deadlineRaw = $("inputDeadline").value.trim();
+  state.goalDeadlineWeeks = deadlineRaw ? Number(deadlineRaw) : null;
+  return okName && okWa && okConsent;
 }
 
 function pickMimeType(){
@@ -930,37 +970,37 @@ function pickMimeType(){
 function requestMic(){
   $("errMic").classList.remove("show");
   $("btnStart").disabled = true;
-  $("btnStart").textContent = "Checking microphone...";
+  $("btnStart").textContent = t("test.checking_mic_btn", "Checking microphone...");
   navigator.mediaDevices.getUserMedia({ audio:true })
     .then(function(stream){
       // This is only a permission and codec check, never held open or reused
       // for actual recording: iOS Safari has been observed to silently stop
       // delivering audio data on a stream that's already been recorded from,
       // so every real recording attempt below requests its own fresh stream.
-      stream.getTracks().forEach(function(t){ t.stop(); });
+      stream.getTracks().forEach(function(track){ track.stop(); });
       state.micGranted = true;
       state.mimeType = pickMimeType();
       $("micDot").classList.add("ok");
-      $("micStatusText").textContent = "Microphone ready.";
+      $("micStatusText").textContent = t("test.mic_status_ready", "Microphone ready.");
       $("btnStart").disabled = false;
-      $("btnStart").textContent = "Start test";
+      $("btnStart").textContent = t("test.start_btn", "Start test");
       beginSection1();
     })
     .catch(function(){
       micDenialCount += 1;
       $("btnStart").disabled = false;
-      $("btnStart").textContent = "Start test";
+      $("btnStart").textContent = t("test.start_btn", "Start test");
       showMicDenied();
     });
 }
 
 function showMicDenied(){
   var ua = navigator.userAgent || "";
-  var msg = "Tap the lock or site info icon next to the address bar, find \"Microphone\", and set it to Allow. Then reload this page.";
+  var msg = t("test.mic_instructions_default", "Tap the lock or site info icon next to the address bar, find \"Microphone\", and set it to Allow. Then reload this page.");
   if (/iPhone|iPad/.test(ua)) {
-    msg = "Open Settings, scroll to Safari (or Chrome), tap it, and allow Microphone access for this site. Then come back and reload this page.";
+    msg = t("test.mic_instructions_ios", "Open Settings, scroll to Safari (or Chrome), tap it, and allow Microphone access for this site. Then come back and reload this page.");
   } else if (/Android/.test(ua)) {
-    msg = "Tap the three dots or the lock icon in your browser, open Site settings, and set Microphone to Allow. Then reload this page.";
+    msg = t("test.mic_instructions_android", "Tap the three dots or the lock icon in your browser, open Site settings, and set Microphone to Allow. Then reload this page.");
   }
   $("micInstructions").textContent = msg;
   $("btnMicDeniedSkip").style.display = micDenialCount >= 3 ? "block" : "none";
@@ -1614,6 +1654,10 @@ function doSubmit(retry){
   var fd = new FormData();
   fd.append("name", state.name);
   fd.append("whatsapp", state.whatsapp);
+  fd.append("email", state.email || "");
+  fd.append("goal", state.goal || "");
+  fd.append("goalDeadlineWeeks", state.goalDeadlineWeeks != null ? String(state.goalDeadlineWeeks) : "");
+  fd.append("locale", /^\/en(\/|$)/.test(location.pathname) ? "en" : "fr");
   fd.append("section1", JSON.stringify({
     finalLevel: state.s1.currentLevel,
     trajectory: state.s1.trajectory,
@@ -1646,10 +1690,15 @@ function doSubmit(retry){
       if (!resp.ok) throw new Error("Submit failed: " + resp.status);
       return resp.json();
     })
-    .then(function(){
+    .then(function(data){
       stopSubmittingMessages();
       setProgress(100);
-      showScreen("screen-done");
+      if (data && data.resultsUrl){
+        window.location.href = data.resultsUrl;
+      } else {
+        prepareDoneScreen();
+        showScreen("screen-done");
+      }
     })
     .catch(function(err){
       console.error("Submission error:", err);
@@ -1659,6 +1708,7 @@ function doSubmit(retry){
         // Best effort: the student cannot do anything more from here.
         stopSubmittingMessages();
         setProgress(100);
+        prepareDoneScreen();
         showScreen("screen-done");
       }
     });
@@ -1666,5 +1716,6 @@ function doSubmit(retry){
 
 })();
 </script>
+<script src="/assets/i18n.js"></script>
 </body>
 </html>

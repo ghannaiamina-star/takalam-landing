@@ -7,6 +7,9 @@ const {
   computeFluencyMetrics,
 } = require('../lib/scoring');
 const { transcribeAudio } = require('../lib/transcribe');
+const { sql } = require('../lib/db');
+const { uploadAudio } = require('../lib/blob');
+const { generateDiagnosis } = require('../lib/diagnosis');
 
 const REPORT_TO = 'mohammedsaidelbouzdoudi99@gmail.com';
 const REPORT_FROM = 'Takalam Level Test <onboarding@resend.dev>';
@@ -88,6 +91,11 @@ module.exports = async (req, res) => {
     res.status(400).json({ error: 'Name and WhatsApp number are required.' });
     return;
   }
+  const email = String(formData.get('email') || '').trim();
+  const goal = String(formData.get('goal') || '').trim();
+  const goalDeadlineWeeksRaw = formData.get('goalDeadlineWeeks');
+  const goalDeadlineWeeks = goalDeadlineWeeksRaw ? Number(goalDeadlineWeeksRaw) : null;
+  const locale = String(formData.get('locale') || 'fr').trim() === 'en' ? 'en' : 'fr';
 
   let section1 = {};
   let section2 = {};
@@ -115,6 +123,7 @@ module.exports = async (req, res) => {
   const attachmentNotes = [];
   const slug = slugify(name);
   let totalAttachmentBytes = 0;
+  const audioUploadPromises = []; // index -> Promise<string|null> (Blob URL), kicked off inline so it overlaps transcription
 
   // Each slot ends up either already resolved (from the client's background
   // transcription, or a missing/skipped recording) or marked needsTranscription
@@ -140,22 +149,34 @@ module.exports = async (req, res) => {
         continue;
       }
 
-      // Attach the raw clip for manual pronunciation/accent review, independent
-      // of whether transcription succeeds below.
-      if (audioFile.size > MAX_ATTACHMENT_BYTES || totalAttachmentBytes + audioFile.size > MAX_TOTAL_ATTACHMENT_BYTES) {
-        attachmentNotes.push(`Prompt ${i + 1} recording (${(audioFile.size / 1024 / 1024).toFixed(1)}MB) was too large to attach.`);
-      } else {
-        try {
-          const buf = Buffer.from(await audioFile.arrayBuffer());
+      // Read once, reused for both the internal email attachment (subject to
+      // its own size cap, unrelated to storage) and the durable Blob upload
+      // the results page plays back from.
+      let buf = null;
+      try {
+        buf = Buffer.from(await audioFile.arrayBuffer());
+      } catch (err) {
+        console.error(`[submit-test] Failed to read audio file for prompt ${i}:`, err);
+        attachmentNotes.push(`Prompt ${i + 1} recording could not be read.`);
+      }
+
+      if (buf) {
+        if (audioFile.size > MAX_ATTACHMENT_BYTES || totalAttachmentBytes + audioFile.size > MAX_TOTAL_ATTACHMENT_BYTES) {
+          attachmentNotes.push(`Prompt ${i + 1} recording (${(audioFile.size / 1024 / 1024).toFixed(1)}MB) was too large to attach.`);
+        } else {
           attachments.push({
             filename: `${slug}-prompt${i + 1}.${extFromFile(audioFile)}`,
             content: buf.toString('base64'),
           });
           totalAttachmentBytes += audioFile.size;
-        } catch (err) {
-          console.error(`[submit-test] Failed to read audio file for prompt ${i}:`, err);
-          attachmentNotes.push(`Prompt ${i + 1} recording could not be attached.`);
         }
+
+        const uploadIndex = i;
+        audioUploadPromises[uploadIndex] = uploadAudio(buf, `${slug}-prompt${uploadIndex + 1}.${extFromFile(audioFile)}`, audioFile.type)
+          .catch((err) => {
+            console.error(`[submit-test] Blob upload failed for prompt ${uploadIndex}:`, err);
+            return null;
+          });
       }
 
       // The client transcribes each prompt in the background right after it's
@@ -205,6 +226,13 @@ module.exports = async (req, res) => {
 
   const speakingResults = promptSlots.map((slot) => slot.result);
 
+  // Blob uploads were kicked off inline while transcription was still
+  // running above, so this just collects results that are likely already done.
+  const audioUrls = await Promise.all(audioUploadPromises.map((p) => p || Promise.resolve(null)));
+  speakingResults.forEach((r, i) => {
+    r.audioUrl = audioUrls[i] || null;
+  });
+
   let claudeResults = null;
   const transcribedOk = speakingResults.filter((r) => r.transcript);
   if (!missingKeys.includes('ANTHROPIC_API_KEY') && transcribedOk.length > 0) {
@@ -226,6 +254,22 @@ module.exports = async (req, res) => {
 
   const finalBandLabel = finalBand ? CEFR_LABELS[finalBand] : 'Pending manual review';
 
+  // Only worth persisting a results page when there's an actual band to show
+  // a diagnosis against -- otherwise fall back to the generic "we'll be in
+  // touch" screen the client already has, same as it does today.
+  let resultsUrl = null;
+  if (finalBand) {
+    try {
+      resultsUrl = await persistAttemptAndDiagnosis({
+        name, whatsapp, email, goal, goalDeadlineWeeks, locale,
+        gradingIncomplete, finalBand, finalBandLabel, speakingBand, grammarBand, readingBand,
+        section1, section2, speakingResults, claudeResults,
+      });
+    } catch (err) {
+      console.error('[submit-test] Failed to persist attempt / generate diagnosis:', err);
+    }
+  }
+
   const html = buildReportEmail({
     name,
     whatsapp,
@@ -244,6 +288,7 @@ module.exports = async (req, res) => {
     passageId: section2.passageId,
     promptVariants,
     attachmentNotes,
+    resultsUrl,
   });
 
   try {
@@ -254,8 +299,47 @@ module.exports = async (req, res) => {
     return;
   }
 
-  res.status(200).json({ success: true });
+  res.status(200).json({ success: true, resultsUrl });
 };
+
+// Writes the attempt + per-prompt rows, generates the LLM diagnosis, and
+// returns the results-page URL. Runs after grading is otherwise complete, so
+// a failure here (caught by the caller) never blocks the owner-facing email.
+async function persistAttemptAndDiagnosis({
+  name, whatsapp, email, goal, goalDeadlineWeeks, locale,
+  gradingIncomplete, finalBand, finalBandLabel, speakingBand, grammarBand, readingBand,
+  section1, section2, speakingResults, claudeResults,
+}) {
+  const diagnosis = await generateDiagnosis({
+    speakingResults,
+    claudeResults,
+    finalBandLabel,
+    grammarBand,
+    readingBand,
+    goal,
+    goalDeadlineWeeks,
+    apiKey: process.env.ANTHROPIC_API_KEY,
+  });
+
+  const rows = await sql`
+    INSERT INTO test_attempt (name, whatsapp, email, goal, goal_deadline_weeks, locale, grading_incomplete, final_band, speaking_band, grammar_band, reading_band, section1, section2, diagnosis)
+    VALUES (${name}, ${whatsapp}, ${email || null}, ${goal || null}, ${goalDeadlineWeeks}, ${locale}, ${gradingIncomplete}, ${finalBand}, ${speakingBand}, ${grammarBand}, ${readingBand}, ${JSON.stringify(section1)}, ${JSON.stringify(section2)}, ${JSON.stringify(diagnosis)})
+    RETURNING id
+  `;
+  const attemptId = rows[0].id;
+
+  await Promise.all(
+    speakingResults.map((r, i) => {
+      const claude = claudeResults ? claudeResults[i] : null;
+      return sql`
+        INSERT INTO test_answer (attempt_id, prompt_index, prompt_text, transcript, audio_url, metrics, band, grammar_range, vocabulary_range, coherence, freeze_indicators, example_errors)
+        VALUES (${attemptId}, ${i}, ${r.promptText}, ${r.transcript || null}, ${r.audioUrl || null}, ${JSON.stringify(r.metrics || null)}, ${claude ? claude.band : null}, ${claude ? claude.grammar_range : null}, ${claude ? claude.vocabulary_range : null}, ${claude ? claude.coherence : null}, ${JSON.stringify(claude ? claude.freeze_indicators : null)}, ${JSON.stringify(claude ? claude.example_errors : null)})
+      `;
+    })
+  );
+
+  return `/results?id=${attemptId}`;
+}
 
 async function parseMultipart(req) {
   const chunks = [];
@@ -417,7 +501,8 @@ function buildReportEmail(data) {
     <p><strong>Name:</strong> ${esc(data.name)}<br/>
     <strong>WhatsApp:</strong> ${esc(data.whatsapp)}<br/>
     <strong>Final band:</strong> ${esc(data.finalBandLabel)}<br/>
-    <strong>Submitted:</strong> ${esc(data.timestamp)}</p>
+    <strong>Submitted:</strong> ${esc(data.timestamp)}<br/>
+    ${data.resultsUrl ? `<strong>Results page:</strong> <a href="${esc((process.env.SITE_URL || '') + data.resultsUrl)}">${esc((process.env.SITE_URL || '') + data.resultsUrl)}</a>` : '<strong>Results page:</strong> not generated (see grading-incomplete note above)'}</p>
 
     <h3 style="color:#0d4f37;">Section scores</h3>
     <p><strong>Grammar &amp; vocabulary:</strong> ${esc(data.grammarBand)} (final adaptive level: ${esc(data.section1.finalLevel || 'n/a')}, ${esc(trajectory.length)} items answered)<br/>
