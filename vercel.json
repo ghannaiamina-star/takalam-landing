@@ -7,13 +7,15 @@
     "api/results/[id].js": { "maxDuration": 15 },
     "api/products.js": { "maxDuration": 15 },
     "api/checkout.js": { "maxDuration": 15 },
-    "api/webhook/lemonsqueezy.js": { "maxDuration": 30 }
+    "api/paypal-return.js": { "maxDuration": 15 },
+    "api/webhook/lemonsqueezy.js": { "maxDuration": 30 },
+    "api/webhook/paypal.js": { "maxDuration": 30 }
   },
   "rewrites": [
-    { "source": "/en", "destination": "/index.html" },
-    { "source": "/en/test", "destination": "/test.html" },
-    { "source": "/en/results", "destination": "/results.html" },
-    { "source": "/en/privacy", "destination": "/privacy.html" }
+    { "source": "/en", "destination": "/index" },
+    { "source": "/en/test", "destination": "/test" },
+    { "source": "/en/results", "destination": "/results" },
+    { "source": "/en/privacy", "destination": "/privacy" }
   ],
   "redirects": [
     { "source": "/about",            "destination": "https://takalamenglish.ma/", "permanent": true },

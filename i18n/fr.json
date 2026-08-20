@@ -144,5 +144,18 @@
   "results.checkout_cta": "Commencer",
   "results.other_option": "Pas sûr ? Voir l'autre option",
 
-  "privacy.title": "Confidentialité et données"
+  "privacy.title": "Confidentialité et données",
+  "privacy.last_updated": "Dernière mise à jour : 20 août 2026.",
+  "privacy.h_what": "Ce que nous enregistrons",
+  "privacy.p_what": "Lorsque vous passez le test de niveau d'anglais gratuit, nous enregistrons vos réponses orales, les transcrivons automatiquement, et générons une évaluation écrite de votre niveau d'anglais à partir de cette transcription et de cet enregistrement.",
+  "privacy.h_why": "Pourquoi",
+  "privacy.p_why": "Pour évaluer votre anglais oral et vous recommander le bon cours. Rien d'autre.",
+  "privacy.h_retention": "Combien de temps nous les conservons",
+  "privacy.p_retention": "Les enregistrements et transcriptions sont conservés 12 mois à partir de la date du test, puis supprimés automatiquement. Si vous avez moins de 18 ans, cette durée est réduite à 6 mois, et l'accord d'un parent ou tuteur est requis avant de passer le test.",
+  "privacy.h_who": "Qui y a accès",
+  "privacy.p_who": "Vos résultats de test et enregistrements ne sont visibles que par l'enseignant de Takalam, dans le but de votre évaluation et de votre accompagnement. Ils ne sont jamais vendus, partagés avec des annonceurs, ni utilisés à des fins marketing sans votre consentement explicite et distinct.",
+  "privacy.h_rights": "Vos droits",
+  "privacy.p_rights_html": "Vous pouvez demander une copie de vos données ou nous demander de les supprimer à tout moment en contactant Takalam sur WhatsApp ou par e-mail à <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>. Une option de téléchargement/suppression en libre-service depuis votre compte est prévue mais pas encore disponible.",
+  "privacy.h_payments": "Paiements",
+  "privacy.p_payments": "Si vous vous inscrivez à un cours payant, le paiement est traité par PayPal. Nous ne voyons ni ne stockons jamais vos données de carte ou de compte bancaire -- PayPal s'en charge directement."
 }

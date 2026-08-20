@@ -144,5 +144,18 @@
   "results.checkout_cta": "Get started",
   "results.other_option": "Not sure? See the other option",
 
-  "privacy.title": "Privacy & data"
+  "privacy.title": "Privacy & data",
+  "privacy.last_updated": "Last updated: 20 August 2026.",
+  "privacy.h_what": "What we record",
+  "privacy.p_what": "When you take the free English level test, we record your spoken answers, transcribe them automatically, and generate a written assessment of your English level from that transcript and recording.",
+  "privacy.h_why": "Why",
+  "privacy.p_why": "To assess your spoken English and recommend the right course. Nothing else.",
+  "privacy.h_retention": "How long we keep it",
+  "privacy.p_retention": "Recordings and transcripts are kept for 12 months from the date of the test, then deleted automatically. If you are under 18, this is reduced to 6 months, and a parent or guardian must consent before the test is taken.",
+  "privacy.h_who": "Who sees it",
+  "privacy.p_who": "Your test results and recordings are visible only to Takalam's teacher, for the purpose of your assessment and coaching. They are never sold, shared with advertisers, or used in marketing without your separate, explicit consent.",
+  "privacy.h_rights": "Your rights",
+  "privacy.p_rights_html": "You can ask for a copy of your data or ask us to delete it at any time by messaging Takalam on WhatsApp or emailing <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>. A fully self-serve download/delete option in your account is planned but not live yet.",
+  "privacy.h_payments": "Payments",
+  "privacy.p_payments": "If you enroll in a paid course, payment is processed by PayPal. We never see or store your card or bank details -- PayPal handles that directly."
 }

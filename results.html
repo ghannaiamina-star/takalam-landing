@@ -142,8 +142,20 @@ audio { width: 100%; }
         checkoutBtn.textContent = '...';
         fetch('/api/checkout?product=' + encodeURIComponent(reco.type) + '&attemptId=' + encodeURIComponent(id) + '&locale=' + locale)
           .then(function (r) { return r.json(); })
-          .then(function (c) { if (c.url) window.location.href = c.url; })
-          .catch(function () { checkoutBtn.textContent = 'Error, please WhatsApp us'; });
+          .then(function (c) {
+            if (c.url) { window.location.href = c.url; return; }
+            throw new Error('No checkout URL in response');
+          })
+          .catch(function () {
+            // /api/checkout itself degrades to a WhatsApp link on any
+            // provider failure, so this only fires if the request never
+            // reached it at all (e.g. offline) -- same honest fallback
+            // either way, never a dead "..." button.
+            var text = locale === 'en'
+              ? "Hi Takalam! I'd like to book " + (reco.name || reco.type) + '.'
+              : 'Bonjour Takalam ! Je voudrais réserver ' + (reco.name || reco.type) + '.';
+            window.location.href = 'https://wa.me/212722774753?text=' + encodeURIComponent(text);
+          });
       });
 
       var other = reco.type === 'speak' ? 'private' : 'speak';
