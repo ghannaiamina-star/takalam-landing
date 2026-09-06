@@ -74,6 +74,7 @@
   "footer.link_speak": "Takalam Speak",
   "footer.link_private": "Takalam Private",
   "footer.link_privacy": "Confidentialité et données",
+  "footer.link_policies": "Conditions et politiques",
   "footer.copyright": "© 2026 Takalam. Coaching d'anglais en ligne.",
 
   "test.section_label": "Test de niveau d'anglais",
@@ -178,6 +179,7 @@
   "register.done_h2": "Inscription reçue !",
   "register.done_lead": "Merci. Nous vérifions votre paiement et confirmons votre place par WhatsApp ou email sous 24 à 48 heures.",
   "register.done_ref_label": "Votre référence",
+  "register.terms_note": "En vous inscrivant, vous acceptez nos <a href=\"/policies\" target=\"_blank\">conditions et politiques</a>.",
 
   "privacy.title": "Confidentialité et données",
   "privacy.last_updated": "Dernière mise à jour : 20 août 2026.",
@@ -192,5 +194,23 @@
   "privacy.h_rights": "Vos droits",
   "privacy.p_rights_html": "Vous pouvez demander une copie de vos données ou nous demander de les supprimer à tout moment en contactant Takalam sur WhatsApp ou par e-mail à <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>. Une option de téléchargement/suppression en libre-service depuis votre compte est prévue mais pas encore disponible.",
   "privacy.h_payments": "Paiements",
-  "privacy.p_payments": "Si vous vous inscrivez à un cours payant, vous payez directement par virement bancaire ou PayPal et téléversez une capture d'écran comme preuve. Nous conservons cette capture, votre nom, votre numéro WhatsApp et votre email pour vérifier et confirmer votre inscription -- nous ne demandons ni ne stockons jamais vos données de carte, votre mot de passe bancaire ou vos identifiants PayPal."
+  "privacy.p_payments": "Si vous vous inscrivez à un cours payant, vous payez directement par virement bancaire ou PayPal et téléversez une capture d'écran comme preuve. Nous conservons cette capture, votre nom, votre numéro WhatsApp et votre email pour vérifier et confirmer votre inscription -- nous ne demandons ni ne stockons jamais vos données de carte, votre mot de passe bancaire ou vos identifiants PayPal.",
+
+  "policies.title": "Conditions et politiques",
+  "policies.last_updated": "Dernière mise à jour : 7 septembre 2026.",
+  "policies.h_payments": "Paiements",
+  "policies.p_payments": "Le paiement se fait directement par virement bancaire ou PayPal avant le début des séances. Téléversez votre capture de paiement lors de l'inscription -- nous la vérifions manuellement et confirmons votre place par WhatsApp ou email, généralement sous 24 à 48 heures.",
+  "policies.h_cancel": "Résiliation et remboursements",
+  "policies.p_cancel": "Vous pouvez résilier à tout moment, en deux clics. Si vous avez suivi deux séances ou moins, vous êtes intégralement remboursé sous 14 jours. Au-delà, écrivez-nous -- nous trouverons une solution juste plutôt que d'appliquer une règle rigide.",
+  "policies.h_reschedule": "Report de séance",
+  "policies.p_reschedule": "Private : reportez gratuitement avec au moins 24 heures de préavis. Speak : les sessions suivent le calendrier fixe du groupe et ne sont pas rattrapées individuellement, c'est justement pour ça que le prix est bas.",
+  "policies.h_packs": "Packs de séances",
+  "policies.p_packs": "Les packs de 3, 5 ou 10 séances Private n'expirent pas à une date fixe. Si votre emploi du temps change, écrivez-nous et nous trouverons un rythme adapté.",
+  "policies.h_sessions": "Comment se déroulent les séances",
+  "policies.p_sessions": "Private, c'est individuel, 50 minutes, et vous réservez votre propre créneau. Speak, ce sont de petits groupes visant 10 apprenants, 90 minutes, deux fois par semaine, en binômes et trinômes pour que tout le monde parle vraiment. Les deux se déroulent sur Zoom ou Google Meet -- le lien est envoyé avant chaque séance. Soyez prêt quelques minutes à l'avance ; la caméra allumée est bienvenue mais pas obligatoire.",
+  "policies.h_conduct": "Conduite et enregistrement",
+  "policies.p_conduct": "Traitez chaque séance avec respect. Les séances ne sont jamais enregistrées par l'une ou l'autre partie sans le consentement des deux. Des absences répétées ou un comportement perturbateur peuvent affecter vos réservations futures.",
+  "policies.h_comm": "Communication",
+  "policies.p_comm": "WhatsApp est le moyen le plus rapide de nous joindre, et nous visons une réponse sous 24 heures les jours ouvrés. L'email fonctionne aussi pour tout ce qui est formel.",
+  "policies.contact_note": "Des questions à ce sujet ? Écrivez-nous sur WhatsApp ou par email à Takalamenglishcenter@gmail.com."
 }

@@ -17,7 +17,8 @@
     { "source": "/en/test", "destination": "/test" },
     { "source": "/en/results", "destination": "/results" },
     { "source": "/en/privacy", "destination": "/privacy" },
-    { "source": "/en/register", "destination": "/register" }
+    { "source": "/en/register", "destination": "/register" },
+    { "source": "/en/policies", "destination": "/policies" }
   ],
   "redirects": [
     { "source": "/about",            "destination": "https://takalamenglish.ma/", "permanent": true },

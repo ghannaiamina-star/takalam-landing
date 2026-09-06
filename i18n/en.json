@@ -74,6 +74,7 @@
   "footer.link_speak": "Takalam Speak",
   "footer.link_private": "Takalam Private",
   "footer.link_privacy": "Privacy & data",
+  "footer.link_policies": "Terms & policies",
   "footer.copyright": "© 2026 Takalam. Online English coaching.",
 
   "test.section_label": "English Level Test",
@@ -178,6 +179,7 @@
   "register.done_h2": "Registration received!",
   "register.done_lead": "Thank you. We're verifying your payment and will confirm your spot on WhatsApp or by email within 24-48 hours.",
   "register.done_ref_label": "Your reference",
+  "register.terms_note": "By registering, you agree to our <a href=\"/policies\" target=\"_blank\">terms &amp; policies</a>.",
 
   "privacy.title": "Privacy & data",
   "privacy.last_updated": "Last updated: 20 August 2026.",
@@ -192,5 +194,23 @@
   "privacy.h_rights": "Your rights",
   "privacy.p_rights_html": "You can ask for a copy of your data or ask us to delete it at any time by messaging Takalam on WhatsApp or emailing <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>. A fully self-serve download/delete option in your account is planned but not live yet.",
   "privacy.h_payments": "Payments",
-  "privacy.p_payments": "If you register for a paid course, you pay directly by bank transfer or PayPal and upload a screenshot as proof. We store that screenshot, your name, WhatsApp number, and email to verify and confirm your registration -- we never ask for or store your card, bank password, or PayPal login."
+  "privacy.p_payments": "If you register for a paid course, you pay directly by bank transfer or PayPal and upload a screenshot as proof. We store that screenshot, your name, WhatsApp number, and email to verify and confirm your registration -- we never ask for or store your card, bank password, or PayPal login.",
+
+  "policies.title": "Terms & Policies",
+  "policies.last_updated": "Last updated: 7 September 2026.",
+  "policies.h_payments": "Payments",
+  "policies.p_payments": "Payment is made directly by bank transfer or PayPal before sessions begin. Upload your payment screenshot during registration -- we verify it by hand and confirm your spot by WhatsApp or email, usually within 24 to 48 hours.",
+  "policies.h_cancel": "Cancellation & refunds",
+  "policies.p_cancel": "You can cancel at any time, in two clicks. If you've attended two sessions or fewer, you get a full refund within 14 days. Further along than that, message us -- we'll work out a fair solution rather than apply a rigid rule.",
+  "policies.h_reschedule": "Rescheduling",
+  "policies.p_reschedule": "Private: reschedule free of charge with at least 24 hours' notice. Speak: sessions follow the group's fixed schedule and aren't made up individually, which is exactly why the price is low.",
+  "policies.h_packs": "Session packs",
+  "policies.p_packs": "Packs of 3, 5, or 10 Private sessions don't expire on a fixed date. If your schedule changes, message us and we'll work out a pace that fits.",
+  "policies.h_sessions": "How sessions work",
+  "policies.p_sessions": "Private is one to one, 50 minutes, and you book your own slot. Speak is small groups aiming for 10 learners, 90 minutes, twice a week, in breakout pairs and trios so everyone actually speaks. Both run over Zoom or Google Meet -- the link is sent before each session. Be ready a few minutes early; camera on is welcome but not required.",
+  "policies.h_conduct": "Conduct & recording",
+  "policies.p_conduct": "Treat every session with respect. Sessions are never recorded by either side without both people's consent. Repeated no-shows or disruptive behavior may affect future bookings.",
+  "policies.h_comm": "Communication",
+  "policies.p_comm": "WhatsApp is the fastest way to reach us, and we aim to reply within 24 hours on business days. Email works too for anything formal.",
+  "policies.contact_note": "Questions about any of this? Message us on WhatsApp or email Takalamenglishcenter@gmail.com."
 }
