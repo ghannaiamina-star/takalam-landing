@@ -10,10 +10,46 @@ const { transcribeAudio } = require('../lib/transcribe');
 const { sql } = require('../lib/db');
 const { uploadAudio } = require('../lib/blob');
 const { generateDiagnosis } = require('../lib/diagnosis');
+const { sendEmail } = require('../lib/email');
+const { sendWhatsApp } = require('../lib/whatsapp');
 
 const REPORT_TO = 'mohammedsaidelbouzdoudi99@gmail.com';
 const REPORT_FROM = 'Takalam Level Test <onboarding@resend.dev>';
 const REPORT_REPLY_TO = 'mohammedsaidelbouzdoudi99@gmail.com';
+
+// A failed submission must never be silent: this fires at every point the
+// student ends up seeing an error, on the best-effort assumption that at
+// least one of email (always configured, since RESEND_API_KEY is required
+// just to start the handler) or WhatsApp (no-ops until Meta template
+// approval, see lib/whatsapp.js) gets through. Never throws -- alerting
+// failure must not compound the original failure.
+async function alertOwnerOfFailure({ stage, error, name, whatsapp }) {
+  const errMessage = error && error.message ? error.message : String(error);
+  const summary = `Takalam test submission FAILED at "${stage}"${
+    name ? ` -- ${name} (${whatsapp || 'no phone'})` : ''
+  }: ${errMessage}`;
+  console.error(`[submit-test] ALERT: ${summary}`);
+
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const results = await Promise.allSettled([
+    sendEmail({
+      to: REPORT_TO,
+      from: REPORT_FROM,
+      replyTo: REPORT_REPLY_TO,
+      subject: `Takalam test FAILED${name ? `: ${name}` : ''}`,
+      html: `<p><strong>A test submission failed and was not delivered normally.</strong></p>
+        <p>Stage: ${esc(stage)}</p>
+        ${name ? `<p>Name: ${esc(name)}<br/>WhatsApp: ${esc(whatsapp || 'n/a')}</p>` : '<p>No name/WhatsApp captured -- the submission failed before that far.</p>'}
+        <p>Error: ${esc(errMessage)}</p>`,
+    }),
+    sendWhatsApp(summary),
+  ]);
+  results.forEach((r, i) => {
+    if (r.status === 'rejected') {
+      console.error(`[submit-test] Failure alert channel ${i === 0 ? 'email' : 'whatsapp'} also failed:`, r.reason);
+    }
+  });
+}
 
 const MAX_ATTACHMENT_BYTES = 15 * 1024 * 1024; // per-clip safety cap, real clips are ~KB
 const MAX_TOTAL_ATTACHMENT_BYTES = 30 * 1024 * 1024; // combined safety cap, well under Resend's limit
@@ -254,20 +290,22 @@ module.exports = async (req, res) => {
 
   const finalBandLabel = finalBand ? CEFR_LABELS[finalBand] : 'Pending manual review';
 
-  // Only worth persisting a results page when there's an actual band to show
-  // a diagnosis against -- otherwise fall back to the generic "we'll be in
-  // touch" screen the client already has, same as it does today.
+  // Always persist an attempt, even when speaking couldn't be graded (bad
+  // mic, transcription failure, grading API error): a partial record the
+  // owner can look up beats losing the submission entirely if the report
+  // email below also fails to send. The results page itself degrades to a
+  // "we're finishing this" state when finalBand is missing (see
+  // persistAttemptAndDiagnosis, which skips the LLM narrative in that case).
   let resultsUrl = null;
-  if (finalBand) {
-    try {
-      resultsUrl = await persistAttemptAndDiagnosis({
-        name, whatsapp, email, goal, goalDeadlineWeeks, locale,
-        gradingIncomplete, finalBand, finalBandLabel, speakingBand, grammarBand, readingBand,
-        section1, section2, speakingResults, claudeResults,
-      });
-    } catch (err) {
-      console.error('[submit-test] Failed to persist attempt / generate diagnosis:', err);
-    }
+  try {
+    resultsUrl = await persistAttemptAndDiagnosis({
+      name, whatsapp, email, goal, goalDeadlineWeeks, locale,
+      gradingIncomplete, finalBand, finalBandLabel, speakingBand, grammarBand, readingBand,
+      section1, section2, speakingResults, claudeResults,
+    });
+  } catch (err) {
+    console.error('[submit-test] Failed to persist attempt / generate diagnosis:', err);
+    await alertOwnerOfFailure({ stage: 'persist', error: err, name, whatsapp });
   }
 
   const html = buildReportEmail({
@@ -295,8 +333,12 @@ module.exports = async (req, res) => {
     await sendReportEmail(html, `Takalam Level Test: ${name}, ${finalBandLabel}`, attachments);
   } catch (err) {
     console.error('[submit-test] Resend delivery failed:', err);
-    res.status(502).json({ error: 'Could not deliver results. Please try again.' });
-    return;
+    // Do not fail the whole request over this: the attempt is already
+    // persisted above (or an alert already fired if that failed too), and
+    // the student's own results page does not depend on this internal
+    // report email succeeding. Losing the owner's copy must never also
+    // cost the student their results.
+    await alertOwnerOfFailure({ stage: 'report-email', error: err, name, whatsapp });
   }
 
   res.status(200).json({ success: true, resultsUrl });
@@ -310,16 +352,27 @@ async function persistAttemptAndDiagnosis({
   gradingIncomplete, finalBand, finalBandLabel, speakingBand, grammarBand, readingBand,
   section1, section2, speakingResults, claudeResults,
 }) {
-  const diagnosis = await generateDiagnosis({
-    speakingResults,
-    claudeResults,
-    finalBandLabel,
-    grammarBand,
-    readingBand,
-    goal,
-    goalDeadlineWeeks,
-    apiKey: process.env.ANTHROPIC_API_KEY,
-  });
+  // No point asking Claude to narrate a speaking performance it has no real
+  // transcript for -- only generate the results-page diagnosis when speaking
+  // actually produced a band. The attempt still gets persisted either way,
+  // just with diagnosis: null, so the row exists for manual follow-up.
+  let diagnosis = null;
+  if (finalBand) {
+    try {
+      diagnosis = await generateDiagnosis({
+        speakingResults,
+        claudeResults,
+        finalBandLabel,
+        grammarBand,
+        readingBand,
+        goal,
+        goalDeadlineWeeks,
+        apiKey: process.env.ANTHROPIC_API_KEY,
+      });
+    } catch (err) {
+      console.error('[submit-test] Diagnosis generation failed:', err);
+    }
+  }
 
   const rows = await sql`
     INSERT INTO test_attempt (name, whatsapp, email, goal, goal_deadline_weeks, locale, grading_incomplete, final_band, speaking_band, grammar_band, reading_band, section1, section2, diagnosis)
@@ -341,10 +394,25 @@ async function persistAttemptAndDiagnosis({
   return `/results?id=${attemptId}`;
 }
 
+// Classic event-based body read, not `for await (const chunk of req)` or
+// Readable.toWeb(req): Vercel's dev server (and reportedly some production
+// runtimes) pre-buffers the request body for its own req.body helper, then
+// "restores" it onto req by patching req.read()/req.on('data'|'end') to
+// replay from a fresh internal stream. That patch does not cover the
+// Symbol.asyncIterator protocol underlying `for await`, so iterating `req`
+// silently yields nothing post-restore. Plain 'data'/'end' listeners hit the
+// patched path correctly and work in both vercel dev and real production.
+function readRawBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    req.on('data', (chunk) => chunks.push(chunk));
+    req.on('end', () => resolve(Buffer.concat(chunks)));
+    req.on('error', reject);
+  });
+}
+
 async function parseMultipart(req) {
-  const chunks = [];
-  for await (const chunk of req) chunks.push(chunk);
-  const bodyBuffer = Buffer.concat(chunks);
+  const bodyBuffer = await readRawBody(req);
   const contentType = req.headers['content-type'] || '';
   const request = new Request('http://localhost/api/submit-test', {
     method: 'POST',

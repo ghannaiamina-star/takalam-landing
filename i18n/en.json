@@ -136,6 +136,8 @@
 
   "results.loading": "Loading your results...",
   "results.error": "We couldn't find these results. If you just finished the test, check your email for the link, or WhatsApp us.",
+  "results.pending_h1": "Got it, thank you!",
+  "results.pending_lead": "We couldn't fully process your speaking recordings, so your complete level isn't ready yet. A teacher will review it by hand and send you your level and recommendation on WhatsApp within 24 hours.",
   "results.band_label": "Your level",
   "results.strength_label": "What you're already good at",
   "results.blocker_label": "What's actually stopping you",

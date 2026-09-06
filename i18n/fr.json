@@ -136,6 +136,8 @@
 
   "results.loading": "Chargement de vos résultats...",
   "results.error": "Nous n'avons pas trouvé ces résultats. Si vous venez de terminer le test, vérifiez le lien envoyé par email, ou écrivez-nous sur WhatsApp.",
+  "results.pending_h1": "C'est noté, merci !",
+  "results.pending_lead": "Nous n'avons pas pu traiter entièrement vos enregistrements oraux, donc votre niveau complet n'est pas encore prêt. Un professeur va l'examiner à la main et vous envoie votre niveau et notre recommandation sur WhatsApp sous 24 heures.",
   "results.band_label": "Votre niveau",
   "results.strength_label": "Ce que vous maîtrisez déjà",
   "results.blocker_label": "Ce qui vous bloque réellement",

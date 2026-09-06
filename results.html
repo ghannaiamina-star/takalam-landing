@@ -49,6 +49,15 @@ audio { width: 100%; }
   <div id="state-loading" data-i18n="results.loading">Loading your results...</div>
   <div id="state-error" data-i18n="results.error">We couldn't find these results. If you just finished the test, check your email for the link, or WhatsApp us.</div>
 
+  <div id="state-pending" style="display:none;">
+    <span class="eyebrow" id="pendingEyebrow"></span>
+    <h1 class="band-headline" data-i18n="results.pending_h1">Got it, thank you!</h1>
+    <div class="card">
+      <p data-i18n="results.pending_lead">We couldn't fully process your speaking recordings, so your complete level isn't ready yet. A teacher will review it by hand and send you your level and recommendation on WhatsApp within 24 hours.</p>
+      <a class="btn" id="pendingWaBtn" href="#" data-i18n="test.done_wa_btn">Message us on WhatsApp</a>
+    </div>
+  </div>
+
   <div id="results">
     <span class="eyebrow" id="studentEyebrow"></span>
     <h1 class="band-headline" id="headline"></h1>
@@ -90,17 +99,31 @@ audio { width: 100%; }
   var loading = document.getElementById('state-loading');
   var errorEl = document.getElementById('state-error');
   var resultsEl = document.getElementById('results');
+  var pendingEl = document.getElementById('state-pending');
 
   function showError() {
     loading.style.display = 'none';
     errorEl.style.display = 'block';
   }
 
+  function showPending(data) {
+    loading.style.display = 'none';
+    pendingEl.style.display = 'block';
+    document.getElementById('pendingEyebrow').textContent = data.name || '';
+    var text = locale === 'en'
+      ? "Hi Takalam! I just finished the English level test."
+      : 'Bonjour Takalam ! Je viens de terminer le test de niveau d\'anglais.';
+    document.getElementById('pendingWaBtn').href = 'https://wa.me/212722774753?text=' + encodeURIComponent(text);
+  }
+
   if (!id) { showError(); return; }
 
   fetch('/api/results/' + encodeURIComponent(id))
     .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
-    .then(render)
+    .then(function (data) {
+      if (!data.finalBandLabel || !data.diagnosis) { showPending(data); return; }
+      render(data);
+    })
     .catch(showError);
 
   function esc(s) {
