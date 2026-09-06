@@ -367,6 +367,7 @@ async function persistAttemptAndDiagnosis({
         readingBand,
         goal,
         goalDeadlineWeeks,
+        locale,
         apiKey: process.env.ANTHROPIC_API_KEY,
       });
     } catch (err) {
