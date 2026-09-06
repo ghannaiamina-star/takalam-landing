@@ -353,8 +353,16 @@ a { color: inherit; }
 
 .door-num { font-family: var(--serif); font-style: italic; font-size: 1.4rem; opacity: .42; }
 
-.door-art { margin: 4px 0 24px; }
+.door-art { margin: 4px 0 24px; aspect-ratio: 2 / 1; border-radius: 18px; overflow: hidden; position: relative; }
 .door-art svg { width: 100%; height: auto; display: block; overflow: visible; border-radius: 18px; }
+.door-art img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.door--speak .door-art img { object-position: center 30%; }
+.door--private .door-art { box-shadow: inset 0 0 0 1px rgba(250,248,242,.18); }
+.door--private .door-art img { object-position: center 40%; }
+.door--private .door-art::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(10,61,43,.28) 0%, rgba(10,61,43,0) 30%, rgba(10,61,43,0) 70%, rgba(10,61,43,.28) 100%);
+}
 
 .door-tag {
   font-family: var(--serif);
@@ -694,22 +702,10 @@ a { color: inherit; }
         </div>
 
         <div class="door-art">
-          <svg viewBox="0 0 460 230" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six people arranged in a small group, each with a speech bubble, illustrating the Speak small-group format">
-            <rect x="0" y="0" width="460" height="230" rx="18" fill="#f3ecdc"></rect>
-            <!-- six figures in a conversation ring -->
-            <g>
-              <circle cx="90" cy="78" r="26" fill="#31c48d"></circle><rect x="70" y="104" width="40" height="34" rx="20" fill="#31c48d"></rect>
-              <circle cx="230" cy="62" r="26" fill="#0d4f37"></circle><rect x="210" y="88" width="40" height="34" rx="20" fill="#0d4f37"></rect>
-              <circle cx="370" cy="78" r="26" fill="#df8a5d"></circle><rect x="350" y="104" width="40" height="34" rx="20" fill="#df8a5d"></rect>
-              <circle cx="90" cy="170" r="26" fill="#e7ad44"></circle><rect x="70" y="170" width="40" height="34" rx="20" fill="#e7ad44"></rect>
-              <circle cx="230" cy="184" r="26" fill="#df8a5d"></circle><rect x="210" y="184" width="40" height="34" rx="20" fill="#df8a5d"></rect>
-              <circle cx="370" cy="170" r="26" fill="#0d4f37"></circle><rect x="350" y="170" width="40" height="34" rx="20" fill="#0d4f37"></rect>
-            </g>
-            <!-- connecting speech bubbles in the middle -->
-            <path d="M168 96h124a16 16 0 0 1 16 16v18a16 16 0 0 1-16 16h-40l-16 16 1-16h-69a16 16 0 0 1-16-16v-18a16 16 0 0 1 16-16Z" fill="#faf8f2" stroke="#0d4f37" stroke-width="2.5"></path>
-            <rect x="182" y="112" width="96" height="8" rx="4" fill="#31c48d"></rect>
-            <rect x="182" y="126" width="60" height="8" rx="4" fill="#1a2332" opacity=".25"></rect>
-          </svg>
+          <picture>
+            <source srcset="/assets/group.webp" type="image/webp">
+            <img src="/assets/group.jpg" width="460" height="230" loading="lazy" data-i18n-alt="speak.photo_alt" alt="A laptop screen showing six people on a video call, talking and gesturing mid-conversation.">
+          </picture>
         </div>
 
         <p class="door-tag" data-i18n-html="speak.tag">For when your English is good, but speaking still <em>scares you.</em></p>
@@ -742,23 +738,10 @@ a { color: inherit; }
         </div>
 
         <div class="door-art">
-          <svg viewBox="0 0 460 230" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A coach and a student with a speech bubble between them and a target in the background, illustrating one-to-one Private coaching">
-            <rect x="0" y="0" width="460" height="230" rx="18" fill="#0a3d2b"></rect>
-            <!-- single focused path from coach to goal -->
-            <path d="M120 150c40-70 180-70 230-110" stroke="#e7ad44" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"></path>
-            <!-- coach figure -->
-            <circle cx="120" cy="120" r="30" fill="#31c48d"></circle><rect x="96" y="150" width="48" height="40" rx="24" fill="#31c48d"></rect>
-            <!-- student figure facing -->
-            <circle cx="230" cy="150" r="26" fill="#faf8f2"></circle><rect x="208" y="176" width="44" height="36" rx="22" fill="#faf8f2"></rect>
-            <!-- one-to-one speech bubble between -->
-            <path d="M150 86h70a14 14 0 0 1 14 14v14a14 14 0 0 1-14 14h-30l-14 13 1-13h-27a14 14 0 0 1-14-14v-14a14 14 0 0 1 14-14Z" fill="#df8a5d"></path>
-            <rect x="162" y="100" width="50" height="7" rx="3.5" fill="#faf8f2"></rect>
-            <rect x="162" y="112" width="32" height="7" rx="3.5" fill="#faf8f2" opacity=".6"></rect>
-            <!-- target / goal -->
-            <circle cx="372" cy="56" r="26" fill="none" stroke="#e7ad44" stroke-width="3"></circle>
-            <circle cx="372" cy="56" r="14" fill="none" stroke="#e7ad44" stroke-width="3"></circle>
-            <circle cx="372" cy="56" r="5" fill="#df8a5d"></circle>
-          </svg>
+          <picture>
+            <source srcset="/assets/individual.webp" type="image/webp">
+            <img src="/assets/individual.jpg" width="460" height="230" loading="lazy" data-i18n-alt="private.photo_alt" alt="A woman on a one-to-one video call with her tutor, notebook in hand.">
+          </picture>
         </div>
 
         <p class="door-tag" data-i18n-html="private.tag">For when you have a specific goal and need a plan built <em>around you.</em></p>

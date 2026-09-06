@@ -12,6 +12,7 @@
   "doors.heading": "Two doors. The same place on the other side: you, speaking freely.",
 
   "speak.label": "Takalam Speak",
+  "speak.photo_alt": "A laptop screen showing six people on a video call, talking and gesturing mid-conversation.",
   "speak.tag": "For when your English is good, but speaking still <em>scares you.</em>",
   "speak.body": "Your grammar is solid. Your vocabulary is there. You can handle the tenses. But in a real conversation you hesitate, you fill the silence with ums, you freeze in meetings, and speaking with others stresses you out. Speak fixes exactly this. In small groups of ten, you practice real scenarios through guided breakout discussion until speaking becomes natural instead of frightening.",
   "speak.fact1": "Groups, 10 students target",
@@ -23,6 +24,7 @@
   "speak.cta": "Take the free test",
 
   "private.label": "Takalam Private",
+  "private.photo_alt": "A woman on a one-to-one video call with her tutor, notebook in hand.",
   "private.tag": "For when you have a specific goal and need a plan built <em>around you.</em>",
   "private.body": "Some goals need a program shaped entirely around one person. Exam preparation like IELTS, TOEFL, or the Duolingo English Test. Interview preparation. Presentations. A personal target with a deadline. Private is one to one coaching focused only on you, your level, and what you need to achieve.",
   "private.fact1": "One to one, 50 minutes, fully online",
