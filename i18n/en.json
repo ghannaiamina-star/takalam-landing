@@ -57,7 +57,9 @@
     ["What can Private coaching help with?", "Exam preparation for IELTS, TOEFL, or the Duolingo English Test. Interview preparation. Presentations. Or any personal target with a deadline. The whole program is built around you."],
     ["How many sessions will I need for Private?", "It depends entirely on your goal and your starting point. You can book a single session or a pack of 3, 5, or 10, and stay in control of the pace."],
     ["What if I miss a session?", "For Private, reschedule free up to 24 hours before. For Speak, sessions follow the group and are not made up individually, which is exactly why the price is low."],
-    ["Can I cancel?", "Yes, any time, in two clicks. And if you've attended two sessions or fewer, you get a full refund within 14 days."]
+    ["Can I cancel?", "Yes, any time, in two clicks. And if you've attended two sessions or fewer, you get a full refund within 14 days."],
+    ["What do I need for a session, and how does it work?", "Just a phone, tablet, or computer with a stable internet connection. We use Zoom or Google Meet, both free, and the link is sent before each session. Camera on is welcome but not required, and sessions are never recorded by either side without consent."],
+    ["How do I pay, and how does registration work?", "Take the free test first. Your results page shows the exact price and a simple registration page: pick your package, pay by bank transfer or PayPal, upload your payment screenshot, and we confirm your spot by WhatsApp or email within 24 to 48 hours."]
   ],
 
   "closing.eyebrow": "Still deciding",
@@ -148,6 +150,35 @@
   "results.checkout_cta": "Get started",
   "results.other_option": "Not sure? See the other option",
 
+  "register.loading": "Loading...",
+  "register.invalid_product": "We couldn't find that package. Take the free test to get a recommendation, or message us on WhatsApp.",
+  "register.eyebrow": "Registration",
+  "register.heading_prefix": "Register for",
+  "register.price_label": "Price",
+  "register.quantity_label": "How many sessions?",
+  "register.quantity_single": "1 session",
+  "register.pack_label": "Pack of",
+  "register.personal_heading": "Your details",
+  "register.email_label": "Email (optional)",
+  "register.payment_heading": "How to pay",
+  "register.bank_title": "Bank transfer",
+  "register.bank_holder_label": "Account holder",
+  "register.bank_note": "Include your name in the transfer reference.",
+  "register.paypal_title": "PayPal",
+  "register.paypal_send_to": "Send payment to:",
+  "register.paypal_note": "Add your name in the note.",
+  "register.screenshot_label": "Payment screenshot",
+  "register.upload_cta": "Click to upload (image or PDF, max 8MB)",
+  "register.upload_ready": "Screenshot ready",
+  "register.message_label": "Anything we should know? (optional)",
+  "register.submit_btn": "Submit registration",
+  "register.submitting": "Submitting...",
+  "register.err_screenshot": "Please upload your payment screenshot.",
+  "register.error_generic": "Something went wrong. Please try again, or message us on WhatsApp.",
+  "register.done_h2": "Registration received!",
+  "register.done_lead": "Thank you. We're verifying your payment and will confirm your spot on WhatsApp or by email within 24-48 hours.",
+  "register.done_ref_label": "Your reference",
+
   "privacy.title": "Privacy & data",
   "privacy.last_updated": "Last updated: 20 August 2026.",
   "privacy.h_what": "What we record",
@@ -161,5 +192,5 @@
   "privacy.h_rights": "Your rights",
   "privacy.p_rights_html": "You can ask for a copy of your data or ask us to delete it at any time by messaging Takalam on WhatsApp or emailing <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>. A fully self-serve download/delete option in your account is planned but not live yet.",
   "privacy.h_payments": "Payments",
-  "privacy.p_payments": "If you enroll in a paid course, payment is processed by PayPal. We never see or store your card or bank details -- PayPal handles that directly."
+  "privacy.p_payments": "If you register for a paid course, you pay directly by bank transfer or PayPal and upload a screenshot as proof. We store that screenshot, your name, WhatsApp number, and email to verify and confirm your registration -- we never ask for or store your card, bank password, or PayPal login."
 }

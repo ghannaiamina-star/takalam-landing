@@ -3,6 +3,7 @@
   "cleanUrls": true,
   "functions": {
     "api/submit-test.js": { "maxDuration": 60 },
+    "api/register.js": { "maxDuration": 30 },
     "api/transcribe-prompt.js": { "maxDuration": 30 },
     "api/results/[id].js": { "maxDuration": 15 },
     "api/products.js": { "maxDuration": 15 },
@@ -15,7 +16,8 @@
     { "source": "/en", "destination": "/index" },
     { "source": "/en/test", "destination": "/test" },
     { "source": "/en/results", "destination": "/results" },
-    { "source": "/en/privacy", "destination": "/privacy" }
+    { "source": "/en/privacy", "destination": "/privacy" },
+    { "source": "/en/register", "destination": "/register" }
   ],
   "redirects": [
     { "source": "/about",            "destination": "https://takalamenglish.ma/", "permanent": true },

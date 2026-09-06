@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Takalam — Register</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf8f2; --cream-2: #f3ecdc; --emerald: #31c48d; --emerald-dim: #28a878;
+  --forest: #0d4f37; --ink: #1a2332; --ink-soft: #4b5563; --terracotta: #df8a5d; --gold: #e7ad44;
+  --line: #e5e0d5; --serif: "Fraunces", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 540; margin: 0; }
+.wrap { width: min(100% - 40px, 640px); margin-inline: auto; padding: 40px 0 80px; }
+a.logo { display: inline-flex; align-items: center; gap: .5em; text-decoration: none; color: var(--ink); font-family: var(--serif); font-size: 1.3rem; font-weight: 600; }
+.eyebrow { font-weight: 600; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--terracotta); }
+h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-top: 10px; }
+.card { background: #fff; border: 1.5px solid rgba(13,79,55,.14); border-radius: 20px; padding: 24px; margin-top: 20px; }
+label { display: block; font-weight: 600; font-size: .88rem; margin-bottom: 6px; color: var(--forest); }
+input[type=text], input[type=tel], input[type=email], textarea, select {
+  width: 100%; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 10px;
+  font-family: var(--sans); font-size: 1rem; background: var(--cream); color: var(--ink); margin-bottom: 16px;
+}
+textarea { resize: vertical; min-height: 80px; }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--emerald); }
+.field-error { color: #b23b3b; font-size: .82rem; margin: -10px 0 14px; display: none; }
+.field-error.show { display: block; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .6em; font-weight: 600; padding: .9em 1.6em; background: var(--emerald); color: #06281c; border: none; border-radius: 999px; cursor: pointer; text-decoration: none; font-size: 1rem; width: 100%; transition: transform .1s ease, opacity .15s ease; }
+.btn:active { transform: scale(.98); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.price-row { display: flex; align-items: baseline; justify-content: space-between; }
+.price-amt { font-family: var(--serif); font-size: 2rem; color: var(--forest); }
+.qty-options { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.qty-opt { flex: 1; min-width: 90px; text-align: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; font-weight: 600; font-size: .9rem; background: var(--cream); }
+.qty-opt.active { border-color: var(--emerald); background: var(--cream-2); color: var(--forest); }
+.pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 6px; }
+@media (max-width: 560px) { .pay-grid { grid-template-columns: 1fr; } }
+.pay-card { border-radius: 16px; padding: 18px; color: #fff; }
+.pay-card.bank { background: linear-gradient(160deg, var(--forest), #0a3d2b); }
+.pay-card.paypal { background: linear-gradient(160deg, #1f5fae, #17457f); }
+.pay-card h4 { color: #fff; font-size: 1rem; margin-bottom: 10px; }
+.pay-field { background: rgba(255,255,255,.12); border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; }
+.pay-field .k { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; opacity: .75; }
+.pay-field .v { font-family: monospace; font-weight: 600; font-size: .85rem; word-break: break-all; }
+.pay-note { font-size: .78rem; opacity: .85; margin-top: 8px; }
+.qr-btn { background: #fff; border-radius: 10px; padding: 8px; width: fit-content; margin: 10px auto 0; display: block; cursor: pointer; border: none; }
+.qr-btn img { width: 90px; height: auto; display: block; border-radius: 6px; }
+.upload-zone { border: 2px dashed var(--line); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; margin-bottom: 8px; }
+.upload-zone.has-file { border-color: var(--emerald); background: var(--cream-2); }
+.upload-zone input { display: none; }
+.upload-hint { font-size: .85rem; color: var(--ink-soft); }
+.note { font-size: .85rem; color: var(--ink-soft); margin-top: 6px; }
+#state-loading, #state-error { text-align: center; padding: 60px 0; color: var(--ink-soft); }
+#state-error, #state-form, #state-done { display: none; }
+.done-ref { font-family: monospace; font-weight: 600; background: var(--cream-2); padding: 4px 10px; border-radius: 8px; display: inline-block; margin-top: 6px; }
+.qr-modal { position: fixed; inset: 0; background: rgba(0,0,0,.8); z-index: 50; display: none; align-items: center; justify-content: center; padding: 16px; }
+.qr-modal.show { display: flex; }
+.qr-modal img { width: 100%; max-width: 320px; border-radius: 12px; display: block; }
+.qr-modal-inner { background: #fff; border-radius: 16px; padding: 16px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/"><img src="/logo.svg" alt="" style="height:32px" onerror="this.style.display='none'"> Takalam</a>
+
+  <div id="state-loading" data-i18n="register.loading">Loading...</div>
+  <div id="state-error" data-i18n="register.invalid_product">We couldn't find that package. Take the free test to get a recommendation, or message us on WhatsApp.</div>
+
+  <div id="state-form">
+    <span class="eyebrow" data-i18n="register.eyebrow">Registration</span>
+    <h1 id="heading">Register</h1>
+
+    <div class="card">
+      <div class="price-row">
+        <span id="productBlurb"></span>
+        <span class="price-amt" id="priceAmt">…</span>
+      </div>
+      <div id="qtyBlock" style="display:none;margin-top:16px;">
+        <label data-i18n="register.quantity_label">How many sessions?</label>
+        <div class="qty-options" id="qtyOptions"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:14px;" data-i18n="register.personal_heading">Your details</h3>
+      <label for="inputName" data-i18n="test.name_label">Your name</label>
+      <input type="text" id="inputName" autocomplete="name">
+      <div class="field-error" id="errName" data-i18n="test.err_name">Please enter your name.</div>
+
+      <label for="inputWhatsapp" data-i18n="test.whatsapp_label">WhatsApp number</label>
+      <input type="tel" id="inputWhatsapp" autocomplete="tel">
+      <div class="field-error" id="errWhatsapp" data-i18n="test.err_whatsapp">Please enter a valid WhatsApp number.</div>
+
+      <label for="inputEmail" data-i18n="register.email_label">Email (optional)</label>
+      <input type="email" id="inputEmail" autocomplete="email">
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:14px;" data-i18n="register.payment_heading">How to pay</h3>
+      <div class="pay-grid">
+        <div class="pay-card bank">
+          <h4 data-i18n="register.bank_title">Bank transfer</h4>
+          <div class="pay-field"><div class="k" data-i18n="register.bank_holder_label">Account holder</div><div class="v">MONSIEUR MOHAMMED SAID EL BOUZDOUDI</div></div>
+          <div class="pay-field"><div class="k">RIB</div><div class="v">230 727 2633040211016600 70</div></div>
+          <div class="pay-field"><div class="k">IBAN</div><div class="v">MA64 2307 2726 3304 0211 0166 0070</div></div>
+          <div class="pay-field"><div class="k">SWIFT</div><div class="v">CIHMMAMC</div></div>
+          <button type="button" class="qr-btn" id="qrBtn"><img src="/assets/bank-qr.png" alt="Bank QR code"></button>
+          <p class="pay-note" data-i18n="register.bank_note">Include your name in the transfer reference.</p>
+        </div>
+        <div class="pay-card paypal">
+          <h4 data-i18n="register.paypal_title">PayPal</h4>
+          <div class="pay-field"><div class="k" data-i18n="register.paypal_send_to">Send payment to:</div><div class="v">mohammedsaidelbouzdoudi99@gmail.com</div></div>
+          <p class="pay-note" data-i18n="register.paypal_note">Add your name in the note.</p>
+        </div>
+      </div>
+
+      <label style="margin-top:18px;" for="inputScreenshot" data-i18n="register.screenshot_label">Payment screenshot</label>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="inputScreenshot" accept="image/*,.pdf,application/pdf">
+        <span class="upload-hint" id="uploadHint" data-i18n="register.upload_cta">Click to upload (image or PDF, max 8MB)</span>
+      </div>
+      <div class="field-error" id="errScreenshot" data-i18n="register.err_screenshot">Please upload your payment screenshot.</div>
+
+      <label for="inputMessage" data-i18n="register.message_label">Anything we should know? (optional)</label>
+      <textarea id="inputMessage" rows="3"></textarea>
+    </div>
+
+    <div class="field-error" id="errGeneric" data-i18n="register.error_generic">Something went wrong. Please try again, or message us on WhatsApp.</div>
+    <button class="btn" id="submitBtn" data-i18n="register.submit_btn">Submit registration</button>
+  </div>
+
+  <div id="state-done">
+    <span class="eyebrow" style="color:var(--emerald);" data-i18n="register.eyebrow">Registration</span>
+    <h1 data-i18n="register.done_h2">Registration received!</h1>
+    <div class="card">
+      <p data-i18n="register.done_lead">Thank you. We're verifying your payment and will confirm your spot on WhatsApp or by email within 24-48 hours.</p>
+      <p class="note" data-i18n="register.done_ref_label">Your reference</p>
+      <span class="done-ref" id="doneRef"></span>
+    </div>
+  </div>
+</div>
+
+<div class="qr-modal" id="qrModal">
+  <div class="qr-modal-inner">
+    <img src="/assets/bank-qr.png" alt="Bank QR code">
+  </div>
+</div>
+
+<script src="/assets/i18n.js"></script>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var productType = params.get('product');
+  var attemptId = params.get('attemptId');
+  var locale = /^\/en(\/|$)/.test(window.location.pathname) ? 'en' : 'fr';
+
+  var loading = document.getElementById('state-loading');
+  var errorEl = document.getElementById('state-error');
+  var formEl = document.getElementById('state-form');
+  var doneEl = document.getElementById('state-done');
+
+  var dict = {};
+  document.addEventListener('takalam:i18n-ready', function (e) { dict = e.detail || {}; });
+
+  function showError() {
+    loading.style.display = 'none';
+    errorEl.style.display = 'block';
+  }
+
+  if (!productType || (productType !== 'speak' && productType !== 'private')) {
+    showError();
+    return;
+  }
+
+  var quantity = 1;
+  var product = null;
+  var screenshotFile = null;
+
+  var productsPromise = fetch('/api/products?locale=' + locale).then(function (r) { return r.json(); });
+  var attemptPromise = attemptId
+    ? fetch('/api/results/' + encodeURIComponent(attemptId)).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+    : Promise.resolve(null);
+
+  Promise.all([productsPromise, attemptPromise]).then(function (results) {
+    var data = results[0], attempt = results[1];
+    product = (data.products || []).find(function (p) { return p.type === productType; });
+    if (!product) { showError(); return; }
+
+    loading.style.display = 'none';
+    formEl.style.display = 'block';
+
+    document.getElementById('heading').textContent = (dict['register.heading_prefix'] || 'Register for') + ' ' + product.name;
+    document.getElementById('productBlurb').textContent = product.name + ' — ' + product.blurb;
+
+    if (attempt) {
+      if (attempt.name) document.getElementById('inputName').value = attempt.name;
+      if (attempt.whatsapp) document.getElementById('inputWhatsapp').value = attempt.whatsapp;
+      if (attempt.email) document.getElementById('inputEmail').value = attempt.email;
+    }
+
+    if (productType === 'private') {
+      document.getElementById('qtyBlock').style.display = 'block';
+      renderQtyOptions();
+    }
+    updatePrice();
+  }).catch(showError);
+
+  function renderQtyOptions() {
+    var opts = [
+      { n: 1, label: dict['register.quantity_single'] || '1 session' },
+      { n: 3, label: (dict['register.pack_label'] || 'Pack of') + ' 3' },
+      { n: 5, label: (dict['register.pack_label'] || 'Pack of') + ' 5' },
+      { n: 10, label: (dict['register.pack_label'] || 'Pack of') + ' 10' },
+    ];
+    var container = document.getElementById('qtyOptions');
+    container.innerHTML = '';
+    opts.forEach(function (opt) {
+      var el = document.createElement('div');
+      el.className = 'qty-opt' + (opt.n === quantity ? ' active' : '');
+      el.textContent = opt.label;
+      el.addEventListener('click', function () {
+        quantity = opt.n;
+        renderQtyOptions();
+        updatePrice();
+      });
+      container.appendChild(el);
+    });
+  }
+
+  function updatePrice() {
+    if (!product) return;
+    var amount = productType === 'private' ? product.priceEur * quantity : product.priceEur;
+    document.getElementById('priceAmt').textContent = '€' + amount;
+  }
+
+  document.getElementById('qrBtn').addEventListener('click', function () {
+    document.getElementById('qrModal').classList.add('show');
+  });
+  document.getElementById('qrModal').addEventListener('click', function () {
+    this.classList.remove('show');
+  });
+
+  var uploadZone = document.getElementById('uploadZone');
+  var uploadInput = document.getElementById('inputScreenshot');
+  uploadZone.addEventListener('click', function () { uploadInput.click(); });
+  uploadInput.addEventListener('change', function () {
+    var file = uploadInput.files[0];
+    if (!file) return;
+    if (file.size > 8 * 1024 * 1024) {
+      alert('File must be under 8MB.');
+      uploadInput.value = '';
+      return;
+    }
+    screenshotFile = file;
+    uploadZone.classList.add('has-file');
+    document.getElementById('uploadHint').textContent = dict['register.upload_ready'] || 'Screenshot ready';
+    document.getElementById('errScreenshot').classList.remove('show');
+  });
+
+  function clearErrors() {
+    ['errName', 'errWhatsapp', 'errScreenshot', 'errGeneric'].forEach(function (id) {
+      document.getElementById(id).classList.remove('show');
+    });
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', function () {
+    clearErrors();
+    var name = document.getElementById('inputName').value.trim();
+    var whatsapp = document.getElementById('inputWhatsapp').value.trim();
+    var email = document.getElementById('inputEmail').value.trim();
+    var message = document.getElementById('inputMessage').value.trim();
+
+    var hasError = false;
+    if (!name) { document.getElementById('errName').classList.add('show'); hasError = true; }
+    if (!whatsapp) { document.getElementById('errWhatsapp').classList.add('show'); hasError = true; }
+    if (!screenshotFile) { document.getElementById('errScreenshot').classList.add('show'); hasError = true; }
+    if (hasError) return;
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = dict['register.submitting'] || 'Submitting...';
+
+    var fd = new FormData();
+    fd.append('name', name);
+    fd.append('whatsapp', whatsapp);
+    fd.append('email', email);
+    fd.append('productType', productType);
+    fd.append('quantity', String(quantity));
+    fd.append('attemptId', attemptId || '');
+    fd.append('locale', locale);
+    fd.append('message', message);
+    fd.append('screenshot', screenshotFile, screenshotFile.name);
+
+    fetch('/api/register', { method: 'POST', body: fd })
+      .then(function (resp) {
+        if (!resp.ok) return resp.json().then(function (e) { throw new Error(e.error || 'Submit failed'); });
+        return resp.json();
+      })
+      .then(function (data) {
+        formEl.style.display = 'none';
+        doneEl.style.display = 'block';
+        document.getElementById('doneRef').textContent = data.orderRef || '';
+      })
+      .catch(function (err) {
+        console.error('Registration error:', err);
+        document.getElementById('errGeneric').classList.add('show');
+        btn.disabled = false;
+        btn.textContent = dict['register.submit_btn'] || 'Submit registration';
+      });
+  });
+})();
+</script>
+</body></html>

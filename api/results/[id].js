@@ -47,6 +47,8 @@ module.exports = async (req, res) => {
   res.status(200).json({
     id: attempt.id,
     name: attempt.name,
+    whatsapp: attempt.whatsapp,
+    email: attempt.email,
     locale: attempt.locale,
     finalBand: attempt.final_band,
     finalBandLabel: attempt.final_band ? CEFR_LABELS[attempt.final_band] : null,

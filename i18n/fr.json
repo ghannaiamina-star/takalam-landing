@@ -57,7 +57,9 @@
     ["Sur quoi peut m'aider le coaching Private ?", "Préparation d'examen pour l'IELTS, le TOEFL ou le Duolingo English Test. Préparation d'entretien. Présentations. Ou tout objectif personnel avec une échéance. Tout le programme est construit autour de vous."],
     ["De combien de séances aurai-je besoin en Private ?", "Cela dépend entièrement de votre objectif et de votre point de départ. Vous pouvez réserver une séance unique ou un pack de 3, 5 ou 10, et garder le contrôle du rythme."],
     ["Que se passe-t-il si je manque une séance ?", "En Private, vous pouvez reporter gratuitement jusqu'à 24 heures avant. En Speak, les sessions suivent le groupe et ne sont pas rattrapées individuellement, c'est justement pour ça que le prix est bas."],
-    ["Puis-je résilier ?", "Oui, à tout moment, en deux clics. Et si vous avez suivi deux séances ou moins, vous êtes intégralement remboursé sous 14 jours."]
+    ["Puis-je résilier ?", "Oui, à tout moment, en deux clics. Et si vous avez suivi deux séances ou moins, vous êtes intégralement remboursé sous 14 jours."],
+    ["De quoi ai-je besoin pour une session, et comment ça se passe ?", "Juste un téléphone, une tablette ou un ordinateur avec une connexion internet stable. Nous utilisons Zoom ou Google Meet, gratuits, et le lien est envoyé avant chaque session. La caméra allumée est bienvenue mais pas obligatoire, et les sessions ne sont jamais enregistrées par l'une ou l'autre partie sans consentement."],
+    ["Comment payer, et comment se passe l'inscription ?", "Faites d'abord le test gratuit. Votre page de résultats affiche le prix exact et une page d'inscription simple : choisissez votre formule, payez par virement bancaire ou PayPal, téléversez votre capture de paiement, et nous confirmons votre place par WhatsApp ou email sous 24 à 48 heures."]
   ],
 
   "closing.eyebrow": "Vous hésitez encore",
@@ -148,6 +150,35 @@
   "results.checkout_cta": "Commencer",
   "results.other_option": "Pas sûr ? Voir l'autre option",
 
+  "register.loading": "Chargement...",
+  "register.invalid_product": "Nous n'avons pas trouvé cette formule. Faites le test gratuit pour obtenir une recommandation, ou écrivez-nous sur WhatsApp.",
+  "register.eyebrow": "Inscription",
+  "register.heading_prefix": "S'inscrire à",
+  "register.price_label": "Prix",
+  "register.quantity_label": "Combien de séances ?",
+  "register.quantity_single": "1 séance",
+  "register.pack_label": "Pack de",
+  "register.personal_heading": "Vos informations",
+  "register.email_label": "Email (optionnel)",
+  "register.payment_heading": "Comment payer",
+  "register.bank_title": "Virement bancaire",
+  "register.bank_holder_label": "Titulaire du compte",
+  "register.bank_note": "Indiquez votre nom dans la référence du virement.",
+  "register.paypal_title": "PayPal",
+  "register.paypal_send_to": "Envoyer le paiement à :",
+  "register.paypal_note": "Ajoutez votre nom dans la note.",
+  "register.screenshot_label": "Capture d'écran du paiement",
+  "register.upload_cta": "Cliquez pour téléverser (image ou PDF, 8 Mo max)",
+  "register.upload_ready": "Capture prête",
+  "register.message_label": "Autre chose à préciser ? (optionnel)",
+  "register.submit_btn": "Envoyer mon inscription",
+  "register.submitting": "Envoi en cours...",
+  "register.err_screenshot": "Merci d'ajouter votre capture de paiement.",
+  "register.error_generic": "Une erreur est survenue. Réessayez, ou écrivez-nous sur WhatsApp.",
+  "register.done_h2": "Inscription reçue !",
+  "register.done_lead": "Merci. Nous vérifions votre paiement et confirmons votre place par WhatsApp ou email sous 24 à 48 heures.",
+  "register.done_ref_label": "Votre référence",
+
   "privacy.title": "Confidentialité et données",
   "privacy.last_updated": "Dernière mise à jour : 20 août 2026.",
   "privacy.h_what": "Ce que nous enregistrons",
@@ -161,5 +192,5 @@
   "privacy.h_rights": "Vos droits",
   "privacy.p_rights_html": "Vous pouvez demander une copie de vos données ou nous demander de les supprimer à tout moment en contactant Takalam sur WhatsApp ou par e-mail à <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>. Une option de téléchargement/suppression en libre-service depuis votre compte est prévue mais pas encore disponible.",
   "privacy.h_payments": "Paiements",
-  "privacy.p_payments": "Si vous vous inscrivez à un cours payant, le paiement est traité par PayPal. Nous ne voyons ni ne stockons jamais vos données de carte ou de compte bancaire -- PayPal s'en charge directement."
+  "privacy.p_payments": "Si vous vous inscrivez à un cours payant, vous payez directement par virement bancaire ou PayPal et téléversez une capture d'écran comme preuve. Nous conservons cette capture, votre nom, votre numéro WhatsApp et votre email pour vérifier et confirmer votre inscription -- nous ne demandons ni ne stockons jamais vos données de carte, votre mot de passe bancaire ou vos identifiants PayPal."
 }

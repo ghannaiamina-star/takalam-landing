@@ -1,15 +1,19 @@
 const { getProvider } = require('../lib/payments');
-const { PRODUCT_TYPES, getProductLabel } = require('../lib/productCatalog');
+const { PRODUCT_TYPES } = require('../lib/productCatalog');
 
-const WHATSAPP_NUMBER = '212722774753';
-
-function whatsappFallback(productType, locale, attemptId) {
-  const label = getProductLabel(productType, locale);
-  const name = label ? label.name : productType;
-  const text = locale === 'en'
-    ? `Hi Takalam! I'd like to book ${name}.${attemptId ? ` (test ${attemptId})` : ''} Could we set up payment here?`
-    : `Bonjour Takalam ! Je voudrais réserver ${name}.${attemptId ? ` (test ${attemptId})` : ''} Peut-on organiser le paiement ici ?`;
-  return { mode: 'whatsapp', url: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}` };
+// No live payment provider is configured yet (see lib/payments/stub.js) --
+// this is the only way to take money right now: a manual bank transfer /
+// PayPal registration page, reviewed and confirmed by hand. Once a real
+// provider is configured, getProvider().createCheckout() above succeeds and
+// this fallback stops firing on its own, no further changes needed here.
+function manualRegistrationFallback(productType, locale, attemptId) {
+  const params = new URLSearchParams({ product: productType });
+  if (attemptId) params.set('attemptId', attemptId);
+  // Locale travels via the path prefix (/en/register), matching every other
+  // page's i18n detection (assets/i18n.js reads the pathname, not a query
+  // param) -- not carried as a query param here.
+  const path = locale === 'en' ? '/en/register' : '/register';
+  return { mode: 'manual', url: `${path}?${params.toString()}` };
 }
 
 module.exports = async (req, res) => {
@@ -33,10 +37,10 @@ module.exports = async (req, res) => {
   } catch (err) {
     // Online checkout isn't configured for every product/provider yet (or
     // the provider itself is down) -- a student who got this far must never
-    // hit a dead end. Degrade to the same WhatsApp flow the rest of the site
-    // already uses instead of erroring; this is expected until PayPal
-    // credentials are live, not a fault, so it stays out of error-level logs.
-    console.warn('[checkout] No live checkout available, falling back to WhatsApp:', err.message);
-    res.status(200).json(whatsappFallback(product, locale, attemptId));
+    // hit a dead end. Degrade to the manual registration flow instead of
+    // erroring; this is expected until PayPal credentials are live, not a
+    // fault, so it stays out of error-level logs.
+    console.warn('[checkout] No live checkout available, falling back to manual registration:', err.message);
+    res.status(200).json(manualRegistrationFallback(product, locale, attemptId));
   }
 };
