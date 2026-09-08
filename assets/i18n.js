@@ -53,6 +53,10 @@
         var key = el.getAttribute('data-i18n-alt');
         if (dict[key] != null) el.alt = dict[key];
       });
+      document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-aria');
+        if (dict[key] != null) el.setAttribute('aria-label', dict[key]);
+      });
       window.__takalamI18n = dict;
       document.dispatchEvent(new CustomEvent('takalam:i18n-ready', { detail: dict }));
     })

@@ -448,6 +448,71 @@ a { color: inherit; }
 .step p { color: var(--ink-soft); font-size: 1.02rem; max-width: 26ch; margin-inline: auto; }
 
 /* ============================================================
+   STUDENT STORIES
+   ============================================================ */
+.stories-carousel { position: relative; max-width: 380px; margin-inline: auto; }
+
+.stories-track-wrap { overflow: hidden; border-radius: 22px; }
+.stories-track { display: flex; transition: transform .5s var(--ease); }
+.story-slide { flex: 0 0 100%; min-width: 0; }
+
+.story-video {
+  position: relative; aspect-ratio: 9 / 16; max-height: 560px;
+  background: var(--ink-2); border-radius: 22px; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.story-poster { width: 100%; height: 100%; display: block; object-fit: cover; }
+.story-video video { width: 100%; height: 100%; display: block; object-fit: cover; background: #000; }
+
+.story-play {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: grid; place-items: center;
+  background: rgba(10,20,15,.14);
+  border: none; padding: 0; cursor: pointer;
+}
+.story-play::before {
+  content: "";
+  width: 68px; height: 68px; border-radius: 50%;
+  background: rgba(250,248,242,.94);
+  box-shadow: 0 12px 28px -10px rgba(0,0,0,.55);
+  transition: transform .3s var(--ease);
+}
+.story-play::after {
+  content: "";
+  position: absolute;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 13px 0 13px 21px;
+  border-color: transparent transparent transparent var(--forest);
+  transform: translateX(4px);
+}
+.story-play:hover::before { transform: scale(1.08); }
+.story-play:focus-visible { outline: 3px solid var(--emerald); outline-offset: -3px; }
+
+.stories-arrow {
+  position: absolute; top: 50%; translate: 0 -50%; z-index: 2;
+  width: 42px; height: 42px; border-radius: 50%; border: none;
+  background: rgba(250,248,242,.92); color: var(--forest);
+  display: grid; place-items: center; cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform .3s var(--ease), background .3s;
+}
+.stories-arrow:hover { background: var(--cream); transform: translateY(-50%) scale(1.06); }
+.stories-arrow:focus-visible { outline: 3px solid var(--emerald); outline-offset: 2px; }
+.stories-arrow svg { width: 20px; height: 20px; }
+.stories-arrow--prev { left: -6px; }
+.stories-arrow--next { right: -6px; }
+
+.stories-dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+.stories-dot {
+  width: 9px; height: 9px; border-radius: 999px; border: none;
+  background: rgba(13,79,55,.22); padding: 0; cursor: pointer;
+  transition: width .3s var(--ease), background .3s;
+}
+.stories-dot.is-active { width: 26px; background: var(--emerald); }
+.stories-dot:focus-visible { outline: 2px solid var(--emerald); outline-offset: 3px; }
+
+/* ============================================================
    FAQ
    ============================================================ */
 .faq-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(36px, 5vw, 88px); align-items: start; }
@@ -547,6 +612,10 @@ a { color: inherit; }
   .steps::before { display: none; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
   .foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 460px) {
+  .stories-arrow--prev { left: 8px; }
+  .stories-arrow--next { right: 8px; }
 }
 @media (max-width: 540px) {
   body { font-size: 17px; }
@@ -823,6 +892,54 @@ a { color: inherit; }
   </div>
 </section>
 
+<!-- ============ STUDENT STORIES ============ -->
+<section class="section" id="stories">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow center" data-i18n="stories.eyebrow">Real students</span>
+      <h2 data-i18n="stories.heading">Student stories.</h2>
+      <p data-i18n="stories.sub">Hear it from people who took the same test you're about to take.</p>
+    </div>
+
+    <div class="stories-carousel reveal d1" id="storiesCarousel">
+      <button type="button" class="stories-arrow stories-arrow--prev" id="storiesPrev" aria-label="Previous story" data-i18n-aria="stories.prev">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 19 8 12l7-7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="stories-arrow stories-arrow--next" id="storiesNext" aria-label="Next story" data-i18n-aria="stories.next">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="stories-track-wrap" id="storiesTrackWrap">
+        <div class="stories-track" id="storiesTrack">
+          <div class="story-slide">
+            <div class="story-video" data-video="https://nmsgtecqub6ykibs.public.blob.vercel-storage.com/marketing/story1.mp4">
+              <picture>
+                <source srcset="/assets/story1-poster.webp" type="image/webp">
+                <img class="story-poster" src="/assets/story1-poster.jpg" width="405" height="720" loading="lazy" data-i18n-alt="stories.video1_alt" alt="Asmae, a Takalam Speak student, saying that after being nervous at first, she can now speak English confidently.">
+              </picture>
+              <button type="button" class="story-play" aria-label="Play video" data-i18n-aria="stories.play"></button>
+            </div>
+          </div>
+          <div class="story-slide">
+            <div class="story-video" data-video="https://nmsgtecqub6ykibs.public.blob.vercel-storage.com/marketing/story2.mp4">
+              <picture>
+                <source srcset="/assets/story2-poster.webp" type="image/webp">
+                <img class="story-poster" src="/assets/story2-poster.jpg" width="405" height="720" loading="lazy" data-i18n-alt="stories.video2_alt" alt="A Takalam student describing how the course improved his confidence speaking English in real situations.">
+              </picture>
+              <button type="button" class="story-play" aria-label="Play video" data-i18n-aria="stories.play"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stories-dots" id="storiesDots">
+        <button type="button" class="stories-dot is-active" data-index="0" aria-label="Go to story 1"></button>
+        <button type="button" class="stories-dot" data-index="1" aria-label="Go to story 2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FAQ ============ -->
 <section class="section" id="faq">
   <div class="wrap faq-grid">
@@ -999,6 +1116,73 @@ window.addEventListener('load', showNearViewport);
 window.addEventListener('scroll', showNearViewport, { passive: true });
 // Safety net: never leave anything permanently hidden
 setTimeout(() => reveals.forEach(el => el.classList.add('in')), 2600);
+
+/* ---------- Student Stories carousel ---------- */
+// Each video's src is only ever set on the DOM when its play button is
+// pressed -- these are 18-24MB files, and merely scrolling past the section
+// must never trigger the fetch. Only one slide plays at a time.
+(function () {
+  const root = document.getElementById('storiesCarousel');
+  if (!root) return;
+  const track = document.getElementById('storiesTrack');
+  const slides = Array.from(track.querySelectorAll('.story-slide'));
+  const dots = Array.from(document.getElementById('storiesDots').querySelectorAll('.stories-dot'));
+  const prevBtn = document.getElementById('storiesPrev');
+  const nextBtn = document.getElementById('storiesNext');
+  let current = 0;
+
+  function goTo(index) {
+    current = (index + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
+    // Pause any playing video on a slide that's no longer in view.
+    slides.forEach((slide, i) => {
+      if (i === current) return;
+      const video = slide.querySelector('video');
+      if (video) video.pause();
+    });
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  // Swipe support
+  let touchStartX = null;
+  const trackWrap = document.getElementById('storiesTrackWrap');
+  trackWrap.addEventListener('touchstart', (e) => { touchStartX = e.targetTouches[0].clientX; }, { passive: true });
+  trackWrap.addEventListener('touchend', (e) => {
+    if (touchStartX == null) return;
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) goTo(current + (dx > 0 ? 1 : -1));
+    touchStartX = null;
+  });
+
+  // Keyboard support when the carousel has focus
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { goTo(current - 1); }
+    else if (e.key === 'ArrowRight') { goTo(current + 1); }
+  });
+
+  // Fetch and play a slide's video only on explicit user action.
+  slides.forEach((slide) => {
+    const playBtn = slide.querySelector('.story-play');
+    const container = slide.querySelector('.story-video');
+    playBtn.addEventListener('click', () => {
+      const src = container.getAttribute('data-video');
+      if (!src) return;
+      const video = document.createElement('video');
+      video.controls = true;
+      video.playsInline = true;
+      video.muted = true;
+      video.preload = 'auto';
+      video.src = src;
+      container.innerHTML = '';
+      container.appendChild(video);
+      video.play().catch(() => {});
+    }, { once: true });
+  });
+})();
 
 /* ---------- Meta Pixel — Lead events ---------- */
 document.addEventListener('click', (e) => {
