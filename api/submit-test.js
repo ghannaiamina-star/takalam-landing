@@ -5,6 +5,7 @@ const {
   speakingOverallBand,
   computeFinalBand,
   computeFluencyMetrics,
+  isPredominantlyNonLatinScript,
 } = require('../lib/scoring');
 const { transcribeAudio } = require('../lib/transcribe');
 const { sql } = require('../lib/db');
@@ -55,45 +56,51 @@ async function alertOwnerOfFailure({ stage, error, name, whatsapp }) {
 const MAX_ATTACHMENT_BYTES = 15 * 1024 * 1024; // per-clip safety cap, real clips are ~KB
 const MAX_TOTAL_ATTACHMENT_BYTES = 30 * 1024 * 1024; // combined safety cap, well under Resend's limit
 
-const CEFR_TOOL_SCHEMA = {
-  name: 'record_cefr_assessment',
-  description: 'Record a strict CEFR speaking assessment for three prompts.',
-  input_schema: {
-    type: 'object',
-    properties: {
-      prompts: {
-        type: 'array',
-        minItems: 3,
-        maxItems: 3,
-        items: {
-          type: 'object',
-          properties: {
-            band: { type: 'string', enum: ['below-b1', 'b1', 'b2', 'c1'] },
-            grammar_range: { type: 'integer', minimum: 1, maximum: 5 },
-            vocabulary_range: { type: 'integer', minimum: 1, maximum: 5 },
-            coherence: { type: 'integer', minimum: 1, maximum: 5 },
-            freeze_indicators: { type: 'array', items: { type: 'string' } },
-            example_errors: {
-              type: 'array',
-              items: { type: 'string' },
-              minItems: 2,
-              maxItems: 2,
+// minItems/maxItems match the number of prompts actually being graded --
+// a prompt with no usable transcript (transcription failure, or a
+// non-Latin-script flag) is never included, so Claude is never forced to
+// invent a band for data that doesn't exist.
+function buildCefrToolSchema(count) {
+  return {
+    name: 'record_cefr_assessment',
+    description: 'Record a strict CEFR speaking assessment for the given prompts.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        prompts: {
+          type: 'array',
+          minItems: count,
+          maxItems: count,
+          items: {
+            type: 'object',
+            properties: {
+              band: { type: 'string', enum: ['below-b1', 'b1', 'b2', 'c1'] },
+              grammar_range: { type: 'integer', minimum: 1, maximum: 5 },
+              vocabulary_range: { type: 'integer', minimum: 1, maximum: 5 },
+              coherence: { type: 'integer', minimum: 1, maximum: 5 },
+              freeze_indicators: { type: 'array', items: { type: 'string' } },
+              example_errors: {
+                type: 'array',
+                items: { type: 'string' },
+                minItems: 2,
+                maxItems: 2,
+              },
             },
+            required: [
+              'band',
+              'grammar_range',
+              'vocabulary_range',
+              'coherence',
+              'freeze_indicators',
+              'example_errors',
+            ],
           },
-          required: [
-            'band',
-            'grammar_range',
-            'vocabulary_range',
-            'coherence',
-            'freeze_indicators',
-            'example_errors',
-          ],
         },
       },
+      required: ['prompts'],
     },
-    required: ['prompts'],
-  },
-};
+  };
+}
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -230,7 +237,11 @@ module.exports = async (req, res) => {
         }
       }
 
-      if (precomputed && precomputed.transcript) {
+      if (precomputed && precomputed.transcript && isPredominantlyNonLatinScript(precomputed.transcript)) {
+        console.error(`[submit-test] Precomputed transcript for "${promptText}" flagged as predominantly non-Latin script (likely language misdetection):`, precomputed.transcript);
+        promptSlots.push({ result: { promptText, error: 'Transcription could not be verified in English (likely a language-detection error) -- flagged for manual review' } });
+        gradingIncomplete = true;
+      } else if (precomputed && precomputed.transcript) {
         promptSlots.push({ result: { promptText, transcript: precomputed.transcript, metrics: precomputed.metrics } });
       } else if (precomputed && precomputed.error) {
         promptSlots.push({ result: { promptText, error: precomputed.error } });
@@ -251,6 +262,12 @@ module.exports = async (req, res) => {
       if (!slot.needsTranscription) return;
       try {
         const whisperResult = await transcribeAudio(slot.audioFile, process.env.OPENAI_API_KEY);
+        if (isPredominantlyNonLatinScript(whisperResult.text)) {
+          console.error(`[submit-test] Transcript for "${slot.promptText}" flagged as predominantly non-Latin script (likely language misdetection):`, whisperResult.text);
+          slot.result = { promptText: slot.promptText, error: 'Transcription could not be verified in English (likely a language-detection error) -- flagged for manual review' };
+          gradingIncomplete = true;
+          return;
+        }
         const metrics = computeFluencyMetrics(whisperResult, Number(formData.get(slot.durationField)) || 0);
         slot.result = { promptText: slot.promptText, transcript: whisperResult.text || '', metrics };
       } catch (err) {
@@ -283,7 +300,7 @@ module.exports = async (req, res) => {
     gradingIncomplete = true;
   }
 
-  const promptBands = claudeResults ? claudeResults.map((r) => r.band) : [];
+  const promptBands = claudeResults ? claudeResults.map((r) => (r ? r.band : null)) : [];
   const speakingBand = speakingOverallBand(promptBands);
   const finalBand = speakingBand
     ? computeFinalBand({ speakingBand, grammarBand, readingBand })
@@ -415,7 +432,20 @@ function extFromFile(file) {
 }
 
 async function gradeWithClaude(speakingResults, apiKey) {
-  const rubric = buildRubricPrompt(speakingResults);
+  // Only prompts with an actual usable transcript go to Claude -- a prompt
+  // with no transcript (failed recording, failed transcription, or a
+  // non-Latin-script flag) has no language evidence to grade, and forcing a
+  // band out of nothing previously meant it silently defaulted to the lowest
+  // band and dragged down the whole attempt's median.
+  const gradable = speakingResults
+    .map((r, i) => ({ r, originalIndex: i }))
+    .filter(({ r }) => !!r.transcript);
+
+  if (gradable.length === 0) {
+    return speakingResults.map(() => null);
+  }
+
+  const rubric = buildRubricPrompt(gradable, speakingResults.length);
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -426,7 +456,7 @@ async function gradeWithClaude(speakingResults, apiKey) {
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
       max_tokens: 2000,
-      tools: [CEFR_TOOL_SCHEMA],
+      tools: [buildCefrToolSchema(gradable.length)],
       tool_choice: { type: 'tool', name: 'record_cefr_assessment' },
       messages: [{ role: 'user', content: rubric }],
     }),
@@ -437,24 +467,31 @@ async function gradeWithClaude(speakingResults, apiKey) {
   }
   const data = await resp.json();
   const toolUse = (data.content || []).find((c) => c.type === 'tool_use');
-  if (!toolUse || !toolUse.input || !Array.isArray(toolUse.input.prompts)) {
+  if (!toolUse || !toolUse.input || !Array.isArray(toolUse.input.prompts) || toolUse.input.prompts.length !== gradable.length) {
     throw new Error('Claude did not return structured grading');
   }
-  return toolUse.input.prompts;
+  const claudeResults = speakingResults.map(() => null);
+  gradable.forEach(({ originalIndex }, idx) => {
+    claudeResults[originalIndex] = toolUse.input.prompts[idx];
+  });
+  return claudeResults;
 }
 
-function buildRubricPrompt(speakingResults) {
-  const transcriptBlocks = speakingResults
-    .map((r, i) => {
-      if (!r.transcript) return `Prompt ${i + 1}: "${r.promptText}"\n[No usable transcript: ${r.error || 'unknown error'}]`;
+function buildRubricPrompt(gradable, totalCount) {
+  const transcriptBlocks = gradable
+    .map(({ r, originalIndex }) => {
       const m = r.metrics || {};
       return [
-        `Prompt ${i + 1}: "${r.promptText}"`,
+        `Prompt ${originalIndex + 1} of ${totalCount}: "${r.promptText}"`,
         `Transcript: "${r.transcript}"`,
         `Metrics: words per minute ${m.wpm}, filler frequency ${m.fillerFrequency} (${m.fillerCount} filler/repeat instances out of ${m.wordCount} words), longest fluent run ${m.longestFluentRun} words, silence ratio ${m.silenceRatio === null ? 'unavailable' : m.silenceRatio}, recording length ${m.durationSeconds}s.`,
       ].join('\n');
     })
     .join('\n\n');
+
+  const skippedNote = gradable.length < totalCount
+    ? `\n\nNote: ${totalCount - gradable.length} of ${totalCount} prompts could not be reliably transcribed and are excluded below. Grade only the prompts given -- do not penalize the student for the missing ones.`
+    : '';
 
   return `You are a CEFR speaking examiner grading a spoken English placement test. Grade honestly, but grade what is actually there: the language demonstrated, not how impressive or well developed the topic is. Use the transcripts and the fluency metrics together.
 
@@ -470,11 +507,11 @@ CEFR spoken production anchors:
 
 Grade the language, not the depth of the argument. If a student gives a short, safe, or underdeveloped answer but the language inside it is accurate, fluent, and well controlled, that should lower the coherence score for that prompt, not the overall band. A thin idea expressed in strong language is still strong language.
 
-Grade each of the three prompts below (they rise in difficulty: introduction, then a problem narrative, then an opinion argument).
+Grade each of the prompt(s) below, numbered by their position in the original ${totalCount}-prompt sequence (which rises in difficulty: introduction, then a problem narrative, then an opinion argument).${skippedNote}
 
 ${transcriptBlocks}
 
-For each prompt return: band, grammar_range (1-5), vocabulary_range (1-5), coherence (1-5), freeze_indicators (a list of genuine breakdown signs only, per the guidance above; empty list if none), and example_errors (exactly two errors quoted verbatim from that prompt's transcript; if there are fewer than two clear errors, quote what is available and note "no further errors observed" for the second). Do not use em dashes anywhere in your response. Call the record_cefr_assessment tool with your results.`;
+For each prompt given return: band, grammar_range (1-5), vocabulary_range (1-5), coherence (1-5), freeze_indicators (a list of genuine breakdown signs only, per the guidance above; empty list if none), and example_errors (exactly two errors quoted verbatim from that prompt's transcript; if there are fewer than two clear errors, quote what is available and note "no further errors observed" for the second). Do not use em dashes anywhere in your response. Call the record_cefr_assessment tool with your results.`;
 }
 
 function buildReportEmail(data) {
@@ -487,7 +524,7 @@ function buildReportEmail(data) {
 
   const trajectory = data.section1.trajectory || [];
   const promptBandList = (data.claudeResults || [])
-    .map((c, i) => `Prompt ${i + 1}: ${esc(c.band)}`)
+    .map((c, i) => `Prompt ${i + 1}: ${c ? esc(c.band) : 'not graded'}`)
     .join(', ') || 'not graded';
 
   const speakingBlocks = data.speakingSkipped

@@ -1,4 +1,4 @@
-const { computeFluencyMetrics } = require('../lib/scoring');
+const { computeFluencyMetrics, isPredominantlyNonLatinScript } = require('../lib/scoring');
 const { transcribeAudio } = require('../lib/transcribe');
 
 // Called right after each speaking prompt finishes recording, while the
@@ -37,6 +37,11 @@ module.exports = async (req, res) => {
 
   try {
     const whisperResult = await transcribeAudio(audioFile, process.env.OPENAI_API_KEY);
+    if (isPredominantlyNonLatinScript(whisperResult.text)) {
+      console.error('[transcribe-prompt] Transcript flagged as predominantly non-Latin script (likely language misdetection):', whisperResult.text);
+      res.status(200).json({ error: 'Transcription could not be verified in English. Please retry this recording.' });
+      return;
+    }
     const metrics = computeFluencyMetrics(whisperResult, duration);
     res.status(200).json({ transcript: whisperResult.text || '', metrics });
   } catch (err) {
