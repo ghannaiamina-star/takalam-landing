@@ -184,7 +184,8 @@ audio { width: 100%; }
       var other = reco.type === 'speak' ? 'private' : 'speak';
       var otherLink = document.getElementById('otherLink');
       var otherText = (window.__takalamI18n && window.__takalamI18n['results.other_option']) || "Not sure? See the other option";
-      otherLink.innerHTML = otherText + ': <a href="/#paths">' + (other === 'speak' ? 'Takalam Speak' : 'Takalam Private') + '</a>';
+      var pathsHref = window.__takalamLocalizeHref ? window.__takalamLocalizeHref('/#paths') : '/#paths';
+      otherLink.innerHTML = otherText + ': <a href="' + pathsHref + '">' + (other === 'speak' ? 'Takalam Speak' : 'Takalam Private') + '</a>';
     } else {
       recoCard.style.display = 'none';
     }

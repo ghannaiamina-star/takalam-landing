@@ -22,6 +22,36 @@
     }
   }
 
+  // Every page-to-page route the site has -- test.html, results.html, etc.
+  // are served at both the unprefixed (French) and /en (English) URL for
+  // the same file, so a plain href="/test" always lands on French. Any
+  // internal link (static markup or HTML injected from the dictionary
+  // below) pointing at one of these routes gets the /en prefix added back
+  // in when the visitor is in the English tree. The switcher above is
+  // exempt: it intentionally links to the *other* locale.
+  var LOCALE_ROUTES = ['/', '/test', '/results', '/register', '/privacy', '/policies'];
+  function localizeHref(raw) {
+    if (locale !== 'en' || !raw) return raw;
+    for (var i = 0; i < LOCALE_ROUTES.length; i++) {
+      var route = LOCALE_ROUTES[i];
+      var rest = raw.slice(route.length);
+      if (raw === route || ((rest[0] === '?' || rest[0] === '#') && raw.indexOf(route) === 0)) {
+        return '/en' + (route === '/' ? '' : route) + rest;
+      }
+    }
+    return raw;
+  }
+  function localizeLinks() {
+    document.querySelectorAll('a[href]').forEach(function (a) {
+      if (a === switcher) return;
+      var raw = a.getAttribute('href');
+      var localized = localizeHref(raw);
+      if (localized !== raw) a.setAttribute('href', localized);
+    });
+  }
+  window.__takalamLocalizeHref = localizeHref;
+  localizeLinks();
+
   // Browser-language signal only (never geo-IP, per the brief), and only on
   // a first visit to the unprefixed default with no stored preference.
   if (locale === 'fr' && !localStorage.getItem('takalam_locale')) {
@@ -57,6 +87,7 @@
         var key = el.getAttribute('data-i18n-aria');
         if (dict[key] != null) el.setAttribute('aria-label', dict[key]);
       });
+      localizeLinks();
       window.__takalamI18n = dict;
       document.dispatchEvent(new CustomEvent('takalam:i18n-ready', { detail: dict }));
     })

@@ -410,7 +410,7 @@ async function persistAttemptAndDiagnosis({
     })
   );
 
-  return `/results?id=${attemptId}`;
+  return `${locale === 'en' ? '/en' : ''}/results?id=${attemptId}`;
 }
 
 
