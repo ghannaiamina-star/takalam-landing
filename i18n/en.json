@@ -242,5 +242,11 @@
   "tutor1.cred4": "Cambridge TKT certified",
   "tutor1.cred5": "IELTS Band 8",
   "tutor1.cred6": "2,300+ online lessons delivered, to students in more than 20 countries",
-  "tutor1.cred7": "Preply Super Tutor, 5.0 rating"
+  "tutor1.cred7": "Preply Super Tutor, 5.0 rating",
+  "nav.reviews_cta": "Reviews",
+  "footer.link_reviews": "Student reviews",
+  "reviews.eyebrow": "Real feedback",
+  "reviews.heading": "What students say.",
+  "reviews.sub": "Every review below is a verified Preply review, reproduced exactly as it was written -- typos and all. Nothing here is edited or invented.",
+  "reviews.note": "A handful of reviews arrived in Arabic, Italian, or Turkish. Real reviews stay in the words they were written in, so those appear as-is rather than translated."
 }

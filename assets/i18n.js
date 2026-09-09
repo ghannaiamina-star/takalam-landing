@@ -29,7 +29,7 @@
   // below) pointing at one of these routes gets the /en prefix added back
   // in when the visitor is in the English tree. The switcher above is
   // exempt: it intentionally links to the *other* locale.
-  var LOCALE_ROUTES = ['/', '/test', '/results', '/register', '/privacy', '/policies', '/tutors'];
+  var LOCALE_ROUTES = ['/', '/test', '/results', '/register', '/privacy', '/policies', '/tutors', '/reviews'];
   function localizeHref(raw) {
     if (locale !== 'en' || !raw) return raw;
     for (var i = 0; i < LOCALE_ROUTES.length; i++) {
