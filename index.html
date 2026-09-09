@@ -231,6 +231,9 @@ a { color: inherit; }
 .logo .word b { color: var(--emerald-dim); font-weight: 600; font-style: italic; }
 
 .head-cta { display: inline-flex; align-items: center; gap: 16px; }
+.nav-link { font-family: var(--sans); font-weight: 600; font-size: .92rem; text-decoration: none; color: var(--ink-soft); transition: color .25s; }
+.nav-link:hover { color: var(--ink); }
+@media (max-width: 720px) { .nav-link { display: none; } }
 .lang-switch {
   font-family: var(--sans); font-weight: 600; font-size: .82rem;
   text-decoration: none; color: var(--ink-soft); border: 1.5px solid rgba(26,35,50,.22);
@@ -682,6 +685,7 @@ a { color: inherit; }
       <svg class="logo-wm" viewBox="0 0 1000 189" aria-label="Takalam English" role="img"><use href="#takalam-logo"/></svg>
     </a>
     <div class="head-cta">
+      <a class="nav-link" href="/tutors" data-i18n="nav.tutors_cta">Meet your tutor</a>
       <a class="lang-switch" id="langSwitch" href="/en" aria-label="Switch language">EN</a>
       <a class="btn btn--ghost" href="/test" data-i18n="nav.test_cta">Take the free 10-minute test</a>
       <a class="btn btn--emerald" data-cta-wa href="https://wa.me/212722774753?text=Hi%20Takalam!%20I'd%20like%20to%20book%20a%20free%20call." target="_blank" rel="noopener">
@@ -1014,6 +1018,7 @@ a { color: inherit; }
       <div class="foot-col">
         <h3 data-i18n="footer.paths_heading">The two paths</h3>
         <a href="/test" data-i18n="footer.link_test">Take the free test</a>
+        <a href="/tutors" data-i18n="footer.link_tutors">Meet your tutor</a>
         <a href="#paths" data-i18n="footer.link_speak">Takalam Speak</a>
         <a href="#paths" data-i18n="footer.link_private">Takalam Private</a>
         <a href="/privacy" data-i18n="footer.link_privacy">Privacy &amp; data</a>

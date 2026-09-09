@@ -15,6 +15,7 @@
   "rewrites": [
     { "source": "/en", "destination": "/index" },
     { "source": "/en/test", "destination": "/test" },
+    { "source": "/en/tutors", "destination": "/tutors" },
     { "source": "/en/results", "destination": "/results" },
     { "source": "/en/privacy", "destination": "/privacy" },
     { "source": "/en/register", "destination": "/register" },
