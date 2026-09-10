@@ -1140,16 +1140,6 @@ window.addEventListener('load', showNearViewport);
 window.addEventListener('scroll', showNearViewport, { passive: true });
 setTimeout(() => reveals.forEach(el => el.classList.add('in')), 2600);
 
-/* ---------- Show only reviews matching the current locale (plus
-   original-language ones, tagged data-lang="other", shown on both). ---------- */
-(function () {
-  var locale = /^\/en(\/|$)/.test(window.location.pathname) ? 'en' : 'fr';
-  document.querySelectorAll('.review-card').forEach(function (card) {
-    var lang = card.getAttribute('data-lang');
-    if (lang !== locale && lang !== 'other') card.style.display = 'none';
-  });
-})();
-
 /* ---------- Meta Pixel — Lead events ---------- */
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('[data-cta-wa]');
