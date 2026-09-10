@@ -8,6 +8,8 @@
 <link rel="canonical" href="https://takalamenglish.ma/policies">
 <link rel="alternate" hreflang="en" href="https://takalamenglish.ma/policies">
 <link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/policies">
+<link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/policies">
+<link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/policies">
 <link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/policies">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -15,7 +17,7 @@
 <link rel="apple-touch-icon" href="/favicon-180x180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -168,6 +170,14 @@ a { color: inherit; }
 .wa-float:hover .wa-float-tip { opacity: 1; }
 @media (max-width: 640px) { .wa-float { width: 54px; height: 54px; } .wa-float-tip { display: none; } }
 @media (prefers-reduced-motion: reduce) { .wa-float::before { animation: none; opacity: .22; } }
+
+/* RTL (Arabic) */
+[dir="rtl"] body, [dir="rtl"] input, [dir="rtl"] textarea, [dir="rtl"] select, [dir="rtl"] button { font-family: "Noto Sans Arabic", "Inter", system-ui, -apple-system, sans-serif; }
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 { font-family: "Noto Sans Arabic", "Fraunces", Georgia, serif; letter-spacing: 0; }
+[dir="rtl"] .eyebrow { letter-spacing: .06em; }
+[dir="rtl"] .wa-float { right: auto; left: clamp(16px, 4vw, 28px); }
+[dir="rtl"] .wa-float-tip { right: auto; left: calc(100% + 14px); }
+[dir="rtl"] .legal { text-align: right; }
 </style>
 </head>
 <body>

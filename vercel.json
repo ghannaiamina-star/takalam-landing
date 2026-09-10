@@ -62,6 +62,70 @@
     {
       "source": "/fr/policies",
       "destination": "/policies"
+    },
+    {
+      "source": "/es",
+      "destination": "/index"
+    },
+    {
+      "source": "/es/test",
+      "destination": "/test"
+    },
+    {
+      "source": "/es/tutors",
+      "destination": "/tutors"
+    },
+    {
+      "source": "/es/reviews",
+      "destination": "/reviews"
+    },
+    {
+      "source": "/es/results",
+      "destination": "/results"
+    },
+    {
+      "source": "/es/privacy",
+      "destination": "/privacy"
+    },
+    {
+      "source": "/es/register",
+      "destination": "/register"
+    },
+    {
+      "source": "/es/policies",
+      "destination": "/policies"
+    },
+    {
+      "source": "/ar",
+      "destination": "/index"
+    },
+    {
+      "source": "/ar/test",
+      "destination": "/test"
+    },
+    {
+      "source": "/ar/tutors",
+      "destination": "/tutors"
+    },
+    {
+      "source": "/ar/reviews",
+      "destination": "/reviews"
+    },
+    {
+      "source": "/ar/results",
+      "destination": "/results"
+    },
+    {
+      "source": "/ar/privacy",
+      "destination": "/privacy"
+    },
+    {
+      "source": "/ar/register",
+      "destination": "/register"
+    },
+    {
+      "source": "/ar/policies",
+      "destination": "/policies"
     }
   ],
   "redirects": [

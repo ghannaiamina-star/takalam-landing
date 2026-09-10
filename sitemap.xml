@@ -1,21 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://takalamenglish.ma/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/"/>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/fr</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/es</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/ar</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/"/>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://takalamenglish.ma/tutors</loc>
-    <lastmod>2026-09-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/tutors"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/tutors"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/tutors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/tutors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/tutors"/>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/fr/tutors</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/tutors"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/tutors"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/tutors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/tutors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/tutors"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/es/tutors</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/tutors"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/tutors"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/tutors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/tutors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/tutors"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/ar/tutors</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/tutors"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/tutors"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/tutors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/tutors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/tutors"/>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://takalamenglish.ma/reviews</loc>
-    <lastmod>2026-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/reviews"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/reviews"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/reviews"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/reviews"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/reviews"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/fr/reviews</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/reviews"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/reviews"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/reviews"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/reviews"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/reviews"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/es/reviews</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/reviews"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/reviews"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/reviews"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/reviews"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/reviews"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/ar/reviews</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/reviews"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/reviews"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/reviews"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/reviews"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/reviews"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/privacy"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/fr/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/privacy"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/es/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/privacy"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/ar/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/privacy"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/policies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/policies"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/policies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/policies"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/policies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/policies"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/fr/policies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/policies"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/policies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/policies"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/policies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/policies"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/es/policies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/policies"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/policies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/policies"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/policies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/policies"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://takalamenglish.ma/ar/policies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://takalamenglish.ma/policies"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://takalamenglish.ma/fr/policies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://takalamenglish.ma/es/policies"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://takalamenglish.ma/ar/policies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://takalamenglish.ma/policies"/>
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>
