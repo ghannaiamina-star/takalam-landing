@@ -2,36 +2,158 @@
   "framework": null,
   "cleanUrls": true,
   "functions": {
-    "api/submit-test.js": { "maxDuration": 60 },
-    "api/register.js": { "maxDuration": 30 },
-    "api/transcribe-prompt.js": { "maxDuration": 30 },
-    "api/results/[id].js": { "maxDuration": 15 },
-    "api/products.js": { "maxDuration": 15 },
-    "api/checkout.js": { "maxDuration": 15 },
-    "api/paypal-return.js": { "maxDuration": 15 },
-    "api/webhook/lemonsqueezy.js": { "maxDuration": 30 },
-    "api/webhook/paypal.js": { "maxDuration": 30 }
+    "api/submit-test.js": {
+      "maxDuration": 60
+    },
+    "api/register.js": {
+      "maxDuration": 30
+    },
+    "api/transcribe-prompt.js": {
+      "maxDuration": 30
+    },
+    "api/results/[id].js": {
+      "maxDuration": 15
+    },
+    "api/products.js": {
+      "maxDuration": 15
+    },
+    "api/checkout.js": {
+      "maxDuration": 15
+    },
+    "api/paypal-return.js": {
+      "maxDuration": 15
+    },
+    "api/webhook/lemonsqueezy.js": {
+      "maxDuration": 30
+    },
+    "api/webhook/paypal.js": {
+      "maxDuration": 30
+    }
   },
   "rewrites": [
-    { "source": "/en", "destination": "/index" },
-    { "source": "/en/test", "destination": "/test" },
-    { "source": "/en/tutors", "destination": "/tutors" },
-    { "source": "/en/reviews", "destination": "/reviews" },
-    { "source": "/en/results", "destination": "/results" },
-    { "source": "/en/privacy", "destination": "/privacy" },
-    { "source": "/en/register", "destination": "/register" },
-    { "source": "/en/policies", "destination": "/policies" }
+    {
+      "source": "/fr",
+      "destination": "/index"
+    },
+    {
+      "source": "/fr/test",
+      "destination": "/test"
+    },
+    {
+      "source": "/fr/tutors",
+      "destination": "/tutors"
+    },
+    {
+      "source": "/fr/reviews",
+      "destination": "/reviews"
+    },
+    {
+      "source": "/fr/results",
+      "destination": "/results"
+    },
+    {
+      "source": "/fr/privacy",
+      "destination": "/privacy"
+    },
+    {
+      "source": "/fr/register",
+      "destination": "/register"
+    },
+    {
+      "source": "/fr/policies",
+      "destination": "/policies"
+    }
   ],
   "redirects": [
-    { "source": "/about",            "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/careers",          "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/ielts",            "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/corporate",        "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/exams",            "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/press",            "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/business-english", "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/kids",             "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/blog",             "destination": "https://takalamenglish.ma/", "permanent": true },
-    { "source": "/blog/:path*",      "destination": "https://takalamenglish.ma/", "permanent": true }
+    {
+      "source": "/about",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/careers",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/corporate",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/exams",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/press",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/business-english",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/kids",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://takalamenglish.ma/",
+      "permanent": true
+    },
+    {
+      "source": "/en",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/test",
+      "destination": "/test",
+      "permanent": true
+    },
+    {
+      "source": "/en/tutors",
+      "destination": "/tutors",
+      "permanent": true
+    },
+    {
+      "source": "/en/reviews",
+      "destination": "/reviews",
+      "permanent": true
+    },
+    {
+      "source": "/en/results",
+      "destination": "/results",
+      "permanent": true
+    },
+    {
+      "source": "/en/privacy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/en/register",
+      "destination": "/register",
+      "permanent": true
+    },
+    {
+      "source": "/en/policies",
+      "destination": "/policies",
+      "permanent": true
+    }
   ]
 }

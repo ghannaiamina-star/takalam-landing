@@ -1,92 +1,137 @@
-// Shared client-side locale hydration for index.html, test.html, results.html.
-// No framework, no build step: reads /en/ vs unprefixed (French, default) from
-// the URL, fetches the matching dictionary, and swaps text/HTML into
-// [data-i18n] / [data-i18n-html] elements. Meta tags and initial HTML stay
-// French by default, so there is a brief flash of the source-language text
-// before hydration on first paint -- acceptable for Milestone 1, revisit if
-// this becomes a real SEO/CLS problem.
+// Shared client-side locale hydration for every page on the site.
+// No framework, no build step. English is the default and lives at the
+// unprefixed URLs (/, /tutors, ...); every other language lives under a
+// /<code>/ prefix (/fr/tutors, /ar, ...). This script reads the locale
+// from the path, swaps text into [data-i18n*] elements from the matching
+// /i18n/<code>.json dictionary, localises internal links, sets <html lang>
+// and dir, translates <title>/<meta description>, and points the canonical
+// link at the current locale. The raw HTML ships in English, so there is a
+// brief flash of English before hydration on non-English pages.
 (function () {
-  var EN_PREFIX = /^\/en(\/|$)/;
-  var path = window.location.pathname;
-  var locale = EN_PREFIX.test(path) ? 'en' : 'fr';
-  document.documentElement.lang = locale;
+  // First entry is the default locale (no URL prefix). Order = switcher order.
+  var LOCALES = [
+    { code: 'en', label: 'English',    dir: 'ltr' },
+    { code: 'fr', label: 'Français',   dir: 'ltr' },
+    { code: 'es', label: 'Español',    dir: 'ltr' },
+    { code: 'ar', label: 'العربية',    dir: 'rtl' },
+    { code: 'de', label: 'Deutsch',    dir: 'ltr' },
+    { code: 'pt', label: 'Português',  dir: 'ltr' },
+    { code: 'it', label: 'Italiano',   dir: 'ltr' },
+    { code: 'nl', label: 'Nederlands', dir: 'ltr' }
+  ];
+  var DEFAULT = LOCALES[0].code;
+  var CODES = LOCALES.map(function (l) { return l.code; });
+  var PREFIXED = CODES.filter(function (c) { return c !== DEFAULT; });
+  var PREFIX_RE = new RegExp('^\\/(' + PREFIXED.join('|') + ')(\\/|$)');
 
-  var switcher = document.getElementById('langSwitch');
-  if (switcher) {
-    if (locale === 'en') {
-      switcher.href = path.replace(EN_PREFIX, '/') || '/';
-      switcher.textContent = 'FR';
-    } else {
-      switcher.href = '/en' + (path === '/' ? '' : path);
-      switcher.textContent = 'EN';
-    }
+  var path = window.location.pathname;
+  var pm = path.match(PREFIX_RE);
+  var locale = pm ? pm[1] : DEFAULT;
+  // The site route with any locale prefix stripped, e.g. "/tutors" or "/".
+  var route = pm ? (path.slice(pm[1].length + 1) || '/') : path;
+  var meta = LOCALES.filter(function (l) { return l.code === locale; })[0] || LOCALES[0];
+
+  document.documentElement.lang = locale;
+  document.documentElement.dir = meta.dir;
+
+  var ORIGIN = 'https://takalamenglish.ma';
+  var LOCALE_ROUTES = ['/', '/test', '/results', '/register', '/privacy', '/policies', '/tutors', '/reviews'];
+
+  // Build the URL path for `sroute` (an unprefixed site route) in `code`.
+  function withLocale(sroute, code) {
+    if (code === DEFAULT) return sroute;
+    if (sroute === '/') return '/' + code;
+    return '/' + code + sroute;
   }
 
-  // Every page-to-page route the site has -- test.html, results.html, etc.
-  // are served at both the unprefixed (French) and /en (English) URL for
-  // the same file, so a plain href="/test" always lands on French. Any
-  // internal link (static markup or HTML injected from the dictionary
-  // below) pointing at one of these routes gets the /en prefix added back
-  // in when the visitor is in the English tree. The switcher above is
-  // exempt: it intentionally links to the *other* locale.
-  var LOCALE_ROUTES = ['/', '/test', '/results', '/register', '/privacy', '/policies', '/tutors', '/reviews'];
+  // ---------- language switcher: turn #langSwitch into a <select> ----------
+  var sw = document.getElementById('langSwitch');
+  if (sw) {
+    var sel = document.createElement('select');
+    sel.id = 'langSwitch';
+    sel.className = sw.className || 'lang-switch';
+    sel.setAttribute('aria-label', 'Language');
+    sel.style.cssText = '-webkit-appearance:none;-moz-appearance:none;appearance:none;cursor:pointer;padding-right:2em;' +
+      'background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 12 12\'%3E%3Cpath d=\'M2 4l4 4 4-4\' stroke=\'%234b5563\' stroke-width=\'1.6\' fill=\'none\' stroke-linecap=\'round\'/%3E%3C/svg%3E");' +
+      'background-repeat:no-repeat;background-position:right .6em center;background-size:11px;';
+    LOCALES.forEach(function (l) {
+      var o = document.createElement('option');
+      o.value = l.code;
+      o.textContent = l.label;
+      if (l.code === locale) o.selected = true;
+      sel.appendChild(o);
+    });
+    sel.addEventListener('change', function () {
+      try { localStorage.setItem('takalam_locale', sel.value); } catch (e) {}
+      window.location.href = withLocale(route, sel.value) + window.location.search + window.location.hash;
+    });
+    sw.parentNode.replaceChild(sel, sw);
+  }
+
+  // ---------- keep the locale prefix on internal links ----------
   function localizeHref(raw) {
-    if (locale !== 'en' || !raw) return raw;
+    if (locale === DEFAULT || !raw) return raw;
     for (var i = 0; i < LOCALE_ROUTES.length; i++) {
-      var route = LOCALE_ROUTES[i];
-      var rest = raw.slice(route.length);
-      if (raw === route || ((rest[0] === '?' || rest[0] === '#') && raw.indexOf(route) === 0)) {
-        return '/en' + (route === '/' ? '' : route) + rest;
+      var r = LOCALE_ROUTES[i];
+      var rest = raw.slice(r.length);
+      if (raw === r || ((rest[0] === '?' || rest[0] === '#') && raw.indexOf(r) === 0)) {
+        return withLocale(r, locale) + rest;
       }
     }
     return raw;
   }
   function localizeLinks() {
     document.querySelectorAll('a[href]').forEach(function (a) {
-      if (a === switcher) return;
+      if (a.id === 'langSwitch') return;
       var raw = a.getAttribute('href');
-      var localized = localizeHref(raw);
-      if (localized !== raw) a.setAttribute('href', localized);
+      var loc = localizeHref(raw);
+      if (loc !== raw) a.setAttribute('href', loc);
     });
   }
   window.__takalamLocalizeHref = localizeHref;
   localizeLinks();
 
-  // Browser-language signal only (never geo-IP, per the brief), and only on
-  // a first visit to the unprefixed default with no stored preference.
-  if (locale === 'fr' && !localStorage.getItem('takalam_locale')) {
-    var browserLang = (navigator.language || '').toLowerCase();
-    if (browserLang && browserLang.indexOf('fr') !== 0) {
-      localStorage.setItem('takalam_locale', 'en');
-      window.location.replace('/en' + path);
+  // ---------- point <link rel=canonical> at this locale ----------
+  var canon = document.querySelector('link[rel="canonical"]');
+  if (canon) {
+    var cpath = withLocale(route, locale);
+    canon.setAttribute('href', ORIGIN + (cpath === '/' ? '/' : cpath));
+  }
+
+  // ---------- first-visit browser-language redirect ----------
+  // Only from the default locale, only with no stored preference.
+  if (locale === DEFAULT && !localStorage.getItem('takalam_locale')) {
+    var bl = (navigator.language || '').toLowerCase().slice(0, 2);
+    if (bl && bl !== DEFAULT && CODES.indexOf(bl) !== -1) {
+      try { localStorage.setItem('takalam_locale', bl); } catch (e) {}
+      window.location.replace(withLocale(route, bl) + window.location.search + window.location.hash);
       return;
     }
   }
-  localStorage.setItem('takalam_locale', locale);
+  try { localStorage.setItem('takalam_locale', locale); } catch (e) {}
 
+  // ---------- hydrate text ----------
   fetch('/i18n/' + locale + '.json')
     .then(function (r) { return r.json(); })
     .then(function (dict) {
-      document.querySelectorAll('[data-i18n]').forEach(function (el) {
-        var key = el.getAttribute('data-i18n');
-        if (dict[key] != null) el.textContent = dict[key];
-      });
-      document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
-        var key = el.getAttribute('data-i18n-html');
-        if (dict[key] != null) el.innerHTML = dict[key];
-      });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
-        var key = el.getAttribute('data-i18n-placeholder');
-        if (dict[key] != null) el.placeholder = dict[key];
-      });
-      document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
-        var key = el.getAttribute('data-i18n-alt');
-        if (dict[key] != null) el.alt = dict[key];
-      });
-      document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
-        var key = el.getAttribute('data-i18n-aria');
-        if (dict[key] != null) el.setAttribute('aria-label', dict[key]);
-      });
+      function swap(attr, apply) {
+        document.querySelectorAll('[' + attr + ']').forEach(function (el) {
+          var key = el.getAttribute(attr);
+          if (dict[key] != null) apply(el, dict[key]);
+        });
+      }
+      swap('data-i18n', function (el, v) { el.textContent = v; });
+      swap('data-i18n-html', function (el, v) { el.innerHTML = v; });
+      swap('data-i18n-placeholder', function (el, v) { el.placeholder = v; });
+      swap('data-i18n-alt', function (el, v) { el.alt = v; });
+      swap('data-i18n-aria', function (el, v) { el.setAttribute('aria-label', v); });
+
+      var tKey = document.documentElement.getAttribute('data-i18n-title');
+      if (tKey && dict[tKey]) document.title = dict[tKey];
+      var dKey = document.documentElement.getAttribute('data-i18n-desc');
+      var descEl = document.querySelector('meta[name="description"]');
+      if (dKey && dict[dKey] && descEl) descEl.setAttribute('content', dict[dKey]);
+
       localizeLinks();
       window.__takalamI18n = dict;
       document.dispatchEvent(new CustomEvent('takalam:i18n-ready', { detail: dict }));

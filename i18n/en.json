@@ -281,5 +281,21 @@
   "policies.p_reschedule2": "Send reschedule requests on WhatsApp. Same-day changes depend on availability. Each session can be moved once; repeated last-minute changes are counted as a used session.",
   "policies.p_cancel2": "For Speak groups: if a group never fills and cannot start, you get a full refund, or you can move to Private or a later group -- your choice.",
   "policies.h_teacher": "If we have to cancel",
-  "policies.p_teacher": "If your teacher ever has to miss a session, it is rescheduled at no cost to you, or credited back to your pack -- whichever you prefer."
+  "policies.p_teacher": "If your teacher ever has to miss a session, it is rescheduled at no cost to you, or credited back to your pack -- whichever you prefer.",
+  "meta.index.title": "Takalam — Take the free English speaking test",
+  "meta.index.desc": "Free 10-minute English speaking test with a real diagnosis. Online coaching for adults who understand English but freeze when they speak. Small groups or one to one.",
+  "meta.tutors.title": "Takalam — Meet your tutor",
+  "meta.tutors.desc": "Meet Mohammed Said, founder and English teacher at Takalam. 7 years teaching experience, IELTS Band 8, Cambridge TKT certified, Preply Super Tutor.",
+  "meta.reviews.title": "Takalam — Student reviews",
+  "meta.reviews.desc": "Real, verified Preply reviews from Takalam students, reproduced exactly as written -- no edits, no cherry-picked translations.",
+  "meta.test.title": "English Level Test | Takalam",
+  "meta.test.desc": "A 10 minute English level check. Grammar, reading, and speaking, scored honestly.",
+  "meta.results.title": "Takalam — Your results",
+  "meta.results.desc": "Your Takalam English level test results.",
+  "meta.register.title": "Takalam — Register",
+  "meta.register.desc": "Register for your Takalam English coaching package.",
+  "meta.privacy.title": "Takalam — Privacy & data",
+  "meta.privacy.desc": "How Takalam handles your data: what the level test and registration record, why, how long it is kept, the Meta pixel, and how to get your data deleted.",
+  "meta.policies.title": "Takalam — Terms & policies",
+  "meta.policies.desc": "Takalam's practical rules for payment, booking, rescheduling, cancellation and refunds, session conduct, and communication."
 }

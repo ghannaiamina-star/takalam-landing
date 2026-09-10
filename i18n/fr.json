@@ -281,5 +281,21 @@
   "policies.p_reschedule2": "Envoyez vos demandes de report sur WhatsApp. Les changements le jour même dépendent des disponibilités. Chaque séance ne peut être déplacée qu'une fois ; les changements répétés de dernière minute sont comptés comme une séance utilisée.",
   "policies.p_cancel2": "Pour les groupes Speak : si un groupe ne se remplit jamais et ne peut pas démarrer, vous êtes intégralement remboursé, ou vous pouvez passer à Private ou à un groupe ultérieur -- à votre choix.",
   "policies.h_teacher": "Si nous devons annuler",
-  "policies.p_teacher": "Si votre enseignant doit exceptionnellement manquer une séance, elle est reportée sans frais pour vous, ou recréditée sur votre pack -- selon votre préférence."
+  "policies.p_teacher": "Si votre enseignant doit exceptionnellement manquer une séance, elle est reportée sans frais pour vous, ou recréditée sur votre pack -- selon votre préférence.",
+  "meta.index.title": "Takalam — Faites le test d'anglais oral gratuit",
+  "meta.index.desc": "Test d'anglais oral gratuit de 10 minutes avec un vrai diagnostic. Coaching en ligne pour adultes qui comprennent l'anglais mais se bloquent à l'oral. En petit groupe ou en individuel.",
+  "meta.tutors.title": "Takalam — Rencontrez votre professeur",
+  "meta.tutors.desc": "Rencontrez Mohammed Said, fondateur et professeur d'anglais chez Takalam. 7 ans d'expérience, IELTS Band 8, certifié Cambridge TKT, Preply Super Tutor.",
+  "meta.reviews.title": "Takalam — Avis des élèves",
+  "meta.reviews.desc": "De vrais avis Preply vérifiés d'élèves de Takalam, reproduits exactement tels qu'ils ont été écrits -- sans retouche, sans traduction triée sur le volet.",
+  "meta.test.title": "Test de niveau d'anglais | Takalam",
+  "meta.test.desc": "Un test de niveau d'anglais de 10 minutes. Grammaire, compréhension écrite et expression orale, notés honnêtement.",
+  "meta.results.title": "Takalam — Vos résultats",
+  "meta.results.desc": "Les résultats de votre test de niveau d'anglais Takalam.",
+  "meta.register.title": "Takalam — Inscription",
+  "meta.register.desc": "Inscrivez-vous à votre forfait de coaching d'anglais Takalam.",
+  "meta.privacy.title": "Takalam — Confidentialité et données",
+  "meta.privacy.desc": "Comment Takalam gère vos données : ce que le test de niveau et l'inscription enregistrent, pourquoi, combien de temps c'est conservé, le pixel Meta, et comment faire supprimer vos données.",
+  "meta.policies.title": "Takalam — Conditions et politiques",
+  "meta.policies.desc": "Les règles pratiques de Takalam : paiement, réservation, report, résiliation et remboursements, conduite en séance et communication."
 }
