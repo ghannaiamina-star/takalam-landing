@@ -1,16 +1,13 @@
 {
   "nav.test_cta": "Faire le test gratuit",
   "nav.wa_cta": "Réserver un appel gratuit",
-
   "hero.eyebrow": "Coaching d'anglais en ligne",
   "hero.headline": "Vous connaissez l'anglais.<br>Parlez-le enfin avec\n        <span class=\"pop\">confiance<svg class=\"underline\" viewBox=\"0 0 320 40\" fill=\"none\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M6 26c52-14 210-22 308-12\" stroke=\"currentColor\" stroke-width=\"9\" stroke-linecap=\"round\"></path></svg></span>.",
   "hero.sub": "Takalam aide les adultes qui comprennent l'anglais mais se bloquent au moment de parler. Faites le test gratuit et obtenez un vrai diagnostic, pas un argumentaire de vente.",
   "hero.test_cta": "Faire le test gratuit de 10 minutes",
   "hero.meta": "10 minutes, gratuit, sans inscription",
-
   "doors.eyebrow": "Deux voies",
   "doors.heading": "Deux portes. La même destination de l'autre côté : vous, qui parlez librement.",
-
   "speak.label": "Takalam Speak",
   "speak.photo_alt": "Un écran d'ordinateur portable affichant six personnes en visioconférence, en pleine conversation.",
   "speak.tag": "Pour quand votre anglais est bon, mais parler vous <em>fait encore peur.</em>",
@@ -22,7 +19,6 @@
   "speak.price_label": "Mensuel",
   "speak.price_small": "Résiliable à tout moment",
   "speak.cta": "Faire le test gratuit",
-
   "private.label": "Takalam Private",
   "private.photo_alt": "Une femme en appel vidéo individuel avec son professeur, carnet à la main.",
   "private.tag": "Pour quand vous avez un objectif précis et avez besoin d'un programme construit <em>autour de vous.</em>",
@@ -34,7 +30,6 @@
   "private.price_label": "Par séance",
   "private.price_small": "Paiement à l'usage",
   "private.cta": "Faire le test gratuit",
-
   "how.eyebrow": "Comment ça marche",
   "how.heading": "Trois étapes pour parler.",
   "step1.n": "Étape une",
@@ -46,7 +41,6 @@
   "step3.n": "Étape trois",
   "step3.h": "Commencez à parler",
   "step3.p": "Présentez-vous, pratiquez pour de vrai, et regardez la peur diminuer.",
-
   "stories.eyebrow": "De vrais étudiants",
   "stories.heading": "Témoignages de nos étudiants.",
   "stories.sub": "Écoutez des personnes qui ont passé le même test que vous êtes sur le point de passer.",
@@ -55,29 +49,59 @@
   "stories.play": "Lire la vidéo",
   "stories.video1_alt": "Asmae, étudiante Takalam Speak, explique qu'après avoir été nerveuse au début, elle parle maintenant anglais avec confiance.",
   "stories.video2_alt": "Un étudiant Takalam explique comment le cours a amélioré sa confiance pour parler anglais dans des situations réelles.",
-
   "faq.eyebrow": "Questions",
   "faq.heading": "Ce qu'on nous demande souvent.",
   "faq.sub": "Une question sans réponse ici ? Faites le test gratuit, ou écrivez-nous sur WhatsApp.",
   "faq": [
-    ["Comment savoir si Speak ou Private me convient ?", "Faites le test gratuit. Il vous donne un vrai diagnostic et, si Takalam vous correspond, une recommandation claire entre les deux, basée sur votre niveau et votre objectif réels."],
-    ["Les cours sont en ligne ou en présentiel ?", "Tout est entièrement en ligne, vous pouvez donc rejoindre depuis chez vous, le bureau, ou n'importe où avec une connexion correcte. Pas de trajet, pas d'embouteillages, juste vous et la conversation."],
-    ["Quel niveau d'anglais faut-il pour commencer ?", "Vous devez déjà comprendre l'anglais et le lire et l'écrire à un niveau intermédiaire ou plus. Takalam s'adresse aux personnes qui connaissent la langue mais peinent à la parler librement, pas aux grands débutants."],
-    ["Que se passe-t-il après le test gratuit ?", "Vous obtenez immédiatement une page de résultats : votre niveau, vos propres mots retranscrits, et une recommandation honnête. Pas d'appel, pas de discussion nécessaire, sauf si vous le souhaitez."],
-    ["Quelle est la taille des groupes Speak ?", "Objectif de dix étudiants par groupe. Les sessions se déroulent en binômes et trinômes, donc vous parlez vraiment à chaque session au lieu d'écouter au fond de la salle."],
-    ["Sur quoi peut m'aider le coaching Private ?", "Préparation d'examen pour l'IELTS, le TOEFL ou le Duolingo English Test. Préparation d'entretien. Présentations. Ou tout objectif personnel avec une échéance. Tout le programme est construit autour de vous."],
-    ["De combien de séances aurai-je besoin en Private ?", "Cela dépend entièrement de votre objectif et de votre point de départ. Vous pouvez réserver une séance unique ou un pack de 3, 5 ou 10, et garder le contrôle du rythme."],
-    ["Que se passe-t-il si je manque une séance ?", "En Private, vous pouvez reporter gratuitement jusqu'à 24 heures avant. En Speak, les sessions suivent le groupe et ne sont pas rattrapées individuellement, c'est justement pour ça que le prix est bas."],
-    ["Puis-je résilier ?", "Oui, à tout moment, en deux clics. Et si vous avez suivi deux séances ou moins, vous êtes intégralement remboursé sous 14 jours."],
-    ["De quoi ai-je besoin pour une session, et comment ça se passe ?", "Juste un téléphone, une tablette ou un ordinateur avec une connexion internet stable. Nous utilisons Zoom ou Google Meet, gratuits, et le lien est envoyé avant chaque session. La caméra allumée est bienvenue mais pas obligatoire, et les sessions ne sont jamais enregistrées par l'une ou l'autre partie sans consentement."],
-    ["Comment payer, et comment se passe l'inscription ?", "Faites d'abord le test gratuit. Votre page de résultats affiche le prix exact et une page d'inscription simple : choisissez votre formule, payez par virement bancaire ou PayPal, téléversez votre capture de paiement, et nous confirmons votre place par WhatsApp ou email sous 24 à 48 heures."]
+    [
+      "Comment savoir si Speak ou Private me convient ?",
+      "Faites le test gratuit. Il vous donne un vrai diagnostic et, si Takalam vous correspond, une recommandation claire entre les deux, basée sur votre niveau et votre objectif réels."
+    ],
+    [
+      "Les cours sont en ligne ou en présentiel ?",
+      "Tout est entièrement en ligne, vous pouvez donc rejoindre depuis chez vous, le bureau, ou n'importe où avec une connexion correcte. Pas de trajet, pas d'embouteillages, juste vous et la conversation."
+    ],
+    [
+      "Quel niveau d'anglais faut-il pour commencer ?",
+      "Vous devez déjà comprendre l'anglais et le lire et l'écrire à un niveau intermédiaire ou plus. Takalam s'adresse aux personnes qui connaissent la langue mais peinent à la parler librement, pas aux grands débutants."
+    ],
+    [
+      "Que se passe-t-il après le test gratuit ?",
+      "Vous obtenez immédiatement une page de résultats : votre niveau, vos propres mots retranscrits, et une recommandation honnête. Pas d'appel, pas de discussion nécessaire, sauf si vous le souhaitez."
+    ],
+    [
+      "Quelle est la taille des groupes Speak ?",
+      "Objectif de dix étudiants par groupe. Les sessions se déroulent en binômes et trinômes, donc vous parlez vraiment à chaque session au lieu d'écouter au fond de la salle."
+    ],
+    [
+      "Sur quoi peut m'aider le coaching Private ?",
+      "Préparation d'examen pour l'IELTS, le TOEFL ou le Duolingo English Test. Préparation d'entretien. Présentations. Ou tout objectif personnel avec une échéance. Tout le programme est construit autour de vous."
+    ],
+    [
+      "De combien de séances aurai-je besoin en Private ?",
+      "Cela dépend entièrement de votre objectif et de votre point de départ. Vous pouvez réserver une séance unique ou un pack de 3, 5 ou 10, et garder le contrôle du rythme."
+    ],
+    [
+      "Que se passe-t-il si je manque une séance ?",
+      "En Private, vous pouvez reporter gratuitement jusqu'à 24 heures avant. En Speak, les sessions suivent le groupe et ne sont pas rattrapées individuellement, c'est justement pour ça que le prix est bas."
+    ],
+    [
+      "Puis-je résilier ?",
+      "Oui, à tout moment, en deux clics. Et si vous avez suivi deux séances ou moins, vous êtes intégralement remboursé sous 14 jours."
+    ],
+    [
+      "De quoi ai-je besoin pour une session, et comment ça se passe ?",
+      "Juste un téléphone, une tablette ou un ordinateur avec une connexion internet stable. Nous utilisons Zoom ou Google Meet, gratuits, et le lien est envoyé avant chaque session. La caméra allumée est bienvenue mais pas obligatoire, et les sessions ne sont jamais enregistrées par l'une ou l'autre partie sans consentement."
+    ],
+    [
+      "Comment payer, et comment se passe l'inscription ?",
+      "Faites d'abord le test gratuit. Votre page de résultats affiche le prix exact et une page d'inscription simple : choisissez votre formule, payez par virement bancaire ou PayPal, téléversez votre capture de paiement, et nous confirmons votre place par WhatsApp ou email sous 24 à 48 heures."
+    ]
   ],
-
   "closing.eyebrow": "Vous hésitez encore",
   "closing.heading": "Vous ne savez pas laquelle vous <em>correspond ?</em>",
   "closing.body": "Faites le test gratuit de dix minutes. Il vous donne un vrai diagnostic dans tous les cas, et si Takalam vous correspond, il vous dit précisément quelle voie choisir et pourquoi.",
   "closing.cta": "Faire le test gratuit",
-
   "footer.tag": "Coaching d'anglais en ligne pour adultes. Pratique orale en petit groupe et coaching individuel.",
   "footer.talk_heading": "Nous contacter",
   "footer.paths_heading": "Les deux voies",
@@ -87,7 +111,6 @@
   "footer.link_privacy": "Confidentialité et données",
   "footer.link_policies": "Conditions et politiques",
   "footer.copyright": "© 2026 Takalam. Coaching d'anglais en ligne.",
-
   "test.section_label": "Test de niveau d'anglais",
   "test.h1": "Trouvons votre niveau.",
   "test.lead": "10 minutes, 3 courtes sections. Installez-vous dans un endroit calme. Vous parlerez à voix haute, alors utilisez un casque si possible et vérifiez que votre micro fonctionne.",
@@ -116,7 +139,6 @@
   "test.deadline_question": "Une échéance ? (optionnel)",
   "test.deadline_placeholder": "ex. 4 semaines",
   "test.email_label": "Email (optionnel, pour vous envoyer le lien de vos résultats)",
-
   "test.mic_denied_h2": "Accès au microphone nécessaire",
   "test.mic_denied_p": "La section 3 de ce test est orale : votre navigateur a donc besoin de la permission d'utiliser le microphone.",
   "test.mic_instructions_default": "Appuyez sur l'icône de cadenas ou d'informations à côté de la barre d'adresse, trouvez « Microphone » et réglez-le sur Autoriser. Puis rechargez cette page.",
@@ -124,12 +146,10 @@
   "test.mic_instructions_android": "Appuyez sur les trois points ou l'icône de cadenas de votre navigateur, ouvrez les paramètres du site, puis réglez Microphone sur Autoriser. Puis rechargez cette page.",
   "test.mic_retry_btn": "Réessayer",
   "test.mic_skip_btn": "Continuer sans la section orale (votre évaluation sera incomplète)",
-
   "test.section1_label": "Section 1 sur 3 · Grammaire et vocabulaire",
   "test.section2_label": "Section 2 sur 3 · Compréhension écrite",
   "test.section3_label": "Section 3 sur 3 · Expression orale",
   "test.continue_btn": "Continuer",
-
   "test.miccheck_label": "Avant la section 3",
   "test.miccheck_h2": "Vérifions votre microphone.",
   "test.miccheck_lead": "Appuyez sur enregistrer et répondez : qu'avez-vous mangé aujourd'hui ? Vous avez 15 secondes.",
@@ -137,19 +157,14 @@
   "test.stop_recording_btn": "Arrêter l'enregistrement",
   "test.mic_confirm_btn": "Je m'entends clairement",
   "test.mic_hint": "Toujours un problème ? Quelques pistes : vérifiez que votre navigateur a bien la permission d'utiliser le micro, utilisez un casque si vous en avez un, ou déplacez-vous dans un endroit plus calme.",
-
   "test.finish_btn": "J'ai terminé",
   "test.retry_recording_btn": "Reprendre l'enregistrement",
-
   "test.submitting_note": "Cela peut prendre une minute. Merci de rester sur cette page.",
-
   "test.done_h2": "Test terminé !",
   "test.done_lead": "Vos résultats sont prêts. Je vous envoie votre niveau et ma recommandation sur WhatsApp sous 24 heures.",
   "test.done_wa_btn": "Écrivez-nous sur WhatsApp",
   "test.done_wa_text": "Bonjour Takalam ! Je viens de terminer le test de niveau d'anglais.",
-
   "cta.wa_message": "Bonjour Takalam ! Je souhaite réserver un appel gratuit.",
-
   "results.loading": "Chargement de vos résultats...",
   "results.error": "Nous n'avons pas trouvé ces résultats. Si vous venez de terminer le test, vérifiez le lien envoyé par email, ou écrivez-nous sur WhatsApp.",
   "results.pending_h1": "C'est noté, merci !",
@@ -161,7 +176,6 @@
   "results.recommendation_label": "Notre recommandation pour vous",
   "results.checkout_cta": "Commencer",
   "results.other_option": "Pas sûr ? Voir l'autre option",
-
   "register.loading": "Chargement...",
   "register.invalid_product": "Nous n'avons pas trouvé cette formule. Faites le test gratuit pour obtenir une recommandation, ou écrivez-nous sur WhatsApp.",
   "register.eyebrow": "Inscription",
@@ -191,24 +205,22 @@
   "register.done_lead": "Merci. Nous vérifions votre paiement et confirmons votre place par WhatsApp ou email sous 24 à 48 heures.",
   "register.done_ref_label": "Votre référence",
   "register.terms_note": "En vous inscrivant, vous acceptez nos <a href=\"/policies\" target=\"_blank\">conditions et politiques</a>.",
-
   "privacy.title": "Confidentialité et données",
-  "privacy.last_updated": "Dernière mise à jour : 20 août 2026.",
+  "privacy.last_updated": "Dernière mise à jour : 10 septembre 2026.",
   "privacy.h_what": "Ce que nous enregistrons",
   "privacy.p_what": "Lorsque vous passez le test de niveau d'anglais gratuit, nous enregistrons vos réponses orales, les transcrivons automatiquement, et générons une évaluation écrite de votre niveau d'anglais à partir de cette transcription et de cet enregistrement.",
   "privacy.h_why": "Pourquoi",
-  "privacy.p_why": "Pour évaluer votre anglais oral et vous recommander le bon cours. Rien d'autre.",
+  "privacy.p_why": "Pour évaluer votre anglais oral, vous recommander le bon cours, confirmer votre inscription et rester en contact au sujet de vos séances. Rien d'autre.",
   "privacy.h_retention": "Combien de temps nous les conservons",
-  "privacy.p_retention": "Les enregistrements et transcriptions sont conservés 12 mois à partir de la date du test, puis supprimés automatiquement. Si vous avez moins de 18 ans, cette durée est réduite à 6 mois, et l'accord d'un parent ou tuteur est requis avant de passer le test.",
+  "privacy.p_retention": "Les enregistrements et transcriptions du test sont conservés 12 mois à partir de la date du test, puis supprimés automatiquement. Pour les personnes de moins de 18 ans, cette durée est réduite à 6 mois.",
   "privacy.h_who": "Qui y a accès",
   "privacy.p_who": "Vos résultats de test et enregistrements ne sont visibles que par l'enseignant de Takalam, dans le but de votre évaluation et de votre accompagnement. Ils ne sont jamais vendus, partagés avec des annonceurs, ni utilisés à des fins marketing sans votre consentement explicite et distinct.",
   "privacy.h_rights": "Vos droits",
-  "privacy.p_rights_html": "Vous pouvez demander une copie de vos données ou nous demander de les supprimer à tout moment en contactant Takalam sur WhatsApp ou par e-mail à <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>. Une option de téléchargement/suppression en libre-service depuis votre compte est prévue mais pas encore disponible.",
+  "privacy.p_rights_html": "Vous pouvez demander une copie de vos données, leur rectification, ou leur suppression à tout moment en contactant Takalam sur WhatsApp ou par e-mail à <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>. Une option de téléchargement / suppression en libre-service depuis votre compte est prévue mais pas encore disponible.",
   "privacy.h_payments": "Paiements",
   "privacy.p_payments": "Si vous vous inscrivez à un cours payant, vous payez directement par virement bancaire ou PayPal et téléversez une capture d'écran comme preuve. Nous conservons cette capture, votre nom, votre numéro WhatsApp et votre email pour vérifier et confirmer votre inscription -- nous ne demandons ni ne stockons jamais vos données de carte, votre mot de passe bancaire ou vos identifiants PayPal.",
-
   "policies.title": "Conditions et politiques",
-  "policies.last_updated": "Dernière mise à jour : 7 septembre 2026.",
+  "policies.last_updated": "Dernière mise à jour : 10 septembre 2026.",
   "policies.h_payments": "Paiements",
   "policies.p_payments": "Le paiement se fait directement par virement bancaire ou PayPal avant le début des séances. Téléversez votre capture de paiement lors de l'inscription -- nous la vérifions manuellement et confirmons votre place par WhatsApp ou email, généralement sous 24 à 48 heures.",
   "policies.h_cancel": "Résiliation et remboursements",
@@ -248,5 +260,26 @@
   "reviews.eyebrow": "Avis réels",
   "reviews.heading": "Ce que disent les élèves.",
   "reviews.sub": "Chaque avis ci-dessous est un avis Preply vérifié, reproduit exactement tel qu'il a été écrit -- fautes de frappe comprises. Rien n'est modifié ni inventé ici.",
-  "reviews.note": "Quelques avis sont arrivés en arabe, en italien ou en turc. Un vrai avis reste dans les mots où il a été écrit, donc ceux-là apparaissent tels quels plutôt que traduits."
+  "reviews.note": "Quelques avis sont arrivés en arabe, en italien ou en turc. Un vrai avis reste dans les mots où il a été écrit, donc ceux-là apparaissent tels quels plutôt que traduits.",
+  "privacy.intro": "En bref : nous collectons le strict minimum pour évaluer votre anglais et assurer votre accompagnement, nous ne le vendons jamais, cette page ne contient aucun traceur publicitaire, et vous pouvez demander la suppression de toutes vos données à tout moment.",
+  "privacy.p_what2": "Lorsque vous vous inscrivez à un cours, nous collectons votre nom, votre numéro WhatsApp, une adresse email facultative, et la capture de paiement que vous téléversez. Si vous nous écrivez via un formulaire, nous conservons également ce message.",
+  "privacy.h_cookies": "Cookies et mesure d'audience",
+  "privacy.p_cookies": "Ce site enregistre un seul petit élément dans votre navigateur : votre choix de langue, pour que les pages s'affichent dans la bonne langue la prochaine fois. Sur nos pages principales (l'accueil et le test), nous chargeons aussi le pixel Meta (Facebook), qui enregistre les pages vues et les clics sur les boutons « Réserver un appel » afin de mesurer quelles publicités nous amènent des visiteurs. Il ne lit rien de ce que vous saisissez. Vous pouvez le bloquer avec la protection anti-pistage de votre navigateur ou un bloqueur de publicités, et désactiver le ciblage publicitaire dans vos paramètres Facebook. Nous n'utilisons aucun autre outil de mesure ou de publicité.",
+  "privacy.p_retention2": "Les données d'inscription et les captures de paiement sont conservées tant que vous êtes élève actif, puis uniquement le temps nécessaire à la comptabilité ou au règlement d'un litige. Demandez-nous et nous les supprimerons plus tôt.",
+  "privacy.p_processors": "Pour faire fonctionner le service, nous nous appuyons sur quelques prestataires qui traitent des données pour notre compte : notre hébergeur web, Meta (le pixel décrit ci-dessus), et votre banque ou PayPal lorsque vous payez. Chacun ne reçoit que ce dont sa partie du travail a besoin, et aucun ne peut les utiliser à ses propres fins.",
+  "privacy.h_where": "Où elles sont stockées",
+  "privacy.p_where": "Le site fonctionne sur les serveurs de Vercel. Les enregistrements du test, les transcriptions et les fichiers que vous téléversez sont conservés dans le stockage de fichiers et la base de données de Vercel. Les sauvegardes peuvent se trouver hors du Maroc ; nous ne travaillons qu'avec des prestataires offrant des garanties standard de protection des données.",
+  "privacy.h_children": "Mineurs",
+  "privacy.p_children": "Les cours de Takalam s'adressent aux adultes. Si un élève a moins de 18 ans, l'accord d'un parent ou tuteur est requis avant le test de niveau ou l'inscription. Les enregistrements des mineurs sont conservés 6 mois au lieu de 12, et un parent ou tuteur peut demander à les consulter ou à les supprimer à tout moment.",
+  "privacy.h_changes": "Modifications de cette page",
+  "privacy.p_changes_html": "Si cette politique change de manière importante, nous mettrons à jour la date en haut de page et, pour tout changement significatif, nous préviendrons directement les élèves actifs. Des questions sur vos données : écrivez-nous sur WhatsApp ou à <a href=\"mailto:Takalamenglishcenter@gmail.com\">Takalamenglishcenter@gmail.com</a>.",
+  "policies.intro": "Voici les règles pratiques pour réserver et suivre des séances avec Takalam. S'inscrire, c'est les accepter. Elles se veulent équitables plutôt que des clauses en petits caractères -- si quelque chose ici ne correspond pas à votre situation, écrivez-nous et nous trouverons une solution.",
+  "policies.p_payments2": "Nous acceptons uniquement le virement bancaire et PayPal. Les prix indiqués sur le site sont les prix ; nous ne demandons jamais de numéro de carte.",
+  "policies.h_booking": "Réservation et confirmation",
+  "policies.p_booking": "Vous choisissez un forfait, vous payez, puis vous remplissez le formulaire d'inscription avec votre capture de paiement. Nous la vérifions manuellement et confirmons votre place par WhatsApp ou email. Les séances sont planifiées une fois le paiement confirmé -- pour Private, vous réservez vos propres créneaux ; pour Speak, vous rejoignez le prochain groupe adapté à votre niveau.",
+  "policies.p_sessions2": "Avant le début d'un groupe Speak, vous avez un court échange oral avec l'enseignant pour être placé dans un groupe à votre niveau.",
+  "policies.p_reschedule2": "Envoyez vos demandes de report sur WhatsApp. Les changements le jour même dépendent des disponibilités. Chaque séance ne peut être déplacée qu'une fois ; les changements répétés de dernière minute sont comptés comme une séance utilisée.",
+  "policies.p_cancel2": "Pour les groupes Speak : si un groupe ne se remplit jamais et ne peut pas démarrer, vous êtes intégralement remboursé, ou vous pouvez passer à Private ou à un groupe ultérieur -- à votre choix.",
+  "policies.h_teacher": "Si nous devons annuler",
+  "policies.p_teacher": "Si votre enseignant doit exceptionnellement manquer une séance, elle est reportée sans frais pour vous, ou recréditée sur votre pack -- selon votre préférence."
 }
