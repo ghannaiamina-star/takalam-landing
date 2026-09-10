@@ -126,6 +126,134 @@
     {
       "source": "/ar/policies",
       "destination": "/policies"
+    },
+    {
+      "source": "/de",
+      "destination": "/index"
+    },
+    {
+      "source": "/de/test",
+      "destination": "/test"
+    },
+    {
+      "source": "/de/tutors",
+      "destination": "/tutors"
+    },
+    {
+      "source": "/de/reviews",
+      "destination": "/reviews"
+    },
+    {
+      "source": "/de/results",
+      "destination": "/results"
+    },
+    {
+      "source": "/de/privacy",
+      "destination": "/privacy"
+    },
+    {
+      "source": "/de/register",
+      "destination": "/register"
+    },
+    {
+      "source": "/de/policies",
+      "destination": "/policies"
+    },
+    {
+      "source": "/pt",
+      "destination": "/index"
+    },
+    {
+      "source": "/pt/test",
+      "destination": "/test"
+    },
+    {
+      "source": "/pt/tutors",
+      "destination": "/tutors"
+    },
+    {
+      "source": "/pt/reviews",
+      "destination": "/reviews"
+    },
+    {
+      "source": "/pt/results",
+      "destination": "/results"
+    },
+    {
+      "source": "/pt/privacy",
+      "destination": "/privacy"
+    },
+    {
+      "source": "/pt/register",
+      "destination": "/register"
+    },
+    {
+      "source": "/pt/policies",
+      "destination": "/policies"
+    },
+    {
+      "source": "/it",
+      "destination": "/index"
+    },
+    {
+      "source": "/it/test",
+      "destination": "/test"
+    },
+    {
+      "source": "/it/tutors",
+      "destination": "/tutors"
+    },
+    {
+      "source": "/it/reviews",
+      "destination": "/reviews"
+    },
+    {
+      "source": "/it/results",
+      "destination": "/results"
+    },
+    {
+      "source": "/it/privacy",
+      "destination": "/privacy"
+    },
+    {
+      "source": "/it/register",
+      "destination": "/register"
+    },
+    {
+      "source": "/it/policies",
+      "destination": "/policies"
+    },
+    {
+      "source": "/nl",
+      "destination": "/index"
+    },
+    {
+      "source": "/nl/test",
+      "destination": "/test"
+    },
+    {
+      "source": "/nl/tutors",
+      "destination": "/tutors"
+    },
+    {
+      "source": "/nl/reviews",
+      "destination": "/reviews"
+    },
+    {
+      "source": "/nl/results",
+      "destination": "/results"
+    },
+    {
+      "source": "/nl/privacy",
+      "destination": "/privacy"
+    },
+    {
+      "source": "/nl/register",
+      "destination": "/register"
+    },
+    {
+      "source": "/nl/policies",
+      "destination": "/policies"
     }
   ],
   "redirects": [
