@@ -1,5 +1,6 @@
 {
   "nav.test_cta": "قُم بالاختبار المجاني",
+  "nav.test_cta_short": "اختبار مجاني",
   "nav.wa_cta": "احجز مكالمة مجانية",
   "hero.eyebrow": "تدريب على الإنجليزية عبر الإنترنت",
   "hero.headline": "أنت تعرف الإنجليزية.<br>الآن تحدّث بها\n        <span class=\"pop\">بثقة<svg class=\"underline\" viewBox=\"0 0 320 40\" fill=\"none\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M6 26c52-14 210-22 308-12\" stroke=\"currentColor\" stroke-width=\"9\" stroke-linecap=\"round\"></path></svg></span>.",

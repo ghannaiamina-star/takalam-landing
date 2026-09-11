@@ -1,5 +1,6 @@
 {
   "nav.test_cta": "Haz la prueba gratuita",
+  "nav.test_cta_short": "Prueba gratis",
   "nav.wa_cta": "Reserva una llamada gratis",
   "hero.eyebrow": "Coaching de inglés en línea",
   "hero.headline": "Sabes inglés.<br>Ahora hazlo con\n        <span class=\"pop\">seguridad<svg class=\"underline\" viewBox=\"0 0 320 40\" fill=\"none\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M6 26c52-14 210-22 308-12\" stroke=\"currentColor\" stroke-width=\"9\" stroke-linecap=\"round\"></path></svg></span>.",

@@ -122,6 +122,105 @@
     });
   }
 
+  // ---------- mobile header: hamburger drawer + compact lang switcher ----------
+  // Applies only on pages that ship the full marketing header (index, tutors,
+  // reviews, privacy, policies) via #tkBurger/#tkDrawer in the markup. No-op
+  // everywhere else (test/register/results have their own minimal header).
+  if (!document.getElementById('tk-mobile-css')) {
+    var mst = document.createElement('style');
+    mst.id = 'tk-mobile-css';
+    mst.textContent =
+      '@media (max-width:768px){' +
+        '.logo-wm{height:24px}' +
+        '.head-row{gap:10px}' +
+        '.nav-link{display:none}' +
+        '.head-row{min-width:0}' +
+        '.head-cta{gap:6px;min-width:0;flex:1 1 auto;overflow:hidden}' +
+        '.logo{flex:none}' +
+        '.head-cta .btn--emerald{display:none}' +
+        '.head-cta .btn--ghost{padding:.7em .8em;font-size:.8rem;flex:0 1 auto;min-width:0;overflow:hidden}' +
+        '.head-cta .btn--ghost .cta-label-short{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%;min-width:0}' +
+        '.tk-lang-btn,.tk-burger{flex:none}' +
+        '.tk-lang-btn{padding:.5em .5em;gap:.25em}' +
+        '.tk-lang-btn .tk-lang-label{display:none}' +
+        '.cta-label-full{display:none}' +
+        '.cta-label-short{display:inline}' +
+        '.tk-burger{display:inline-block;position:relative;flex:none;width:34px;height:34px;border-radius:9px;border:1.5px solid rgba(26,35,50,.22);background:transparent;padding:0;cursor:pointer}' +
+        '.tk-burger:hover{border-color:rgba(26,35,50,.4)}' +
+        '.tk-burger span{position:absolute;left:50%;top:50%;width:15px;height:2px;background:#1a2332;border-radius:2px;transform:translate(-50%,-50%) translateY(-5px);transition:transform .25s cubic-bezier(.22,.61,.36,1),opacity .2s}' +
+        '.tk-burger span:nth-child(2){transform:translate(-50%,-50%)}' +
+        '.tk-burger span:nth-child(3){transform:translate(-50%,-50%) translateY(5px)}' +
+        '.tk-burger[aria-expanded="true"] span:nth-child(1){transform:translate(-50%,-50%) rotate(45deg)}' +
+        '.tk-burger[aria-expanded="true"] span:nth-child(2){opacity:0}' +
+        '.tk-burger[aria-expanded="true"] span:nth-child(3){transform:translate(-50%,-50%) rotate(-45deg)}' +
+        '.tk-drawer{position:absolute;top:100%;left:0;right:0;display:flex;flex-direction:column;gap:0;background:#faf8f2;border-top:1px solid rgba(26,35,50,.08);box-shadow:0 24px 46px -24px rgba(13,79,55,.4);padding:6px clamp(20px,5vw,64px) calc(env(safe-area-inset-bottom,0px) + 14px);opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .2s ease,transform .2s ease}' +
+        '.site-head.tk-open .tk-drawer{opacity:1;transform:translateY(0);pointer-events:auto}' +
+        '.tk-drawer-link{display:flex;align-items:center;gap:.6em;padding:14px 2px;font:600 1rem/1.2 "Inter",system-ui,sans-serif;color:#1a2332;text-decoration:none;border-bottom:1px solid rgba(26,35,50,.08)}' +
+        '.tk-drawer-link:last-child{border-bottom:none}' +
+        '.tk-drawer-link.tk-drawer-wa{color:#28a878}' +
+        '.tk-drawer-link.tk-drawer-wa svg{width:20px;height:20px;flex:none}' +
+      '}' +
+      '@media (min-width:769px){.tk-burger,.tk-drawer{display:none}.cta-label-short{display:none}.cta-label-full{display:inline}}' +
+      '[dir="rtl"] .tk-drawer{text-align:right}';
+    document.head.appendChild(mst);
+  }
+  (function () {
+    var head = document.querySelector('.site-head');
+    var burger = document.getElementById('tkBurger');
+    var drawer = document.getElementById('tkDrawer');
+    if (!head || !burger || !drawer) return;
+    function setOpen(open) {
+      head.classList.toggle('tk-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    burger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setOpen(!head.classList.contains('tk-open'));
+    });
+    drawer.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('click', function (e) {
+      if (!head.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { setOpen(false); }
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) setOpen(false);
+    });
+  })();
+
+  // ---------- floating WhatsApp button: never cover the header/hero on load ----------
+  // Stays hidden until the visitor has scrolled a bit, so it can't land on top
+  // of the hero paragraph or the header CTAs on first paint (any page).
+  (function () {
+    var fab = document.querySelector('.wa-float');
+    if (!fab) return;
+    if (!document.getElementById('tk-wa-fab-css')) {
+      var fs = document.createElement('style');
+      fs.id = 'tk-wa-fab-css';
+      fs.textContent = '.wa-float{opacity:1;transition:opacity .3s ease,transform .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s cubic-bezier(.22,.61,.36,1)}' +
+        '.wa-float.tk-hide{opacity:0;transform:translateY(14px) scale(.9);pointer-events:none}' +
+        '@media (prefers-reduced-motion:reduce){.wa-float{transition:opacity .15s linear}}';
+      document.head.appendChild(fs);
+    }
+    var THRESHOLD = 240;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      fab.classList.toggle('tk-hide', window.scrollY < THRESHOLD);
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', update);
+  })();
+
   // ---------- keep the locale prefix on internal links ----------
   function localizeHref(raw) {
     if (locale === DEFAULT || !raw) return raw;

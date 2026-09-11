@@ -1,5 +1,6 @@
 {
   "nav.test_cta": "Take the free test",
+  "nav.test_cta_short": "Free test",
   "nav.wa_cta": "Book a free call",
   "hero.eyebrow": "Online English coaching",
   "hero.headline": "You know English.<br>Now speak it with\n        <span class=\"pop\">confidence<svg class=\"underline\" viewBox=\"0 0 320 40\" fill=\"none\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M6 26c52-14 210-22 308-12\" stroke=\"currentColor\" stroke-width=\"9\" stroke-linecap=\"round\"></path></svg></span>.",
