@@ -72,7 +72,7 @@
     }
 
     var wrap = document.createElement('div');
-    wrap.className = 'tk-lang ' + (sw.className || '');
+    wrap.className = 'tk-lang';
     var GLOBE = '<svg class="tk-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg>';
     var CARET = '<svg class="tk-caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5l3-3"/></svg>';
 
@@ -135,7 +135,7 @@
         '.head-row{gap:10px}' +
         '.nav-link{display:none}' +
         '.head-row{min-width:0}' +
-        '.head-cta{gap:6px;min-width:0;flex:1 1 auto;overflow:hidden}' +
+        '.head-cta{gap:6px;min-width:0;flex:1 1 auto;justify-content:flex-end}' +
         '.logo{flex:none}' +
         '.head-cta .btn--emerald{display:none}' +
         '.head-cta .btn--ghost{padding:.7em .8em;font-size:.8rem;flex:0 1 auto;min-width:0;overflow:hidden}' +
